@@ -1,0 +1,19 @@
+<HTML>
+<head>
+	<meta charset="ISO-8859-1">
+	#include("/commonElements/head.html")
+	<TITLE>$apptitle</TITLE>
+</head>
+#parse("/commonElements/header.vm")
+<body>
+	<div class="jumbotron"> 
+		#if(!$email)
+			<h2 >Sorry you are not authenticated to access this part of website</h2>
+		#else
+			<h2>Welcome to eCom-Journal</h2>
+			<h3 >$email</h3>
+		#end
+	</div>
+</body>
+#parse("/commonElements/footer.vm")
+</html>
