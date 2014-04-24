@@ -70,15 +70,10 @@ public class Login extends VelocityViewServlet {
 				//request.getRequestDispatcher("index.jsp").forward(request,response);
 				//System.out.println("error");
 			}
+			template = getTemplate("/forms/home.vm"); 
 			rs.close();
 			st.close();
 			conn.close();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			template = getTemplate("/forms/home.vm"); 
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
 		}

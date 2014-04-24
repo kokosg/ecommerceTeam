@@ -43,9 +43,9 @@
 			          <span class="caret"></span>
 			        </button>
 			        <ul class="dropdown-menu">
-			          <li><a href="#">Option one</a></li>
-			          <li><a href="#">Option two</a></li>
-			          <li><a href="#">Option three</a></li>
+			        #foreach($keyword in $keywords) 
+						<li><a href="#">$keyword.text</a></li> 
+					#end
 			        </ul>
 			      </div>
 			    </div>
