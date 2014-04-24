@@ -42,7 +42,7 @@
 					<input type="text" class="form-control" placeholder="Search...">
 				</div>
 				<button type="submit" class="btn"><i class="glyphicon glyphicon-search"></i></button>
-				<button type="submit" class="btn"><a href="AdvanceSearch"> Advance </a><i class="glyphicon glyphicon-cog"></i></button>
+				<button type="submit" class="btn"><a href="advanceSearch"> Advance </a><i class="glyphicon glyphicon-cog"></i></button>
 			</form>
 			<ul class="nav navbar-nav pull-right">
 				#if (!$session.user.email)

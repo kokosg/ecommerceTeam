@@ -18,61 +18,70 @@ import org.apache.velocity.tools.view.VelocityViewServlet;
  */
 public class AdvanceSearch extends VelocityViewServlet {
 	private static final long serialVersionUID = 1L;
-	public Template handleRequest( HttpServletRequest request, 
-			HttpServletResponse response, Context context )
-			{ 
-			/* get the template */
-			Template template = null;
-			context.put("apptitle", "E-com Journal");
-			Statement statement;
-			try {
-			ConnectionManager conn = new ConnectionManager();
-			ArrayList twitterList = null;
-			ArrayList tweetList = new ArrayList();
-			String query = "";
-			
-//			String categoryType = request.getParameter("item");
-//
-//
-//			System.out.println(categoryType);
-//			
-//			// validates before select from the table
-////			if (pid.isEmpty() || (pid.equals("*"))) {
-//			if (categoryType.equals("article")) {
-//				query = "select * from User";
-//			} else {
-//				query = "select * from AuthorReviewer";
-//			}
-//
-//			statement = conn.getInstance().getConnection().createStatement();
-//			ResultSet result = statement.executeQuery(query);
-//
-//			while (result.next()) {
-//				
-//				System.out.println("11");
-//				
-//				/*twitterList = new ArrayList();
-//				twitterList.add(result.getString(1));
-//				twitterList.add(result.getString(2));
-//				tweetList.add(twitterList);*/
-//				
-//				System.out.println(result.getString(2));
-//				
-//				response.getWriter().println("<tr><td>" + result.getString(1) + 
-//						"<td>" + result.getString(2) + "</td></tr>");
-//				
-//				//System.out.println(tweetList.toString());
-//
-//			}
-//			//request.setAttribute("tweetList", tweetList);
-//			//request.getRequestDispatcher("forms/search.jsp").forward(request, response);
-//			conn.close();
-			template = getTemplate("/forms/advanceSearch.vm"); 
-			} catch(Exception e ) {
-			System.out.println("Error " + e);
-			}
-			return template;
-			}
-	
+	public Template handleRequest( HttpServletRequest request, HttpServletResponse response, Context context ) { 
+		String flag = request.getParameter("flag");
+		context.put("apptitle", "E-com Journal - Advance Search");
+		Template template=null;
+		response.setContentType("text/html");
+		System.out.println("empika");
 
+		if (flag == null) {
+			System.out.println("if");
+			try {
+		          template = getTemplate("/forms/advanceSearch.vm"); 
+		       } catch(Exception e ) {
+		          System.out.println("Error " + e);
+		       }
+		       return template;
+		} else {
+			System.out.println("else");
+			try {
+				ConnectionManager conn = new ConnectionManager();			
+				
+					String query = "";
+					
+					String categoryType = request.getParameter("item");
+					String queryName = request.getParameter("twitterID");
+
+					System.out.println(categoryType);
+					System.out.println(queryName);
+					
+					if (categoryType.equals("article")) {
+						query = "select Article.title from Article where title ='" + queryName + "'";
+					} else if (categoryType.equals("author")) {
+						query = "select Article.title from Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID where Author.name ='" + queryName + "'"; 
+					} else if (categoryType.equals("interval")) {
+						query = "select Article.title from Keyword INNER JOIN ArticleKeyword ON Keyword.keywordID = ArticleKeyword.keywordID INNER JOIN Article ON ArticleKeyword.articleID = Article.articleID where Keyword.text ='" + queryName + "'";
+					} else if (categoryType.equals("keywords")) {
+						query = "select Article.title from Keyword INNER JOIN ArticleKeyword ON Keyword.keywordID = ArticleKeyword.keywordID INNER JOIN Article ON ArticleKeyword.articleID = Article.articleID where Keyword.text ='" + queryName + "'";
+					}
+
+					Statement st = conn.getInstance().getConnection().createStatement();
+					ResultSet rs = st.executeQuery(query);
+					
+					ArrayList<String> arrayResults = new ArrayList<String>(); 
+
+					while (rs.next()) {
+
+						System.out.println("results " + rs.getString(1));
+
+						arrayResults.add(rs.getString(1));
+						
+						System.out.println(rs.getString(1));
+						
+					}
+					
+					context.put("searchResults", arrayResults);
+					template = getTemplate("/forms/advanceSearch.vm");
+					System.out.println(arrayResults.toString());
+					
+					rs.close();
+					st.close();
+					conn.close();
+			} catch (Exception e) {
+				System.out.println("Error " + e);
+			}
+			return template; 
+		}
+	}
 }
