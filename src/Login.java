@@ -35,7 +35,7 @@ public class Login extends VelocityViewServlet {
 			ResultSet rs = st.executeQuery(selectQuery);
 
 			if (rs.next()) {
-				int userID = rs.getInt("Author.authorID");;
+				int userID = rs.getInt("Author.authorID");
 				String userName = (String)rs.getObject("Author.name");
 		        String userSurname = (String)rs.getObject("Author.surname");
 		        String userAffiliations = (String)rs.getObject("Author.affiliations");

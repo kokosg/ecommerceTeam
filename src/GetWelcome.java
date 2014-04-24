@@ -14,7 +14,7 @@ public class GetWelcome extends VelocityViewServlet {
 public Template handleRequest( HttpServletRequest request, HttpServletResponse response, Context context ) { 
       /* get the template */
       Template template = null;
-      context.put("apptitle", "Web Application");
+      context.put("apptitle", "Ecom Journal - Home");
 
       try {
          template = getTemplate("/forms/home.vm"); 

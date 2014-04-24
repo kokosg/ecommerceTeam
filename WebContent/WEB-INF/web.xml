@@ -21,9 +21,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>velocity</servlet-name>
-    <servlet-class>
-org.apache.velocity.tools.view.servlet.VelocityViewServlet
-</servlet-class>
+    <servlet-class> org.apache.velocity.tools.view.servlet.VelocityViewServlet </servlet-class>
     <init-param>
       <param-name>org.apache.velocity.toolbox</param-name>
       <param-value>/WEB-INF/toolbox.xml</param-value>
@@ -56,5 +54,15 @@ org.apache.velocity.tools.view.servlet.VelocityViewServlet
   <servlet-mapping>
     <servlet-name>AdvanceSearch</servlet-name>
     <url-pattern>/AdvanceSearch</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Subscribe</display-name>
+    <servlet-name>Subscribe</servlet-name>
+    <servlet-class>Subscribe</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Subscribe</servlet-name>
+    <url-pattern>/subscribe</url-pattern>
   </servlet-mapping>
 </web-app>
