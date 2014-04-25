@@ -65,4 +65,24 @@
     <servlet-name>Subscribe</servlet-name>
     <url-pattern>/subscribe</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Logout</display-name>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>abstractPage</display-name>
+    <servlet-name>abstractPage</servlet-name>
+    <servlet-class>abstractPage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>abstractPage</servlet-name>
+    <url-pattern>/abstractPage</url-pattern>
+  </servlet-mapping>
 </web-app>

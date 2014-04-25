@@ -1,0 +1,14 @@
+<HTML>
+<head>
+  <meta charset="ISO-8859-1">
+  #include( "/commonElements/head.html" )
+  <TITLE>$apptitle</TITLE>
+</head>
+#parse( "/commonElements/navbar.vm" )
+<body>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+	test
+#parse( "/commonElements/footer.vm" )
+</body>
+</html>

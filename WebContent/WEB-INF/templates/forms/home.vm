@@ -28,8 +28,6 @@
 		</div>
 	</div>
 	<div id="results"></div><!-- ???? -->
-</body>
-</html>
-</body>
 #parse( "/commonElements/footer.vm" )
+</body>
 </html>

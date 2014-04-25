@@ -25,18 +25,14 @@
 								<input id="flag" name="flag" type="hidden" value = "1">
 									<legend>Advance Search: Choose from the dropdown box which category you want to search!</legend>
 									<div class="form-group">
-										<label for="tweetData" class="col-lg-2 control-label">Twitter
-											Name:</label>
+										<label for="queryName" class="col-lg-2 control-label">Query Name:</label>
 										<div class="col-lg-8">
-											<input type="text" class="form-control" name="twitterID"
-												id="twitterID"
-												placeholder="Enter Twitter ID or type * to view all"
-												required>
+											<input type="text" class="form-control" name="queryName" id="queryName" placeholder="Search ..." required>
 										</div>
-												
 										<select name="item" class="input-sm col-lg-2" required>
 										    <option value="article">Article</option>
 										    <option value="author">Author</option>
+										    <option value="interval">Interval</option>
 										    <option value="keywords">keywords</option>
 										</select>
 									</div>
@@ -60,27 +56,16 @@
 			<div class="col-lg-7 col-md-10 col-md-push-3">
 				<div class="row">
 					<div class="well bs-component">
-						<h1>List of Saved User Tweets</h1>
+						<h1>List of Articles</h1>
 						<div class="row">
 							<div class="col-md-10">
-								<table
-									class="table table-hover table-responsive table-bordered table-condensed">
-									<thead>
-										<tr>
-											<th><b>Picture</b>
-											<th><b>Twitter Username</b>
-											<th><b>Location</b>
-											<th><b>Description</b>
-											<th><b>Tweet</b>
-											<th><b>ReTweet</b>
-										</tr>
-									</thead>
-									<tbody class="table-hover" id="results">
-									<td>
-									#foreach($title in $searchResults) 
-										<tr>$title</tr> 
+								<table class="table table-hover table-responsive table-bordered table-condensed">
+									<tbody class="table-hover">
+									<tr>
+									#foreach($article in $searchResults) 
+										<td>Title: <a href='abstractPage/$article.title'><strong>$article.title</strong></a> <div>Pages: <strong>$article.pageNo</strong> - Submitted: <strong>$article.dateSubmitted</strong></div></td> 
 									#end
-									</td>
+									</tr>
 									</tbody>
 								</table>
 							</div>

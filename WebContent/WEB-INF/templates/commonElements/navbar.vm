@@ -33,7 +33,7 @@
 							<li><a href="#">Separated link</a></li>
 						#end
 						<li class="divider"></li>
-						<li><a href="/forms/home.vm">Logout</a></li>
+						<li><a href="logout">Logout</a></li>
 					#end
 				</ul></li>
 			</ul>
@@ -60,4 +60,5 @@
 	<!--/.nav-collapse -->
 	</div>
 </div>
+<div class="col-lg-9 col-md-push-1">
 <div class="container theme-showcase" role="main"></div>
