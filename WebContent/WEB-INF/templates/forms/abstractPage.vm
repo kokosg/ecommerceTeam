@@ -8,7 +8,9 @@
 <body>
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
-	test
+	<div class="jumbotron">
+		<p>mpla mpla - Article id: $articleID</p>
+	</div>
 #parse( "/commonElements/footer.vm" )
 </body>
 </html>

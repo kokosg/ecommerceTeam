@@ -15,10 +15,12 @@ public class abstractPage extends VelocityViewServlet {
 	public Template handleRequest( HttpServletRequest request, HttpServletResponse response, Context context ) { 
 	      /* get the template */
 	      Template template = null;
-	      context.put("apptitle", "Ecom Journal - abstructPage");
-System.out.println("1");
+	      context.put("apptitle", "Ecom Journal - abstractPage");
+	      
+	      int articleID = Integer.parseInt(request.getParameter("id"));
+	      context.put("articleID", articleID);
 	      try {
-	         template = getTemplate("/forms/abstructPage.vm"); 
+	         template = getTemplate("/forms/abstractPage.vm"); 
 	      } catch(Exception e ) {
 	         System.out.println("Error " + e);
 	      }
