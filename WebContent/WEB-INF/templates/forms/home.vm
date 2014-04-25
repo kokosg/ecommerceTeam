@@ -4,9 +4,9 @@
   #include( "/commonElements/head.html" )
   <TITLE>$apptitle</TITLE>
 </head>
-#parse( "/commonElements/navbar.vm" )
-<body>
 
+<body>
+#parse( "/commonElements/navbar.vm" )
 <!-- Main jumbotron for a primary marketing message or call to action -->
 	<div class="jumbotron">
 		#if (!$session.user.email)

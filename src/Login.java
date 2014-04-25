@@ -14,8 +14,8 @@ import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.view.VelocityViewServlet;
 
-/**
- * Servlet implementation class Login
+/** Velocity View Servlet implementation class Login 
+ * @author Team:Master10
  */
 public class Login extends VelocityViewServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,7 +27,7 @@ public class Login extends VelocityViewServlet {
 		response.setContentType("text/html");
 		try {
 			ConnectionManager conn = new ConnectionManager();			
-			
+			//query Author and AuthorReviewer tables to retrieve data regarding the current user (given email and password)
 			String selectQuery = "SELECT Author.authorID, Author.name, Author.surname, Author.affiliations, Author.email, AuthorReviewer.password, AuthorReviewer.isEditor"
 					+ " from Author INNER JOIN AuthorReviewer ON Author.authorID = AuthorReviewer.authorID"
 					+ " where Author.email ='" + eml + "'and AuthorReviewer.password ='" + pwd + " ' ";
@@ -35,6 +35,7 @@ public class Login extends VelocityViewServlet {
 			ResultSet rs = st.executeQuery(selectQuery);
 
 			if (rs.next()) {
+				//get all forms' attribute values
 				int userID = rs.getInt("Author.authorID");
 				String userName = (String)rs.getObject("Author.name");
 		        String userSurname = (String)rs.getObject("Author.surname");
@@ -42,15 +43,16 @@ public class Login extends VelocityViewServlet {
 		        String userEmail = (String)rs.getObject("Author.email");
 		        String userPassword = (String)rs.getObject("AuthorReviewer.password");
 		        Boolean isEditor = (Boolean)rs.getObject("AuthorReviewer.isEditor");
-		        
+		        //get session object
 		        HttpSession session = request.getSession();
 	            userEmail = (String)session.getAttribute("email");
 	            
 	           if (request.getParameter("email") != null) {
+	        	   //create a user object
 	        	   User user = new User(userID, userName, userSurname, userAffiliations, request.getParameter("email"), userPassword, isEditor); //see email again
-	        	   
+	        	   //add user object to session
 	        	   session.setAttribute("user", user);
-	        	   
+	        	   //add userRole to session
 	        	   if (isEditor == false) {
 	        		   session.setAttribute("userRole", "AuthorReviewer");    		
 	        	   } else {
@@ -71,6 +73,7 @@ public class Login extends VelocityViewServlet {
 				//System.out.println("error");
 			}
 			template = getTemplate("/forms/home.vm"); 
+			//release resources
 			rs.close();
 			st.close();
 			conn.close();
