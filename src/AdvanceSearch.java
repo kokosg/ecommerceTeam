@@ -21,12 +21,12 @@ import org.apache.velocity.tools.view.VelocityViewServlet;
  */
 public class AdvanceSearch extends VelocityViewServlet {
 	private static final long serialVersionUID = 1L;
+	
 	public Template handleRequest( HttpServletRequest request, HttpServletResponse response, Context context ) { 
 		String flag = request.getParameter("flag");
 		context.put("apptitle", "E-com Journal - Advance Search");
 		Template template=null;
 		response.setContentType("text/html");
-		System.out.println("empika");
 
 		if (flag == null) {
 			System.out.println("if");
@@ -50,7 +50,7 @@ public class AdvanceSearch extends VelocityViewServlet {
 					System.out.println(queryName);
 					
 					if (categoryType.equals("article")) {
-						query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo, Article.dateSubmitted from Article where title ='" + queryName + "'";
+						query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo, Article.dateSubmitted from Article where title LIKE '%" + queryName + "%'";
 					} else if (categoryType.equals("author")) {
 						query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo, Article.dateSubmitted from Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID where Author.name ='" + queryName + "'"; 
 					} else if (categoryType.equals("interval")) {
@@ -74,8 +74,8 @@ public class AdvanceSearch extends VelocityViewServlet {
 				        int pageNo = rs.getInt("Article.pageNo");
 				        Date dateSubmitted = (Date)rs.getObject("Article.dateSubmitted");
 						
-				        Article Article = new Article(articleID, title, summary, published, reviewed, pageNo, dateSubmitted);
-				        arrayResults.add(Article);
+				        Article article = new Article(articleID, title, summary, published, reviewed, pageNo, dateSubmitted);
+				        arrayResults.add(article);
 						
 					}
 					

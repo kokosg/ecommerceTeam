@@ -8,9 +8,24 @@
 <body>
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
-	<div class="jumbotron">
-		<p>mpla mpla - Article id: $articleID</p>
-	</div>
+<div class="jumbotron">
+
+	  <h1>Title: <strong>$article.title</strong></h1>
+	  	
+	#foreach($author in $authors) 
+	  <div>Authors: <strong>$author.name $author.surname $author.email</div>
+	#end
+	
+	Keyword:
+	#foreach($keyword in $keywords) 
+	  $keyword.text,
+	#end
+	
+	<div>Pages: <strong>$article.pageNo</strong></div>
+	<p>Summary: $article.summary </p>
+	
+</div>
+	
 #parse( "/commonElements/footer.vm" )
 </body>
 </html>

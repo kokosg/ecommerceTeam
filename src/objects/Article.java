@@ -17,7 +17,6 @@ public class Article {
 	private boolean published;
 	private boolean reviewed;
 	private int pageNo;
-	private Date dateSubmitted;
 	
 	/**
 	 * 
@@ -29,14 +28,13 @@ public class Article {
 	/**
 	 * 
 	 */
-	public Article(int articleID, String title, String artcileAbstrauct, boolean published, boolean reviewed, int pageNo, Date dateSubmitted) {
+	public Article(int articleID, String title, String Summary, boolean published, boolean reviewed, int pageNo) {
 		this.articleID = articleID;
 		this.title = title;
-		this.summary = artcileAbstrauct;
+		this.summary = Summary;
 		this.published = published;
 		this.reviewed = reviewed;
 		this.pageNo = pageNo;
-		this.dateSubmitted = dateSubmitted;
 	}
 
 
@@ -69,17 +67,17 @@ public class Article {
 	}
 
 	/**
-	 * @return the artcileAbstrauct
+	 * @return the Summary
 	 */
-	public String getArtcileAbstrauct() {
+	public String getSummary() {
 		return summary;
 	}
 
 	/**
-	 * @param artcileAbstrauct the artcileAbstrauct to set
+	 * @param Summary the Summary to set
 	 */
-	public void setArtcileAbstrauct(String artcileAbstrauct) {
-		this.summary = artcileAbstrauct;
+	public void setSummary(String Summary) {
+		this.summary = Summary;
 	}
 
 	/**
@@ -122,20 +120,6 @@ public class Article {
 	 */
 	public void setPageNo(int pageNo) {
 		this.pageNo = pageNo;
-	}
-
-	/**
-	 * @return the dateSubmitted
-	 */
-	public Date getDateSubmitted() {
-		return dateSubmitted;
-	}
-
-	/**
-	 * @param dateSubmitted the dateSubmitted to set
-	 */
-	public void setDateSubmitted(Date dateSubmitted) {
-		this.dateSubmitted = dateSubmitted;
 	}
 
 }
