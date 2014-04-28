@@ -65,38 +65,63 @@ public class Subscribe extends VelocityViewServlet {
 			//create a subscriber object
 			Subscriber subs= new Subscriber();
 			subs.setEmail(email);
-			if (keywords.length > 0) {
+			if (keywords != null) {
 				subs.setKeywordSubscriber(true);
+			} else {
+				subs.setKeywordSubscriber(false);
 			}
 			if (futureEditions != null) {
 				subs.setEditionSubscriber(true);
+			} else {
+				subs.setEditionSubscriber(false);
 			}
-			try {
-				//-------------------->>> check if email exist if so update the row else create a new row  <<<----------------------
-				
-				//insert new data into Subscriber table
+			try {				
 				ConnectionManager conn = new ConnectionManager();			
-				String insertQuery = "INSERT INTO Subscriber (email, editionSubscriber, keywordSubscriber) VALUES ('" + subs.getEmail() + "'," + subs.getEditionSubscriber() + "," + subs.getKeywordSubscriber() + ")";
+				String selectQuery = "SELECT subscriberID from Subscriber where email = '" + subs.getEmail() + "' ";
 				Statement st = conn.getInstance().getConnection().createStatement();
-				st.executeUpdate(insertQuery);
-				//query Subscriber table to get subscriberID	
-				String selectQuery = "SELECT subscriberID from Subscriber where email ='" + subs.getEmail() + " ' ";
-				//st = conn.getInstance().getConnection().createStatement();
 				ResultSet rs = st.executeQuery(selectQuery);
-				if (rs.next()) {
-					int subscriberID = rs.getInt("subscriberID");
-					subs.setSubscriberID(subscriberID);
-				}				
-				
-				//System.out.println("email - " + email + ", future editions? - " + futureEditions);
-				//insert new data into SubKeyword table
-				for (int i = 0; i < keywords.length; i++) {
-				    System.out.println(keywords[i]); 
-					insertQuery = "INSERT INTO SubKeyword (keywordID, subscriberID) VALUES ('" + keywords[i] + "'," + subs.getSubscriberID() + ")";
-					//st = conn.getInstance().getConnection().createStatement();
+				//check if email does not exists, if so create a new row else update the row
+				System.out.println(rs.next());
+				if (!rs.next()) {
+					//insert new data into Subscriber table		
+					String insertQuery = "INSERT INTO Subscriber (email, editionSubscriber, keywordSubscriber) VALUES ('" + subs.getEmail() + "'," + subs.getEditionSubscriber() + "," + subs.getKeywordSubscriber() + ")";
 					st.executeUpdate(insertQuery);
+					//query Subscriber table to get subscriberID	
+					//selectQuery = "SELECT subscriberID from Subscriber where email ='" + subs.getEmail() + "' ";
+					rs = st.executeQuery(selectQuery);
+					if (rs.next()) {
+						int subscriberID = rs.getInt("subscriberID");
+						subs.setSubscriberID(subscriberID);
+					}				
+					//insert new data into SubKeyword table
+					if (keywords != null) {
+						for (int i = 0; i < keywords.length; i++) {
+							insertQuery = "INSERT INTO SubKeyword (keywordID, subscriberID) VALUES ('" + keywords[i] + "'," + subs.getSubscriberID() + ")";
+							st.executeUpdate(insertQuery);
+						}
+					}
+					template = getTemplate("/forms/home.vm"); 
+				} else {
+					System.out.println("else");
+					if (rs.next()) {
+						int subscriberID = rs.getInt("subscriberID");
+						subs.setSubscriberID(subscriberID);
+					}
+					//update the subscribers' data in Subscriber table		
+					String updateQuery = "UPDATE Subscriber SET editionSubscriber = " + subs.getEditionSubscriber() + ", keywordSubscriber = " + subs.getKeywordSubscriber() + " WHERE email = '" + subs.getEmail() + "'";
+					st.executeUpdate(updateQuery);
+					//update keywords data in SubKeyword table
+					if (keywords != null) {
+						String deleteQuery = "DELETE FROM SubKeyword WHERE subscriberID = " + subs.getSubscriberID();
+						st.executeUpdate(deleteQuery);
+						for (int i = 0; i < keywords.length; i++) {
+							updateQuery = "INSERT INTO SubKeyword (keywordID, subscriberID) VALUES ('" + keywords[i] + "'," + subs.getSubscriberID() + ")";
+							st.executeUpdate(updateQuery);
+						}
+					}
+					template = getTemplate("/forms/home.vm"); 
 				}
-				template = getTemplate("/forms/home.vm"); 
+				System.out.println("end");
 				//release resources
 				rs.close();
 				st.close();
