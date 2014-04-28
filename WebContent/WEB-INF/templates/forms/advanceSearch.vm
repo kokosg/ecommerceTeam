@@ -4,33 +4,53 @@
   #include( "/commonElements/head.html" )
   <TITLE>$apptitle</TITLE>
 </head>
-<!-- script>
+
+<script>
  function onLoad()
   {
-    $('#results_table').hide();
-	$('#loading_bar').hide();
+	$('#generalForm').show();
+	$('#intervalForm').hide();
+	document.getElementById('item').value = "article" ; 
   }
   window.onload=onLoad;
- </script -->
- <script>
- $('#sandbox-container input').datepicker({
-});
-</script>
+ </script>
+ 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script>
+  $(function() {
+    $( "#datepicker1" ).datepicker();
+  });
+  </script>
+  
+  <script>
+  $(function() {
+    $( "#datepicker2" ).datepicker();
+  });
+  </script
+  >
 <script>
 function myFunction()
 {
 
 var e = document.getElementById("mydropdown");
-var strUser = e.options[e.selectedIndex].value;
+var searchType = e.options[e.selectedIndex].value;
 
-if( strUser == "author" ) {
-    $('#results_table').hide();
-	$('#loading_bar').hide();
+document.getElementById('item').value = searchType ; 
+
+
+if( searchType == "interval" ) {
+    $('#generalForm').hide();
+	$('#intervalForm').show();
 	} else {
-	$('#results_table').show();
+	$('#generalForm').show();
+	$('#intervalForm').hide();
 	}
 }
-</script>
+</script
+>
 <body>
 #parse( "/commonElements/navbar.vm" )
 <!-- <script src="assets/js/advanceSearch.js" type="text/javascript"></script>
@@ -46,22 +66,54 @@ if( strUser == "author" ) {
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="well bs-component">
+						
+						<div class="form-group">
+							<label class="col-sm-10 control-label">Advance Search: Choose from the dropdown box which category you want to search!</label>
+							<select id="mydropdown" name="item" class="input-sm col-lg-2" onclick="myFunction()"> required>
+								<option value="article">Article</option>
+								<option value="author">Author</option>
+								<option value="interval">Interval</option>
+								<option value="keywords">keywords</option>
+							</select>
+						</div>
+						</div>
+						
+							
+							<div id="generalForm">
+							<form action="advanceSearch" id="advanceSearch" method="post"
+								class="form-horizontal">
+								<fieldset>
+								<input id="item" name="item" type="hidden">
+								<input id="flag" name="flag" type="hidden" value = "1">
+									<div class="form-group">
+										<label for="queryName" class="col-lg-2 control-label">Query Name:</label>
+											<div class="col-lg-8">
+												<input type="text" class="form-control" name="queryName" id="queryName" placeholder="Search ..." required>
+											</div>
+									</div>
+									<div class="form-group">
+										<div class="col-lg-10 col-lg-offset-2">
+											<button type="submit" class="btn btn-primary">Submit</button>
+											<input type="reset" class="btn btn-default" value="Reset" />
+										</div>
+									</div>
+								</fieldset>
+							</form>
+							</div>
+							
+							
+							<div id="intervalForm">
 							<form action="advanceSearch" id="advanceSearch" method="post"
 								class="form-horizontal">
 								<fieldset>
 								<input id="flag" name="flag" type="hidden" value = "1">
-									<legend>Advance Search: Choose from the dropdown box which category you want to search!</legend>
+								<input name="item" type="hidden" value="interval">
 									<div class="form-group">
 										<label for="queryName" class="col-lg-2 control-label">Query Name:</label>
-										<div class="col-lg-8">
-											<input type="text" class="form-control" name="queryName" id="queryName" placeholder="Search ..." required>
-										</div>
-										<select id="mydropdown" name="item" class="input-sm col-lg-2" onclick="myFunction()"> required>
-										    <option value="article">Article</option>
-										    <option value="author">Author</option>
-										    <option value="interval">Interval</option>
-										    <option value="keywords">keywords</option>
-										</select>
+											<div class="col-lg-8">
+												<p>Date: <input type="text" id="datepicker1" name="datepicker1"></p>
+												<p>Date: <input type="text" id="datepicker2" name="datepicker2"></p>
+											</div>
 									</div>
 									<div class="form-group">
 										<div class="col-lg-10 col-lg-offset-2">
@@ -72,14 +124,22 @@ if( strUser == "author" ) {
 								</fieldset>
 							</form>
 						</div>
+							
+							
+							
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<input data-provide="datepicker">
+
 	
 	<!-- <img src="assets/img/ajax-loader.gif" id="loading_bar" align="middle"> -->
+	#if ($empty)
+	<font color="red">Search not found</font>
+	#end
+	#foreach($article in $searchResults) 
 	<div class="row">
 		<div id="results_table">
 			<div class="col-lg-7 col-md-10 col-md-push-3">
@@ -91,9 +151,7 @@ if( strUser == "author" ) {
 								<table class="table table-hover table-responsive table-bordered table-condensed">
 									<tbody class="table-hover">
 									<tr>
-									#foreach($article in $searchResults) 
-										<td>Title: <a href='abstractPage?id=$article.articleID'><strong>$article.title</strong></a> <div><small>Pages: <strong>$article.pageNo</strong> - Submitted: <strong>$article.dateSubmitted</strong></div></td> 
-									#end
+											<td>Title: <a href='abstractPage?id=$article.articleID'><strong>$article.title</strong></a> <div><small>Pages: <strong>$article.pageNo</strong></div></td> 
 									</tr>
 									</tbody>
 								</table>
@@ -104,6 +162,8 @@ if( strUser == "author" ) {
 			</div>
 		</div>
 	</div>
+#end
+	
 #parse( "/commonElements/footer.vm" )
 </body>
 </html>
