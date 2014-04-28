@@ -6,9 +6,10 @@
 </head>
 #parse( "/commonElements/navbar.vm" )
 <body>
-
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
+
+<p><a href="advanceSearch" class="btn btn-large">Bootstrap Button Generator</a></p>
 
 	  <h1>Title: <strong>$article.title</strong></h1>
 	  	

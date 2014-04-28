@@ -1,5 +1,6 @@
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -45,41 +46,61 @@ public class AdvanceSearch extends VelocityViewServlet {
 					
 					String categoryType = request.getParameter("item");
 					String queryName = request.getParameter("queryName");
+					String datepicker1 = request.getParameter("datepicker1");
+					String datepicker2 = request.getParameter("datepicker2");
 
+					System.out.println("o " + categoryType);
+					
+					System.out.println("a " + datepicker1 + " " + datepicker1);
+					
 					System.out.println(categoryType);
 					System.out.println(queryName);
 					
-					if (categoryType.equals("article")) {
-						query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo, Article.dateSubmitted from Article where title LIKE '%" + queryName + "%'";
-					} else if (categoryType.equals("author")) {
-						query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo, Article.dateSubmitted from Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID where Author.name ='" + queryName + "'"; 
-					} else if (categoryType.equals("interval")) {
-						query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo, Article.dateSubmitted from Keyword INNER JOIN ArticleKeyword ON Keyword.keywordID = ArticleKeyword.keywordID INNER JOIN Article ON ArticleKeyword.articleID = Article.articleID where Keyword.text ='" + queryName + "'";
-					} else if (categoryType.equals("keywords")) {
-						query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo, Article.dateSubmitted from Keyword INNER JOIN ArticleKeyword ON Keyword.keywordID = ArticleKeyword.keywordID INNER JOIN Article ON ArticleKeyword.articleID = Article.articleID where Keyword.text ='" + queryName + "'";
-					}
-
-					Statement st = conn.getInstance().getConnection().createStatement();
-					ResultSet rs = st.executeQuery(query);
+					Statement st = null;
+					ResultSet rs = null;
 					
 					ArrayList<Article> arrayResults = new ArrayList<Article>(); 
+					
+					if (categoryType.equals("article")) {
+					
+						query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article where title LIKE '%" + queryName + "%'";
+					
+						queryMethod(st, rs, query, conn, arrayResults);
 
-					while (rs.next()) {
-
-						int articleID = rs.getInt("Article.articleID");
-						String title = (String)rs.getObject("Article.title");
-				        String summary = (String)rs.getObject("Article.summary");
-				        Boolean published = (Boolean)rs.getObject("Article.published");
-				        Boolean reviewed = (Boolean)rs.getObject("Article.reviewed");
-				        int pageNo = rs.getInt("Article.pageNo");
-				        Date dateSubmitted = (Date)rs.getObject("Article.dateSubmitted");
+					
+					} else if (categoryType.equals("author")) {
 						
-				        Article article = new Article(articleID, title, summary, published, reviewed, pageNo, dateSubmitted);
-				        arrayResults.add(article);
+						String[] parts = queryName.split(",");
+						
+						for( int i = 0; i <= parts.length - 1; i++)
+						{
+							
+							query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID where Author.name ='" + parts[i] + "'"; 
+							
+							queryMethod(st, rs, query, conn, arrayResults);
+
+							
+						}
+					
+					} else if (categoryType.equals("interval")) {
+						query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article INNER JOIN ArticleRevision ON Article.articleID = ArticleRevision.articleID WHERE ArticleRevision.dateSubmitted BETWEEN '" + datepicker1 + "' AND '" + datepicker2 + "'";
+					
+						queryMethod(st, rs, query, conn, arrayResults);
+					
+					} else if (categoryType.equals("keywords")) {
+					
+						query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Keyword INNER JOIN ArticleKeyword ON Keyword.keywordID = ArticleKeyword.keywordID INNER JOIN Article ON ArticleKeyword.articleID = Article.articleID where Keyword.text ='" + queryName + "'";
+						
+						queryMethod(st, rs, query, conn, arrayResults);
 						
 					}
-					
+
+					if (arrayResults.isEmpty()) {
+						context.put("empty", "empty");
+					} else {
 					context.put("searchResults", arrayResults);
+					}
+					
 					template = getTemplate("/forms/advanceSearch.vm");
 					System.out.println(arrayResults.toString());
 					
@@ -92,4 +113,23 @@ public class AdvanceSearch extends VelocityViewServlet {
 			return template; 
 		}
 	}
+	
+	private void queryMethod(Statement st, ResultSet rs, String query, ConnectionManager conn, ArrayList<Article> arrayResults) throws SQLException, ClassNotFoundException {
+		
+		st = conn.getInstance().getConnection().createStatement();
+		rs = st.executeQuery(query);
+		
+		while (rs.next()) {
+			int articleID = rs.getInt("Article.articleID");
+			String title = (String)rs.getObject("Article.title");
+	        String summary = (String)rs.getObject("Article.summary");
+	        Boolean published = (Boolean)rs.getObject("Article.published");
+	        Boolean reviewed = (Boolean)rs.getObject("Article.reviewed");
+	        int pageNo = rs.getInt("Article.pageNo");
+			
+	        Article article = new Article(articleID, title, summary, published, reviewed, pageNo);
+	        arrayResults.add(article);
+		}
+	}
+	
 }
