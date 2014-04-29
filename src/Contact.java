@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.ConnectionManager;
-import objects.Article;
 import objects.EmailMessage;
 
 import org.apache.velocity.Template;
@@ -45,7 +44,6 @@ public class Contact extends VelocityViewServlet {
 		         template = getTemplate("/forms/contact.vm");
 
 		      return template;
-
 	    	  
 	      } else {
 	    	  
@@ -116,14 +114,8 @@ public class Contact extends VelocityViewServlet {
 			 st = conn.getInstance().getConnection().createStatement();
 			 ResultSet rs = st.executeQuery(selectQuery);
 
-				System.out.println("1");
-
-			 
 			    while (rs.next()) {
 
-					System.out.println("2");
-
-			    	
 			    	String editorEmail = (String)rs.getObject("Author.email");
 					
 					System.out.println(editorEmail);
@@ -136,10 +128,8 @@ public class Contact extends VelocityViewServlet {
 
 					// send message
 					Transport.send(message);
-					
 
 				}
-
 			  
 				rs.close();
 				st.close();
