@@ -1,3 +1,4 @@
+
 package models;
 
 import java.sql.ResultSet;
@@ -7,6 +8,9 @@ import java.util.ArrayList;
 import objects.Keyword;
 import objects.Subscriber;
 
+/** Subscription model - methods for Keyword, Subscriber, SubKeyword tables 
+ * @author Team:Master10
+ */
 public class SubscriptionModel {
 
 	/**
@@ -17,11 +21,12 @@ public class SubscriptionModel {
 	}
 	
 	//Keyword - Select * Query
-	public ArrayList<Keyword> keywordSelectQuery(String query) {
+	public ArrayList<Keyword> getAllKeywords() {
 		ArrayList<Keyword> keywords = new ArrayList<Keyword>();
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
+			String query = "SELECT * from Keyword";
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
 				int keywordID = rs.getInt("Keyword.keywordID");
