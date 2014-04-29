@@ -9,6 +9,29 @@
 #parse( "/commonElements/navbar.vm" )
 <!-- Main jumbotron for a primary marketing message or call to action -->
 	<div class="jumbotron">
+	
+	
+	<div class="col-md-3">
+	<div class="panel-group" id="accordion">
+ 		#foreach($article in $searchResults) 
+ 
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#$article.articleID">
+          Article: $article.title
+        </a>
+      </h4>
+    </div>
+    <div id="$article.articleID" class="panel-collapse collapse in">
+      <div class="panel-body">
+		$article.summary
+      </div>
+    </div>
+  </div>
+  #end
+</div>
+</div>
 		#if (!$session.user.email)
 			<h1>Hello, Guest!</h1>
 		#else
