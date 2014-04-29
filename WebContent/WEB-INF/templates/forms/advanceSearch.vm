@@ -163,7 +163,6 @@ if( searchType == "interval" ) {
 		</div>
 	</div>
 #end
-	
 #parse( "/commonElements/footer.vm" )
 </body>
 </html>
