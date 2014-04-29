@@ -1,11 +1,8 @@
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.ConnectionManager;
 import models.SubscriptionModel;
 import objects.Keyword;
 import objects.Subscriber;
@@ -33,9 +30,8 @@ public class Subscribe extends VelocityViewServlet {
 		if (flag == null) {
 			try {
 	            ArrayList<Keyword> keywords = new ArrayList<Keyword>(); 
-				String selectQuery = "SELECT * from Keyword"; 
 				//return all keywords in the Keywords table
-				keywords = model.keywordSelectQuery(selectQuery);
+				keywords = model.getAllKeywords();
 				context.put("keywords", keywords);
 				template = getTemplate("/forms/subscribe.vm");
 			} catch(Exception e ) {
