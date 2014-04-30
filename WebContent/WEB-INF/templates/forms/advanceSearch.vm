@@ -21,13 +21,13 @@
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script>
   $(function() {
-    $( "#datepicker1" ).datepicker();
+    $( "#datepickerFrom" ).datepicker();
   });
   </script>
   
   <script>
   $(function() {
-    $( "#datepicker2" ).datepicker();
+    $( "#datepickerTo" ).datepicker();
   });
   </script
   >
@@ -111,8 +111,8 @@ if( searchType == "interval" ) {
 									<div class="form-group">
 										<label for="queryName" class="col-lg-2 control-label">Query Name:</label>
 											<div class="col-lg-8">
-												<p>Date: <input type="text" id="datepicker1" name="datepicker1"></p>
-												<p>Date: <input type="text" id="datepicker2" name="datepicker2"></p>
+												<p>Date: <input type="text" id="datepickerFrom" name="datepickerFrom"></p>
+												<p>Date: <input type="text" id="datepickerTo" name="datepickerTo"></p>
 											</div>
 									</div>
 									<div class="form-group">
