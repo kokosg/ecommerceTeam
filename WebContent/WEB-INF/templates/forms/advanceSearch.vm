@@ -21,13 +21,13 @@
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script>
   $(function() {
-    $( "#datepicker1" ).datepicker();
+    $( "#datepickerFrom" ).datepicker();
   });
   </script>
   
   <script>
   $(function() {
-    $( "#datepicker2" ).datepicker();
+    $( "#datepickerTo" ).datepicker();
   });
   </script
   >
@@ -111,8 +111,8 @@ if( searchType == "interval" ) {
 									<div class="form-group">
 										<label for="queryName" class="col-lg-2 control-label">Query Name:</label>
 											<div class="col-lg-8">
-												<p>Date: <input type="text" id="datepicker1" name="datepicker1"></p>
-												<p>Date: <input type="text" id="datepicker2" name="datepicker2"></p>
+												<p>Date: <input type="text" id="datepickerFrom" name="datepickerFrom"></p>
+												<p>Date: <input type="text" id="datepickerTo" name="datepickerTo"></p>
 											</div>
 									</div>
 									<div class="form-group">
@@ -139,7 +139,7 @@ if( searchType == "interval" ) {
 	#if ($empty)
 	<font color="red">Search not found</font>
 	#end
-	#foreach($article in $searchResults) 
+	#if ($searchResults)
 	<div class="row">
 		<div id="results_table">
 			<div class="col-lg-7 col-md-10 col-md-push-3">
@@ -150,9 +150,11 @@ if( searchType == "interval" ) {
 							<div class="col-md-10">
 								<table class="table table-hover table-responsive table-bordered table-condensed">
 									<tbody class="table-hover">
+									#foreach($article in $searchResults) 
 									<tr>
-											<td>Title: <a href='abstractPage?id=$article.articleID'><strong>$article.title</strong></a> <div><small>Pages: <strong>$article.pageNo</strong></div></td> 
+										<td>Title: <a href='abstractPage?id=$article.articleID'><strong>$article.title</strong></a> <div><small>Pages: <strong>$article.pageNo</strong></div></td> 
 									</tr>
+									#end
 									</tbody>
 								</table>
 							</div>
@@ -162,7 +164,8 @@ if( searchType == "interval" ) {
 			</div>
 		</div>
 	</div>
-#end
+	#end
+	
 #parse( "/commonElements/footer.vm" )
 </body>
 </html>

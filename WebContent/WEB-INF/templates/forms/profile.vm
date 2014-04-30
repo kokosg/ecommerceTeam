@@ -1,11 +1,12 @@
 <HTML>
 <head>
- <meta charset="ISO-8859-1">
- #include( "/commonElements/head.html" )
- <TITLE>$apptitle</TITLE>
+	<meta charset="ISO-8859-1">
+	#include("/commonElements/head.html")
+	<TITLE>$apptitle</TITLE>
 </head>
-#parse( "/commonElements/navbar.vm" )
+#parse("/commonElements/navbar.vm")
 <body>
+<<<<<<< HEAD
        
 #if(!$session.user.name)
 <div class="jumbotron"> 
@@ -16,11 +17,9 @@
 #else
 <div class="jumbotron"> 
          <div class="container">
-<h2>Welcome to eCom-Journal</h2>
+<h3>Welcome to eCom-Journal</h3>
 
 <h3 >$session.user.name</h3>
-
-<p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
 
                </div>
              </div>
@@ -39,15 +38,23 @@
                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
                 </div>
                  <div class="col-md-4">
-                   <h2>Instructions for Peer Review</h2>
-                   <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                   <h2>Instructions for Article Review</h2>
+                   <p>Learn how to peer review pending articles and describing the qualities of the articles and how to complete the review form.</p>
                    <p><a class="btn btn-default" href="upload" role="button">View details &raquo;</a></p>
                  </div>
        </div>
 </div>
 #end
+=======
+	<div class="jumbotron"> 
+		#if(!$email)
+			<h2 >Sorry you are not authenticated to access this part of website</h2>
+		#else
+			<h2>Welcome to eCom-Journal</h2>
+			<h3 >$email</h3>
+		#end
+	</div>
+>>>>>>> ccc0dbc692f29b975fab281b9f6fc45556f8401f
 </body>
-</html>
-</body>
-#parse( "/commonElements/footer.vm" )
+#parse("/commonElements/footer.vm")
 </html>

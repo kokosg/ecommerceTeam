@@ -77,12 +77,12 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>abstractPage</display-name>
-    <servlet-name>abstractPage</servlet-name>
-    <servlet-class>abstractPage</servlet-class>
+    <display-name>AbstractPage</display-name>
+    <servlet-name>AbstractPage</servlet-name>
+    <servlet-class>AbstractPage</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>abstractPage</servlet-name>
+    <servlet-name>AbstractPage</servlet-name>
     <url-pattern>/abstractPage</url-pattern>
   </servlet-mapping>
   <servlet>
@@ -94,6 +94,16 @@
   <servlet-mapping>
     <servlet-name>Contact</servlet-name>
     <url-pattern>/contact</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Browse</display-name>
+    <servlet-name>Browse</servlet-name>
+    <servlet-class>Browse</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Browse</servlet-name>
+    <url-pattern>/browse</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -115,9 +125,17 @@
     <servlet-name>DownloadServlet</servlet-name>
     <url-pattern>/download</url-pattern>
   </servlet-mapping>
-<session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <servlet>
+    <description></description>
+    <display-name>UserManagement</display-name>
+    <servlet-name>UserManagement</servlet-name>
+    <servlet-class>UserManagement</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserManagement</servlet-name>
+    <url-pattern>/userManagement</url-pattern>
+  </servlet-mapping>
 </web-app>
