@@ -1,0 +1,55 @@
+<HTML>
+<head>
+  <meta charset="ISO-8859-1">
+  #include( "/commonElements/head.html" )
+  <TITLE>$apptitle</TITLE>
+</head>
+
+<body>
+#parse( "/commonElements/navbar.vm" )
+<!-- Main jumbotron for a primary marketing message or call to action -->
+	<div class="jumbotron">
+	
+	
+	<div class="col-md-3">
+	<div class="panel-group" id="accordion">
+ 		#foreach($article in $searchResults) 
+ 
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#$article.articleID">
+          Article: $article.title
+        </a>
+      </h4>
+    </div>
+    <div id="$article.articleID" class="panel-collapse collapse in">
+      <div class="panel-body">
+		$article.summary
+      </div>
+    </div>
+  </div>
+  #end
+</div>
+</div>
+		#if (!$session.user.email)
+			<h1>Hello, Guest!</h1>
+		#else
+			<h1>Hello, $session.user.name $session.user.surname!</h1>
+		#end
+		<p>Example - ScienceDirect: is a leading full-text scientific database offering journal articles and book chapters from more than 2,500 journals and almost 20,000 books.</p>
+		<p> <a href="#" class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a> </p>
+	</div>
+	<div class="col-lg-4">
+		<div class="bs-component">
+			<div class="well">Look, I'm in a well!</div>
+		</div>
+	</div>
+	<div class="col-lg-8">
+		<div class="bs-component">
+			<div class="well">Look, I'm in a small well!</div>
+		</div>
+	</div>
+#parse( "/commonElements/footer.vm" )
+</body>
+</html>
