@@ -23,20 +23,18 @@ public Template handleRequest( HttpServletRequest request, HttpServletResponse r
       
       String edition = request.getParameter("editionNo");
 
- 	 System.out.print("123 " + edition);
-
-    
       try {
 			
 		context.put("searchResults", browseModel.getBrowse());
          template = getTemplate("/pages/browse.vm"); 
          
          if (edition != null) {
-        	
+
         	 System.out.print("oo " + browseModel.getEdition(edition));
         	
      		context.put("editionResults", browseModel.getEdition(edition));
         	 
+
          }
       
       } catch(Exception e ) {

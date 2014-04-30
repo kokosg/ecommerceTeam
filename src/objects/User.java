@@ -38,6 +38,21 @@ public class User {
     }
     
 	/**Creates a user(author) object
+	 * @param authorID
+	 * @param name of the author
+	 * @param surname surname of the author
+	 * @param email of the author
+	 * @param isEditor if the author is an editor 
+	 */
+    public User(int authorID, String name, String surname, String email, Boolean isEditor) {
+        this.authorID = authorID;
+    	this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.isEditor = isEditor;        		
+    }
+    
+	/**Creates a user(author) object
 	 * @param name of the author
 	 * @param surname surname of the author
 	 * @param email of the author

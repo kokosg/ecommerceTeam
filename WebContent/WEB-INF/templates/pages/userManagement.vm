@@ -8,6 +8,7 @@
 <body>
 #parse( "/commonElements/navbar.vm" )
 <!-- Main jumbotron for a primary marketing message or call to action -->
+
 	<div class="jumbotron">
 	
 		#if (!$session.user.email)
@@ -17,6 +18,43 @@
 		#end
 		<p>Example - ScienceDirect: is a leading full-text scientific database offering journal articles and book chapters from more than 2,500 journals and almost 20,000 books.</p>
 		<p> <a href="#" class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a> </p>
+	<div class="jumbotron"> 
+	#if($userRole == "Editor")
+		<h2>Welcome to eCom-Journal</h2>
+		<h3 >$email</h3>
+		
+		
+<div class="col-md-8">
+#if ($searchResults)
+	<div class="row">
+		<div id="results_table">
+			<div class="row">
+				<div class="well bs-component">
+				   <h1>List of Editions</h1>
+					<div class="row">
+						<div class="col-md-10">
+							<table class="table table-hover table-responsive table-bordered table-condensed">
+								<tbody class="table-hover">
+								#foreach($article in $searchResults) 
+								<tr>
+									<td>Title: <a href='abstractPage?id=$article.articleID'><strong>$article.title</strong></a> <div><small>Pages: <strong>$article.pageNo</strong></div></td> 
+								</tr>
+								#end
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	#end
+</div>
+		
+		
+	#else
+		<h2 >Sorry you are not authenticated to access this part of website</h2>
+	#end
 	</div>
 	<div class="col-lg-4">
 		<div class="bs-component">
