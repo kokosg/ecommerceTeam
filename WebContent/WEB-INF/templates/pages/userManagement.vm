@@ -37,7 +37,7 @@
 								<tbody class="table-hover">
 								#foreach($article in $searchResults) 
 								<tr>
-									<td>Title: <a href='abstractPage?id=$article.articleID'><strong>$article.title</strong></a> <div><small>Pages: <strong>$article.pageNo</strong></div></td> 
+									<td>Title: <a href='abstractPage?id=$article.userID'><strong>$article.userName</strong></a></td> 
 								</tr>
 								#end
 								</tbody>

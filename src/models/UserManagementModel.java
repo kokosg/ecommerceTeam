@@ -33,13 +33,13 @@ public class UserManagementModel {
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
-				int authorID = rs.getInt("Author.authorID");
+				int userID = rs.getInt("Author.authorID");
 				String userName = (String)rs.getObject("Author.name");
 		        String userSurname = (String)rs.getObject("Author.surname");
 		        String userEmail = (String)rs.getObject("Author.email");
 		        boolean isEditor = rs.getBoolean("AuthorReviewer.isEditor");
 				
-	        	User user = new User(authorID, userName, userSurname, userEmail, isEditor);
+	        	User user = new User(userID, userName, userSurname, userEmail, isEditor);
 		        arrayResults.add(user);
 			}
 			rs.close();
