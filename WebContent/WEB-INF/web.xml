@@ -77,12 +77,12 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>abstractPage</display-name>
-    <servlet-name>abstractPage</servlet-name>
-    <servlet-class>abstractPage</servlet-class>
+    <display-name>AbstractPage</display-name>
+    <servlet-name>AbstractPage</servlet-name>
+    <servlet-class>AbstractPage</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>abstractPage</servlet-name>
+    <servlet-name>AbstractPage</servlet-name>
     <url-pattern>/abstractPage</url-pattern>
   </servlet-mapping>
   <servlet>
@@ -105,29 +105,37 @@
     <servlet-name>Browse</servlet-name>
     <url-pattern>/browse</url-pattern>
   </servlet-mapping>
-   <servlet>
-     <description></description>
-     <display-name>UploadServlet</display-name>
-     <servlet-name>UploadServlet</servlet-name>
-     <servlet-class>UploadServlet</servlet-class>
-   </servlet>
-   <servlet-mapping>
-     <servlet-name>UploadServlet</servlet-name>
-     <url-pattern>/upload</url-pattern>
-   </servlet-mapping>
-   <servlet>
-     <description></description>
-     <display-name>DownloadServlet</display-name>
-     <servlet-name>DownloadServlet</servlet-name>
-     <servlet-class>DownloadServlet</servlet-class>
-   </servlet>
-   <servlet-mapping>
-     <servlet-name>DownloadServlet</servlet-name>
-     <url-pattern>/download</url-pattern>
-   </servlet-mapping>
- <session-config>
-         <session-timeout>
-             30
-         </session-timeout>
-     </session-config>
+  <servlet>
+    <description></description>
+    <display-name>UploadServlet</display-name>
+    <servlet-name>UploadServlet</servlet-name>
+    <servlet-class>UploadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadServlet</servlet-name>
+    <url-pattern>/upload</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DownloadServlet</display-name>
+    <servlet-name>DownloadServlet</servlet-name>
+    <servlet-class>DownloadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadServlet</servlet-name>
+    <url-pattern>/download</url-pattern>
+  </servlet-mapping>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <servlet>
+    <description></description>
+    <display-name>UserManagement</display-name>
+    <servlet-name>UserManagement</servlet-name>
+    <servlet-class>UserManagement</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserManagement</servlet-name>
+    <url-pattern>/userManagement</url-pattern>
+  </servlet-mapping>
 </web-app>

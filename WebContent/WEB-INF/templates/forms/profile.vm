@@ -4,7 +4,7 @@
 	#include("/commonElements/head.html")
 	<TITLE>$apptitle</TITLE>
 </head>
-#parse("/commonElements/header.vm")
+#parse("/commonElements/navbar.vm")
 <body>
 <<<<<<< HEAD
        

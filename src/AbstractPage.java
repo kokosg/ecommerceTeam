@@ -10,7 +10,7 @@ import org.apache.velocity.tools.view.VelocityViewServlet;
 /**
  * Servlet implementation class abstructPage
  */
-public class abstractPage extends VelocityViewServlet {
+public class AbstractPage extends VelocityViewServlet {
 	private static final long serialVersionUID = 1L;
 
 	public Template handleRequest(HttpServletRequest request, HttpServletResponse response, Context context) {
@@ -18,7 +18,7 @@ public class abstractPage extends VelocityViewServlet {
 		System.out.println("in");
 
 		String flag = request.getParameter("flag");
-		context.put("apptitle", "E-com Journal - Abstruct Page");
+		context.put("apptitle", "E-com Journal - Abstract Page");
 		Template template = null;
 		response.setContentType("text/html");
 
