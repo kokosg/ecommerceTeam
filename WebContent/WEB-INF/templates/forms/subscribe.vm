@@ -24,18 +24,11 @@
 				<legend>Subscribe</legend>
 				
 				<!-- Text input-->
-				<div class="control-group">
+				<div>
 					<label class="control-label" for="email">Email:</label>
-					<div class="controls">
-						<input id="email" name="email" type="email" placeholder="email@example.com" class="input-xlarge" required>
-						<p class="help-block">in the format: email@example.com</p>
-					</div>
-				</div>
-							
-				<!-- Multiple Checkboxes -->
-				<div class="control-group">
-					<label class="control-label">Select Keywords:</label>
-					<div class="controls">
+					<input id="email" name="email" type="email" placeholder="email@example.com" class="input-xlarge" required>
+					<div>
+						<label class="control-label">Select Keywords:</label>
 						#foreach($keyword in $keywords) 
 							<label class="checkbox" for="checkboxes-$keyword.text">
 							<input type="checkbox" name="keywords" id="keywords-$keyword.keywordID" value="$keyword.keywordID">
@@ -43,17 +36,11 @@
 							</label>
 						#end
 					</div>
-				</div>
-				
-				<!-- Multiple Checkboxes (inline) -->
-				<div class="control-group">
 					<label class="control-label" for="checkboxes">Future Editions:</label>
-					<div class="controls">
-						<label class="checkbox inline" for="checkboxes-0">
-						<input type="checkbox" name="futureEditions" id="futureEditions" value="1">
-							Subscribe for future editions
-						</label>
-					</div>
+					<label class="checkbox inline" for="checkboxes-0">
+					<input type="checkbox" name="futureEditions" id="futureEditions" value="1">
+						Subscribe for future editions
+					</label>
 				</div>
 								
 				<!-- Button -->

@@ -19,7 +19,7 @@
 					<!-- ADD READER	ACTIONS HERE-->
 					<li class="dropdown-header">Reader</li>
 					<li><a href="subscribe">Subscribe</a></li>
-					<li><a href="#submit">Submit Article</a></li>
+					<li><a href="submit">Submit Article</a></li>
 					#if ($session.user.email)
 						#if ($session.userRole == "AuthorReviewer")
 						<!-- ADD AUTHOR-REVIEWER ACTIONS HERE-->
