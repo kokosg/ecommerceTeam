@@ -1,14 +1,8 @@
 
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.ConnectionManager;
-import objects.BrowseObject;
+import models.BrowseModel;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
@@ -25,40 +19,25 @@ public Template handleRequest( HttpServletRequest request, HttpServletResponse r
       Template template = null;
       context.put("apptitle", "Ecom Journal - Browse");
 	  response.setContentType("text/html");
+      BrowseModel browseModel = new BrowseModel();
       
+      String edition = request.getParameter("editionNo");
+
+ 	 System.out.print("123 " + edition);
+
+    
       try {
 			
-    	  ConnectionManager conn = new ConnectionManager();			
-
-		ArrayList<BrowseObject> arrayResults = new ArrayList<BrowseObject>(); 
-    	  
-		  String query = "SELECT Volume.volumeID, Volume.volumeNo, Edition.editionNo, Edition.endDate, Published.startPageNo, Published.datePublished, Article.articleID, Article.title, Article.summary, Article.pageNo, ArticleRevision.filePath from Volume INNER JOIN Edition ON Volume.volumeID = Edition.volumeID INNER JOIN Published ON Edition.editionID = Published.editionID INNER JOIN Article ON Published.articleID = Article.articleID INNER JOIN ArticleRevision ON Article.articleID = ArticleRevision.articleID ";
-		
-    	  Statement	st = conn.getInstance().getConnection().createStatement();
-		  ResultSet rs = st.executeQuery(query);
-
- 		while (rs.next()) {
-			int volumeID = rs.getInt("Volume.volumeID");
-			int volumeNo = rs.getInt("Volume.volumeNo");
-	        int editionNo = rs.getInt("Edition.editionNo");
-	        Date endDate = (Date)rs.getObject("Edition.endDate");
-	        int startPageNo = rs.getInt("Published.startPageNo");
-	        Date datePublished = (Date)rs.getObject("Published.datePublished");
-			int articleID = rs.getInt("Article.articleID");
-	        String title = (String)rs.getObject("Article.title");
-	        String summary = (String)rs.getObject("Article.summary");
-	        int pageNo = rs.getInt("Article.pageNo");
-	        String filePath = (String)rs.getObject("ArticleRevision.filePath");
-	        
-	        BrowseObject browseObject = new BrowseObject(volumeID, volumeNo, editionNo, endDate, startPageNo, datePublished, articleID, title, summary, pageNo, filePath);
-	        arrayResults.add(browseObject);
-	        
-	        System.out.print(browseObject);
-	        
-		}
-		  
-		context.put("searchResults", arrayResults);
+		context.put("searchResults", browseModel.getBrowse());
          template = getTemplate("/pages/browse.vm"); 
+         
+         if (edition != null) {
+        	
+        	 System.out.print("oo " + browseModel.getEdition(edition));
+        	
+     		context.put("editionResults", browseModel.getEdition(edition));
+        	 
+         }
       
       } catch(Exception e ) {
          System.out.println("Error " + e);

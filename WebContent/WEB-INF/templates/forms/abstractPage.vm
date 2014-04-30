@@ -9,7 +9,7 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
 
-<p><a href="advanceSearch" class="btn btn-large">Bootstrap Button Generator</a></p>
+<a href="javascript: history.go(-1)">Back</a>
 
 	  <h1>Title: <strong>$article.title</strong></h1>
 	  	

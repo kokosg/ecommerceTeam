@@ -35,6 +35,18 @@ public class BrowseObject {
 	 * @param volumeNo
 	 * @param editionNo
 	 * @param endDate
+	 */
+	public BrowseObject(int volumeID, int volumeNo, int editionNo, Date endDate) {
+		this.volumeID = volumeID;
+		this.volumeNo = volumeNo;
+		this.editionNo = editionNo;
+		this.endDate = endDate;
+	}
+	
+	
+	/**
+	 * @param editionNo
+	 * @param endDate
 	 * @param startPageNo
 	 * @param datePublished
 	 * @param articleID
@@ -43,9 +55,7 @@ public class BrowseObject {
 	 * @param pageNo
 	 * @param filePath
 	 */
-	public BrowseObject(int volumeID, int volumeNo, int editionNo, Date endDate,int startPageNo, Date datePublished, int articleID, String title, String summary, int pageNo, String filePath) {
-		this.volumeID = volumeID;
-		this.volumeNo = volumeNo;
+	public BrowseObject(int editionNo, Date endDate,int startPageNo, Date datePublished, int articleID, String title, String summary, int pageNo, String filePath) {
 		this.editionNo = editionNo;
 		this.endDate = endDate;
 		this.startPageNo = startPageNo;
