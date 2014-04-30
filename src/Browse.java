@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.ConnectionManager;
-import objects.Article;
 import objects.BrowseObject;
 
 import org.apache.velocity.Template;
@@ -39,16 +38,16 @@ public Template handleRequest( HttpServletRequest request, HttpServletResponse r
 		  ResultSet rs = st.executeQuery(query);
 
  		while (rs.next()) {
-			int volumeID = (int)rs.getObject("Volume.volumeID");
-			int volumeNo = (int)rs.getObject("Volume.volumeNo");
-	        int editionNo = (int)rs.getObject("Edition.editionNo");
+			int volumeID = rs.getInt("Volume.volumeID");
+			int volumeNo = rs.getInt("Volume.volumeNo");
+	        int editionNo = rs.getInt("Edition.editionNo");
 	        Date endDate = (Date)rs.getObject("Edition.endDate");
 	        int startPageNo = rs.getInt("Published.startPageNo");
 	        Date datePublished = (Date)rs.getObject("Published.datePublished");
-			int articleID = (int)rs.getObject("Article.articleID");
+			int articleID = rs.getInt("Article.articleID");
 	        String title = (String)rs.getObject("Article.title");
 	        String summary = (String)rs.getObject("Article.summary");
-	        int pageNo = (int)rs.getObject("Article.pageNo");
+	        int pageNo = rs.getInt("Article.pageNo");
 	        String filePath = (String)rs.getObject("ArticleRevision.filePath");
 	        
 	        BrowseObject browseObject = new BrowseObject(volumeID, volumeNo, editionNo, endDate, startPageNo, datePublished, articleID, title, summary, pageNo, filePath);

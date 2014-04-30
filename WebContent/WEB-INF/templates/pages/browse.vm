@@ -13,7 +13,7 @@
 	
 	<div class="col-md-3">
 	<div class="panel-group" id="accordion">
- 		#foreach($article in $searchResults) 
+ 		#foreach($version in $arrayResults) 
  
   <div class="panel panel-default">
     <div class="panel-heading">

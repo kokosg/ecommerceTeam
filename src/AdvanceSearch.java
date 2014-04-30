@@ -84,4 +84,22 @@ public class AdvanceSearch extends VelocityViewServlet {
 		}
 	}
 	
+/*	private void queryMethod(Statement st, ResultSet rs, String query, ConnectionManager conn, ArrayList<Article> arrayResults) throws SQLException, ClassNotFoundException {
+		
+		st = conn.getInstance().getConnection().createStatement();
+		rs = st.executeQuery(query);
+		
+		while (rs.next()) {
+			int articleID = rs.getInt("Article.articleID");
+			String title = (String)rs.getObject("Article.title");
+	        String summary = (String)rs.getObject("Article.summary");
+	        Boolean published = (Boolean)rs.getObject("Article.published");
+	        Boolean reviewed = (Boolean)rs.getObject("Article.reviewed");
+	        int pageNo = rs.getInt("Article.pageNo");
+			
+	        Article article = new Article(articleID, title, summary, published, reviewed, pageNo);
+	        arrayResults.add(article);
+		}
+	}*/
+	
 }
