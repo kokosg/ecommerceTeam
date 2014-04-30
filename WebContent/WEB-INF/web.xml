@@ -97,27 +97,37 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>UploadServlet</display-name>
-    <servlet-name>UploadServlet</servlet-name>
-    <servlet-class>UploadServlet</servlet-class>
+    <display-name>Browse</display-name>
+    <servlet-name>Browse</servlet-name>
+    <servlet-class>Browse</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>UploadServlet</servlet-name>
-    <url-pattern>/upload</url-pattern>
+    <servlet-name>Browse</servlet-name>
+    <url-pattern>/browse</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>DownloadServlet</display-name>
-    <servlet-name>DownloadServlet</servlet-name>
-    <servlet-class>DownloadServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DownloadServlet</servlet-name>
-    <url-pattern>/download</url-pattern>
-  </servlet-mapping>
-<session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
+   <servlet>
+     <description></description>
+     <display-name>UploadServlet</display-name>
+     <servlet-name>UploadServlet</servlet-name>
+     <servlet-class>UploadServlet</servlet-class>
+   </servlet>
+   <servlet-mapping>
+     <servlet-name>UploadServlet</servlet-name>
+     <url-pattern>/upload</url-pattern>
+   </servlet-mapping>
+   <servlet>
+     <description></description>
+     <display-name>DownloadServlet</display-name>
+     <servlet-name>DownloadServlet</servlet-name>
+     <servlet-class>DownloadServlet</servlet-class>
+   </servlet>
+   <servlet-mapping>
+     <servlet-name>DownloadServlet</servlet-name>
+     <url-pattern>/download</url-pattern>
+   </servlet-mapping>
+ <session-config>
+         <session-timeout>
+             30
+         </session-timeout>
+     </session-config>
 </web-app>
