@@ -16,30 +16,77 @@
 </div>
 #else
 <script src="assets/js/Success.js" type="text/javascript"></script>
-  <div class="jumbotron"> 
-
-             <div class="container">
-             	<div class="col-md-9">
-             	<div class="panel-group" id="accordion">
-               <div class="panel panel-default">
-                 <div class="panel-heading">
-                   <h4 class="panel-title">
-                     <a data-toggle="collapse" data-parent="#accordion" href="#$article.articleID">
-                       Hello Title
-                     </a>
-                   </h4>
-                 </div>
-                 <div id="$article.articleID" class="panel-collapse collapse in">
+  <div class="container">
+    <div class="page-header">
+      <br/>
+            <h1>Instructions for Article Review Process</h1>
+        </div> 
+             	<div class="col-md-10">
+             	  <div class="panel-group" id="accordion">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#">
+                       How to Review Pending Articles
+                       </a>
+                     </h4>
+                   </div> 
+                 <div id="#" class="panel-collapse collapse in">
                    <div class="panel-body">
-             		     Hello Instructions
+                     Read the summary of Unpublished Articles.
+             		     Select atleast three pending articles from the list of "Unpublished articles".
+                     From your chosen articles you can download the full preview of unpublished article.
+                     You will have a week to submit your review.
+                     You must review atleast 3 unpublished articles.
                    </div>
                  </div>
                </div>
-               
              </div>
+             	  <div class="panel-group" id="accordion">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#">
+                       Qualities to be sought
+                       </a>
+                     </h4>
+                   </div> 
+                 <div id="#" class="panel-collapse collapse in">
+                   <div class="panel-body">
+             		     Qualities required :
+                     1.quality
+                     1.quality
+                     1.quality
+                     1.quality
+                   </div>
+                 </div>
+               </div>
+             </div>
+             	  <div class="panel-group" id="accordion">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#">
+                       How to Complete Review form
+                       </a>
+                     </h4>
+                   </div> 
+                 <div id="#" class="panel-collapse collapse in">
+                   <div class="panel-body">
+             		     Complete Review form
+                     1.review
+                     1.review
+                     1.review
+                     1.review
+                     1.review
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+           
                <!-- Example row of columns -->
                <div class="row">
-
                  #if($userRole == "Editor")
                  <div class="col-md-6">
 					         <h5>File Upload:</h5>
@@ -55,7 +102,6 @@
 				
 				         <div class="col-md-6">
 					         <h5>Download the Instructions from here</h5>
-					         Click on the link to download:
                    <form action="download"  method="post">
                      <input type="hidden" id="downloadTitle" name="downloadTitle" value="Article_Review">
                      <form enctype="multipart/form-data">
@@ -64,10 +110,10 @@
                    </form>
 				         </div>
 			         </div>
-             </div>
-           </div>
+      </div>
 
 #end
 </body>
+</br>
 #parse( "/commonElements/footer.vm" )
 </html>

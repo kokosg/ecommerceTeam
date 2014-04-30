@@ -4,9 +4,8 @@
 	#include("/commonElements/head.html")
 	<TITLE>$apptitle</TITLE>
 </head>
-#parse("/commonElements/header.vm")
+#parse("/commonElements/navbar.vm")
 <body>
-<<<<<<< HEAD
        
 #if(!$session.user.name)
 <div class="jumbotron"> 
@@ -19,7 +18,7 @@
          <div class="container">
 <h3>Welcome to eCom-Journal</h3>
 
-<h3 >$session.user.name</h3>
+<h3 >$session.user.name  $session.user.surname</h3>
 
                </div>
              </div>
@@ -45,16 +44,6 @@
        </div>
 </div>
 #end
-=======
-	<div class="jumbotron"> 
-		#if(!$email)
-			<h2 >Sorry you are not authenticated to access this part of website</h2>
-		#else
-			<h2>Welcome to eCom-Journal</h2>
-			<h3 >$email</h3>
-		#end
-	</div>
->>>>>>> ccc0dbc692f29b975fab281b9f6fc45556f8401f
 </body>
 #parse("/commonElements/footer.vm")
 </html>
