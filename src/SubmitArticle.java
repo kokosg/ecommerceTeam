@@ -1,5 +1,4 @@
 import java.util.Enumeration;
-import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,11 +32,24 @@ public class SubmitArticle extends VelocityViewServlet {
 		//if we have posted data from a form do the following
 		} else {
 			try {
+				String[] authorNames = request.getParameterValues("authorNames");
+				String[] authorSurnames  = request.getParameterValues("authorSurnames");
+				String[] authorEmails = request.getParameterValues("authorEmails");
+				String[] authorAffiliations = request.getParameterValues("authorAffiliations");
+				String articleTitle = request.getParameter("articleTitle");
+				String articleAbstract = request.getParameter("articleAbstract");
+				
+				for (int i = 0; i < authorNames.length; i++) {
+					System.out.println("Author" + i + ": " + authorNames[i] + " " + authorSurnames[i] + " " + authorEmails[i] + " " + authorAffiliations[i] + " " + articleTitle + " " +articleAbstract);
+				}
+				
+				
 				//print request
 				Enumeration params = request.getParameterNames(); 
 				while(params.hasMoreElements()){
 				 String paramName = (String)params.nextElement();
-				 System.out.println("Attribute Name - " + paramName + ", Value - " + request.getParameter("authorNames"));
+				 
+				 System.out.println("Attribute Name - " + paramName + ", Value - " + request.getParameter(paramName));
 				} 
 				template = getTemplate("/forms/submitArticle.vm");
 			} catch(Exception e ) {

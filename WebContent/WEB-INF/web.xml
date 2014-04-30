@@ -125,6 +125,16 @@
     <servlet-name>DownloadServlet</servlet-name>
     <url-pattern>/download</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SubmitArticle</display-name>
+    <servlet-name>SubmitArticle</servlet-name>
+    <servlet-class>SubmitArticle</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SubmitArticle</servlet-name>
+    <url-pattern>/submit</url-pattern>
+  </servlet-mapping>
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>

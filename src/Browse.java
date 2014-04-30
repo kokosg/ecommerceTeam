@@ -35,7 +35,12 @@ public Template handleRequest( HttpServletRequest request, HttpServletResponse r
         
          //if edition is not null call the method which is in the model browseModel by passing a value
          if (edition != null) {
+
+        	 System.out.print("oo " + browseModel.getEdition(edition));
+        	
      		context.put("editionResults", browseModel.getEdition(edition));
+        	 
+
          }
       
       } catch(Exception e ) {

@@ -7,18 +7,38 @@
 <script src="assets/js/onLoad.js" type="text/javascript"></script>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript">
-		function addField(){
-			var newContent = "<div><label class='control-label' for='authorNames'>Name:</label><input id='authorNames' type='text' name='authorNames[]' />" 
-					+ "<label class='control-label' for='authorSurnames'>Surname:</label><input id='authorSurnames' type='text' name='authorSurnames[]' /><br />"
-					+ "<label class='control-label' for='authorEmails'>Email:</label><input id='authorEmails' name='authorEmails[]' type='email' placeholder='email@example.com' />"
-					+ "<label class='control-label' for='authorAffiliations'>Affiliations:</label><input id='authorAffiliations' type='text' name='authorAffiliations[]' />"
-					+ "<label class='checkbox inline' for='checkboxes-0'>"
-					+ "<input type='checkbox' name='futureEditions' id='futureEditions' value='1'>Main Contact</label><a href='javascript:removeField()' id='remove'>Remove</a></div>";
-			$("#authorFields").append(newContent); 
+		var counter = 0;
+		
+		function addKeyword(){
+			var test = document.getElementById("articleKeyword").value;
+			if (test) {
+				if (counter < 10) {		
+					var keyword = "<div><input type='text' name='keywords' value='" + test + "' disabled/><a href='javascript:removeKeyword()' id='removeKeyword'><input class='btn btn-danger' value='Remove'/></a></div>";
+					counter++;
+					$("#articleKeywords").append(keyword); 
+				} else {
+					alert("You can add up to 10 keywords!");
+				}
+			}
+		}
+		
+		function removeKeyword(){
+			$('#removeKeyword').closest('div').remove(); 
+			counter--;
 		}
 
-		function removeField(){
-			$('#remove').closest('div').remove(); 
+		function addAuthor(){
+			var newContent = "<div><label class='control-label' for='authorNames'>Name:</label><input id='authorNames' type='text' name='authorNames' />" 
+					+ "<label class='control-label' for='authorSurnames'>Surname:</label><input id='authorSurnames' type='text' name='authorSurnames' /><br />"
+					+ "<label class='control-label' for='authorEmails'>Email:</label><input id='authorEmails' name='authorEmails' type='email' placeholder='email@example.com' />"
+					+ "<label class='control-label' for='authorAffiliations'>Affiliations:</label><input id='authorAffiliations' type='text' name='authorAffiliations' />"
+					+ "<label class='checkbox inline' for='checkboxes-0'>"
+					+ "<input type='checkbox' name='futureEditions' id='futureEditions' value='1'>Main Contact</label><a href='javascript:removeAuthor()' id='removeAuthor'><input class='btn btn-danger' value='Remove'/></a></div>";
+			$('#authorFields').append(newContent); 
+		}
+
+		function removeAuthor(){
+			$('#removeAuthor').closest('div').remove(); 
 		}
 	</script>
 
@@ -41,24 +61,23 @@
 				<legend>Submit an Article</legend>
 				<h2>Author(s):</h2>
 				<!-- Text input-->
-				<div id='authorFields'>
-					<div><label class="control-label" for="authorNames">Name:</label><input id="authorNames" type="text" name="authorNames[]" />
-					<label class="control-label" for="authorSurnames">Surname:</label><input id="authorSurnames" type="text" name="authorSurnames[]" /><br />
-					<label class="control-label" for="authorEmails">Email:</label><input id="authorEmails" name="authorEmails[]" type="email" placeholder="email@example.com" />
-					<label class="control-label" for="authorAffiliations">Affiliations:</label><input id="authorAffiliations" type="text" name="authorAffiliations[]" />
+				<div id="authorFields">
+					<div><label class="control-label" for="authorNames">Name:</label><input id="authorNames" type="text" name="authorNames" />
+					<label class="control-label" for="authorSurnames">Surname:</label><input id="authorSurnames" type="text" name="authorSurnames" /><br />
+					<label class="control-label" for="authorEmails">Email:</label><input id="authorEmails" name="authorEmails" type="email" placeholder="email@example.com" />
+					<label class="control-label" for="authorAffiliations">Affiliations:</label><input id="authorAffiliations" type="text" name="authorAffiliations" />
 					<label class="checkbox inline" for="checkboxes-0">
 					<input type="checkbox" name="futureEditions" id="futureEditions" value="1">
 						Main Contact
 					</label></div>
 				</div>
-				<div id='addMore'>
-					<a href='javascript:addField()'>add more authors</a>
-				</div>
+				<a href="javascript:addAuthor()"><input class="btn btn-success" value="ADD AUTHOR"/></a>
+				
 				<h2>Article:</h2>
-				<div id='articleFields'> 
+				<div id="articleFields"> 
 					<label class="control-label" for="articleTitle">Title:</label><input id="articleTitle" type="text" name="articleTitle" required/>
-					<label class="control-label" for="articleAbstract">Abstract:</label><input id="articleAbstract" type="text" name="articleAbstract" required/><br />
-					<label class="control-label" for="articleKeywords">Keywords:</label><br />
+					<label class="control-label" for="articleAbstract">Abstract:</label><textarea id="articleAbstract" type="text" name="articleAbstract" required></textarea><br />
+					<label class="control-label" for="articleKeywords">Keywords:</label><input id="articleKeyword" type="text" name="articleKeyword" required/><a href="javascript:addKeyword()"><input class="btn btn-success" value="ADD"/></a><div id="articleKeywords"></div>
 					<label class="control-label" for="articlePath">Upload File:</label>
 				</div>
 								
@@ -66,7 +85,7 @@
 				<div class="control-group">
 					<label class="control-label" for="subscribe"></label>
 					<div class="controls">
-						<button id="submit" name="submit" class="btn btn-primary">Submit</button>
+						<button id="submitArticle" name="submitArticle" class="btn btn-primary">Submit</button>
 						<input type="reset" class="btn btn-default" value="Reset" />
 					</div>
 				</div>

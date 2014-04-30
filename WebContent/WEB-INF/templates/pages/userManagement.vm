@@ -8,7 +8,16 @@
 <body>
 #parse( "/commonElements/navbar.vm" )
 <!-- Main jumbotron for a primary marketing message or call to action -->
+
+	<div class="jumbotron">
 	
+		#if (!$session.user.email)
+			<h1>Hello, Guest!</h1>
+		#else
+			<h1>Hello, $session.user.name $session.user.surname!</h1>
+		#end
+		<p>Example - ScienceDirect: is a leading full-text scientific database offering journal articles and book chapters from more than 2,500 journals and almost 20,000 books.</p>
+		<p> <a href="#" class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a> </p>
 	<div class="jumbotron"> 
 	#if($userRole == "Editor")
 		<h2>Welcome to eCom-Journal</h2>
@@ -72,7 +81,6 @@
 	#else
 		<h2 >Sorry you are not authenticated to access this part of website</h2>
 	#end
-
 	</div>
 	<div class="col-lg-4">
 		<div class="bs-component">
