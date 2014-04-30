@@ -10,55 +10,48 @@ import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.view.VelocityViewServlet;
 import models.UploadModel;
 
- public class DownloadServlet extends VelocityViewServlet {
-        static final long serialVersionUID = 1L;
-        private static final int BUFSIZE = 4096;
-        private static final int BYTES_DOWNLOAD = 1024;
-        private String filePath;
-        Template template = null;
-       
+public class DownloadServlet extends VelocityViewServlet {
+	static final long serialVersionUID = 1L;
+	private static final int BUFSIZE = 4096;
+	Template template = null;
 
-public void init() {
-    // the file data.xls is under web application folder
+	public Template handleRequest( HttpServletRequest request, 
+			HttpServletResponse response, Context context ) {
 
-    //filePath = getServletContext().getRealPath("")  + File.separator + "data.pdf";
-	filePath="/Users/shreebha/Downloads/apache-tomcat-6.0.39/webapps/data/data.pdf";
-}
+		int length = 0;
+		context.put("apptitle", "E-com Journal");
+		String TemplateTitle = new String();
+		TemplateTitle=request.getParameter("downloadTitle");
 
-public Template handleRequest( HttpServletRequest request, 
-		HttpServletResponse response, Context context ) {
-	 
-    //filePath = getServletContext().getRealPath("") + File.separator + "abc.txt";
-    File file = new File(filePath);
-    int length = 0;
-    ServletOutputStream outStream;
-	try {
-		outStream = response.getOutputStream();
-		response.setContentType("text/html");
-	    response.setContentLength((int) file.length());
-	    UploadModel up = new UploadModel();
-	    String filePath = up.getFileName("Article_Review");
-	    String[] filePathSplit=filePath.split("/");
-	    response.setHeader("Content-Disposition", "attachment; filename=\""
-	            + filePathSplit[filePathSplit.length-1] + "\"");
+		System.out.println("Template title :"+ TemplateTitle);
+		
+		ServletOutputStream outStream;
+		try {
+			UploadModel up = new UploadModel();
+			String filePath = up.getFileName(TemplateTitle);
+			File file = new File(filePath);
+			outStream = response.getOutputStream();
+			
+			response.setContentType("text/html");
+			response.setContentLength((int) file.length());
+			String[] filePathSplit=filePath.split("/");
+			response.setHeader("Content-Disposition", "attachment; filename=\""
+					+ filePathSplit[filePathSplit.length-1] + "\"");
 
-	    byte[] byteBuffer = new byte[BUFSIZE];
-	    DataInputStream in = new DataInputStream(new FileInputStream(file));
+			byte[] byteBuffer = new byte[BUFSIZE];
+			DataInputStream in = new DataInputStream(new FileInputStream(file));
 
-	    while ((in != null) && ((length = in.read(byteBuffer)) != -1)) {
-	        outStream.write(byteBuffer, 0, length);
-	    }
+			while ((in != null) && ((length = in.read(byteBuffer)) != -1)) {
+				outStream.write(byteBuffer, 0, length);
+			}
 
-	    in.close();
-	    outStream.close();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+			in.close();
+			outStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return template;
+
 	}
-     
-	return template;
-
-    // reads the file's bytes and writes them to the response stream
-   
-}
 }
