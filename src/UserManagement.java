@@ -19,14 +19,22 @@ public class UserManagement extends VelocityViewServlet {
 		Template template = null;
 		response.setContentType("text/html");
 
+		//create UserManagementModel object
 		UserManagementModel model = new UserManagementModel();
+
+		//get the parameters from the form
+		String userID = request.getParameter("authorReviewerID");
 		
 		try {
 
-  			context.put("searchResults", model.getUsers());
-			
+			if (userID != null) {
+				int isEditor = Integer.parseInt(request.getParameter("isEditor"));
+				model.setUserRole(isEditor, userID);
+			}
+				//return getUsers from UserManagementModel and put them in contexts
+				context.put("searchResults", model.getUsers());
+				
 				template = getTemplate("/pages/userManagement.vm");
-
 			} catch (Exception e) {
 				System.out.println("Error " + e);
 			}

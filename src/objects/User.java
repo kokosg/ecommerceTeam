@@ -11,6 +11,7 @@ public class User {
     private String email;
     private String password;
     private Boolean isEditor;
+    private int authorReviewerID;
  
 	/**
 	 * Empty constructor
@@ -34,7 +35,7 @@ public class User {
         this.affiliations = affiliations;
         this.email = email;
         this.password = password;
-        this.isEditor = isEditor;        		
+        this.isEditor = isEditor;
     }
     
 	/**Creates a user(author) object
@@ -43,13 +44,15 @@ public class User {
 	 * @param surname surname of the author
 	 * @param email of the author
 	 * @param isEditor if the author is an editor 
+  	 * @param authorReviewerID of the author
 	 */
-    public User(int authorID, String name, String surname, String email, Boolean isEditor) {
+    public User(int authorID, String name, String surname, String email, Boolean isEditor, int authorReviewerID) {
         this.authorID = authorID;
     	this.name = name;
         this.surname = surname;
         this.email = email;
-        this.isEditor = isEditor;        		
+        this.isEditor = isEditor;
+        this.authorReviewerID = authorReviewerID;
     }
     
 	/**Creates a user(author) object
@@ -63,6 +66,22 @@ public class User {
         this.email = email;       		
     }
  
+    
+    
+	/**
+	 * @return the authorReviewerID
+	 */
+	public int getAuthorReviewerID() {
+		return authorReviewerID;
+	}
+
+	/**
+	 * @param authorReviewerID the authorReviewerID to set
+	 */
+	public void setAuthorReviewerID(int authorReviewerID) {
+		this.authorReviewerID = authorReviewerID;
+	}
+
 	/**
 	 * @return the authorID
 	 */

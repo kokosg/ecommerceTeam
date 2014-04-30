@@ -18,88 +18,67 @@ public class AdvanceSearch extends VelocityViewServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public Template handleRequest( HttpServletRequest request, HttpServletResponse response, Context context ) { 
+		
+		// get the value of a hidden field in a form to determine if we have posted data
 		String flag = request.getParameter("flag");
+		
 		context.put("apptitle", "E-com Journal - Advance Search");
 		Template template=null;
 		response.setContentType("text/html");
 
+		//if we haven't post any data then we have just to load the template
 		if (flag == null) {
-			System.out.println("if");
 			try {
 		          template = getTemplate("/forms/advanceSearch.vm"); 
 		       } catch(Exception e ) {
 		          System.out.println("Error " + e);
 		       }
 		       return template;
+		//if we have posted data from a form do the following
 		} else {
-			System.out.println("else");
 			try {
+				
+				//create AdvanceSearchModel object
 				AdvanceSearchModel model = new AdvanceSearchModel();
+				
+				//create ArrayList with Article object
 		    	ArrayList<Article> arrayResults = new ArrayList<Article>(); 
 
+		    		//get the parameters from the form
 					String categoryType = request.getParameter("item");
 					String queryName = request.getParameter("queryName");
 					String datepickerFrom = request.getParameter("datepickerFrom");
 					String datepickerTo = request.getParameter("datepickerTo");
 					
+					// the categoryType depends the value call a different method from AdvanceSearchModel
 					if (categoryType.equals("article")) {
-						
 						arrayResults = model.getArticle(queryName, categoryType);
-					
 					} else if (categoryType.equals("author")) {
+						
+						//split the string which has "," insert all the values in array which and add it on the arraylist of object
 						String[] parts = queryName.split(",");
-						for( int i = 0; i <= parts.length - 1; i++)
-						{
+						for( int i = 0; i <= parts.length - 1; i++){
 							queryName = parts[i]; 
 							arrayResults.add(model.getArticleObject(queryName));
 						}
 					} else if (categoryType.equals("interval")) {
-						
-				    	System.out.print("aa1 " + datepickerFrom + " " +  datepickerTo);
-						
 						arrayResults = model.getAuthorsArticle(datepickerFrom, datepickerTo, categoryType);
-						
 					} else if (categoryType.equals("keywords")) {
 						arrayResults = model.getArticle(queryName, categoryType);
 					}
-
-			        System.out.print(arrayResults.toString());
 					
 					if (arrayResults.isEmpty()) {
 						context.put("empty", "empty");
 					} else {
-					context.put("searchResults", arrayResults);
+						context.put("searchResults", arrayResults);
 					}
 					
 					template = getTemplate("/forms/advanceSearch.vm");
-					System.out.println(arrayResults.toString());
-					
-					//rs.close();
-					//st.close();
-					//conn.close();
+
 			} catch (Exception e) {
 				System.out.println("Error " + e);
 			}
 			return template; 
 		}
 	}
-	
-/*	private void queryMethod(Statement st, ResultSet rs, String query, ConnectionManager conn, ArrayList<Article> arrayResults) throws SQLException, ClassNotFoundException {
-		
-		st = conn.getInstance().getConnection().createStatement();
-		rs = st.executeQuery(query);
-		
-		while (rs.next()) {
-			int articleID = rs.getInt("Article.articleID");
-			String title = (String)rs.getObject("Article.title");
-	        String summary = (String)rs.getObject("Article.summary");
-	        Boolean published = (Boolean)rs.getObject("Article.published");
-	        Boolean reviewed = (Boolean)rs.getObject("Article.reviewed");
-	        int pageNo = rs.getInt("Article.pageNo");
-			
-	        Article article = new Article(articleID, title, summary, published, reviewed, pageNo);
-	        arrayResults.add(article);
-		}
-	}*/
-	
 }
