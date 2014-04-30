@@ -26,15 +26,11 @@ public class AdvanceSearchModel {
 	public Article getArticleObject(String queryName) throws SQLException{
 
 		Article article = new Article();
-		
 		String query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID where Author.name ='" + queryName + "'"; 
-
 		try {
-			
 		      ConnectionManager conn = new ConnectionManager();
 	    	  Statement st = conn.getInstance().getConnection().createStatement();
 	    	  ResultSet rs = st.executeQuery(query);
-				
 				while (rs.next()) {
 					int articleID = rs.getInt("Article.articleID");
 					String title = (String)rs.getObject("Article.title");
@@ -45,18 +41,14 @@ public class AdvanceSearchModel {
 			        
 			        article = new Article(articleID, title, summary, published, reviewed, pageNo);
 				}
-			  
 				rs.close();
 				st.close();
 				conn.close();
-			  
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
 		return article;
-		
 	}
 
 	public ArrayList<Article> getArticle(String queryName, String categoryType) throws SQLException{
