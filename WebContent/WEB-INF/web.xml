@@ -138,4 +138,14 @@
     <servlet-name>UserManagement</servlet-name>
     <url-pattern>/userManagement</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UnpublishedArticles</display-name>
+    <servlet-name>UnpublishedArticles</servlet-name>
+    <servlet-class>UnpublishedArticles</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UnpublishedArticles</servlet-name>
+    <url-pattern>/articles</url-pattern>
+  </servlet-mapping>
 </web-app>

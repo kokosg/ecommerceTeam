@@ -50,6 +50,7 @@ public class Login extends VelocityViewServlet {
 	        	   User user = new User(userID, userName, userSurname, userAffiliations, request.getParameter("email"), userPassword, isEditor); //see email again
 	        	   //add user object to session
 	        	   session.setAttribute("user", user);
+	        	   session.setAttribute("userID", userID);
 	        	   //add userRole to session
 	        	   if (isEditor == false) {
 	        		   session.setAttribute("userRole", "AuthorReviewer");    		

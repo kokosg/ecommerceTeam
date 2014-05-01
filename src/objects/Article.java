@@ -11,7 +11,7 @@ import java.sql.Date;
  */
 public class Article {
 
-	private int articleID;
+	private long articleID;
 	private String title;
 	private String summary;
 	private boolean published;
@@ -36,12 +36,17 @@ public class Article {
 		this.reviewed = reviewed;
 		this.pageNo = pageNo;
 	}
-
-
+   
+	public Article(long id ,String title, String Summary) {
+		this.articleID=id;
+		this.title = title;
+		this.summary = Summary;
+	}
+	
 	/**
 	 * @return the articleID
 	 */
-	public int getArticleID() {
+	public long getArticleID() {
 		return articleID;
 	}
 

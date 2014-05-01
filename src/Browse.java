@@ -29,7 +29,12 @@ public Template handleRequest( HttpServletRequest request, HttpServletResponse r
          template = getTemplate("/pages/browse.vm"); 
          
          if (edition != null) {
+
+        	 System.out.print("oo " + browseModel.getEdition(edition));
+        	
      		context.put("editionResults", browseModel.getEdition(edition));
+        	 
+
          }
       
       } catch(Exception e ) {

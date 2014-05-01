@@ -6,7 +6,6 @@
 </head>
 #parse("/commonElements/navbar.vm")
 <body>
-<<<<<<< HEAD
        
 #if(!$session.user.name)
 <div class="jumbotron"> 
@@ -19,7 +18,10 @@
          <div class="container">
 <h3>Welcome to eCom-Journal</h3>
 
-<h3 >$session.user.name</h3>
+<h3 >$session.user.name  $session.user.surname</h3>
+
+
+
 
                </div>
              </div>
@@ -32,11 +34,13 @@
                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
                  </div>
+                 #if($session.userRole == "AuthorReviewer")
                  <div class="col-md-4">
-                   <h2>Heading</h2>
-                   <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                   <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                   <h2>Unpublished Articles</h2>
+                   <p>View Unpublished Articles</p>
+                   <p><a class="btn btn-default" href="articles" role="button">View details &raquo;</a></p>
                 </div>
+                #end
                  <div class="col-md-4">
                    <h2>Instructions for Article Review</h2>
                    <p>Learn how to peer review pending articles and describing the qualities of the articles and how to complete the review form.</p>
@@ -45,16 +49,6 @@
        </div>
 </div>
 #end
-=======
-	<div class="jumbotron"> 
-		#if(!$email)
-			<h2 >Sorry you are not authenticated to access this part of website</h2>
-		#else
-			<h2>Welcome to eCom-Journal</h2>
-			<h3 >$email</h3>
-		#end
-	</div>
->>>>>>> ccc0dbc692f29b975fab281b9f6fc45556f8401f
 </body>
 #parse("/commonElements/footer.vm")
 </html>
