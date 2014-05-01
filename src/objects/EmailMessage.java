@@ -4,7 +4,7 @@
 package objects;
 
 /**
- * 
+ * @author Master Team 10
  *
  */
 public class EmailMessage {

@@ -6,7 +6,7 @@ package objects;
 import java.sql.Date;
 
 /**
- * @author acp13gg
+ * @author Master Team 10
  *
  */
 public class BrowseObject {

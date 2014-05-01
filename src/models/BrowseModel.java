@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import objects.BrowseObject;
 
 /**
- * @author acp13gg
+ * @author Master Team 10
  *
  */
 public class BrowseModel {

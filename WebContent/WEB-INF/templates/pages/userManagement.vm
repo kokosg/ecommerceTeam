@@ -11,43 +11,43 @@
 
 	<div class="jumbotron">
 	
-		#if (!$session.user.email)
-			<h1>Hello, Guest!</h1>
-		#else
-			<h1>Hello, $session.user.name $session.user.surname!</h1>
-		#end
-		<p>Example - ScienceDirect: is a leading full-text scientific database offering journal articles and book chapters from more than 2,500 journals and almost 20,000 books.</p>
-		<p> <a href="#" class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a> </p>
-	<div class="jumbotron"> 
-	#if($userRole == "Editor")
-		<h2>Welcome to eCom-Journal</h2>
-		<h3 >$email</h3>
+<div class="col-md-12">
+#if($userRole == "Editor")
 		
-<div class="col-md-8">
-#if ($searchResults)
-	<div class="row">
+   #if ($searchResults)
+      <div class="row">
 		<div class="row">
-			<div class="well bs-component">
-			   <h1>List of Editions</h1>
+		   <div class="well bs-component">
+			 <h1>List of Active Users</h1>
 				<div class="row">
 					<div class="col-md-10">
 						<table class="table table-hover table-responsive table-bordered table-condensed">
+							<thead>
+						      <tr>
+						        <th>Name</th>
+						        <th>email</th>
+						        <th>Current Role</th>
+						        <th>Action</th>
+						      </tr>
+						    </thead>
 							<tbody class="table-hover">
 							#foreach($article in $searchResults) 
 							<tr>
+								<td>$article.name $article.surname</td>
+								<td>$article.email</td>
+								
 								<td>
-								Username: <strong>$article.name $article.surname</strong> Email: $article.email
-								
 								#if ($article.isEditor == true)
-									Current Role: Admin
+									Admin
 								#else
-									Current Role: Author
+									Author
 								#end
+								</td>
 								
+								<td>
 								#if ($user.email != $article.email)
 								 <form action="userManagement" method="post" class="form-horizontal">
 									<input id="authorReviewerID" name="authorReviewerID" type="hidden" value="$article.authorReviewerID">
-									
 								#if ($article.isEditor == true)
 									<input id="isEditor" name="isEditor" type="hidden" value="0">
 									<div class="col-lg-10 col-lg-offset-2">
@@ -59,12 +59,10 @@
 										<button type="submit" class="btn btn-primary">Go Editor</button>
 									</div>
 								#end
-									
 								</form>
-								
+								</td>
+																
 								#end
-
-								</td> 
 							</tr>
 							#end
 							</tbody>
@@ -75,12 +73,13 @@
 		</div>
 	</div>
 	#end
-</div>
+
 		
 		
 	#else
 		<h2 >Sorry you are not authenticated to access this part of website</h2>
 	#end
+	</div>
 	</div>
 	<div class="col-lg-4">
 		<div class="bs-component">

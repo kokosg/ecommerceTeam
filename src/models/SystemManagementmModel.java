@@ -11,21 +11,21 @@ import java.util.ArrayList;
 import objects.User;
 
 /**
- * @author Master Team 10
- * 
+ * @author acp13gg
+ *
  */
-public class UserManagementModel {
+public class SystemManagementmModel {
 
 	/**
 	 * 
 	 */
-	public UserManagementModel() {
-		
+	public SystemManagementmModel() {
+		// TODO Auto-generated constructor stub
 	}
-
-	public ArrayList<User> getUsers() throws SQLException {
+	
+	public ArrayList<User> getUsers(int articleID) throws SQLException {
 		ArrayList<User> arrayResults = new ArrayList<User>();
-		String queryAuthor = "select Author.authorID, Author.name, Author.surname, Author.email, AuthorReviewer.isEditor, AuthorReviewer.authorReviewerID from Author INNER JOIN AuthorReviewer ON Author.authorID = AuthorReviewer.authorID where Author.hasAccount = 1";
+		String queryAuthor = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo, ArticleRevision.articleRevisionID, ArticleRevision.filePath, ArticleRevision.dateSubmitted from Article INNER JOIN ArticleRevision ON Article.articleID = ArticleRevision.articleID WHERE Article.articleID = '" + articleID + "'";
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
@@ -48,19 +48,6 @@ public class UserManagementModel {
 			e.printStackTrace();
 		}
 		return arrayResults;
-	}
-
-	public void setUserRole(int isEditor, String userID) throws SQLException {
-		try {
-			ConnectionManager conn = new ConnectionManager();
-			Statement st = conn.getInstance().getConnection().createStatement();
-			String updateQuery = "UPDATE AuthorReviewer SET isEditor ='" + isEditor + "' WHERE authorReviewerID = '" + userID + "'";
-			st.executeUpdate(updateQuery);
-			st.close();
-			conn.close();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
 }
