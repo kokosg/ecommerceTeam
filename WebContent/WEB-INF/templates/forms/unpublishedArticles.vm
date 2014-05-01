@@ -6,7 +6,7 @@
 </head>
 
 #parse( "/commonElements/navbar.vm" )
-<body>
+<body onload="myFunction()">
 #if(!$session.user.name)
 <div class="jumbotron"> 
 
@@ -33,7 +33,9 @@
                     <div class="panel-heading">
                      		<h4 class="panel-title">
                         <div>
-                      		<input type="checkbox" name="article" id="$article.articleID" value="$article.articleID"  >
+                      		<input type="checkbox" name="article" id="$article.articleID" value="$article.articleID">
+                          $artCheck
+                          $article.articleID
 										      $article.title
 										    </div>
                         </h4>
@@ -50,7 +52,27 @@
               <input type="submit" class="btn btn-default" value="Select" onclick="verifybox()"/>
           </form>
           <script type="text/javascript" src="assets/js/checkbox.js"> </script>
-          
+          <script type="text/javascript">
+        function load() {
+          var i= $artCheck.values();
+          var e;
+          alert("heeeee")
+           if( $(input[type="checkbox"])){
+             alert("hii")
+             while(!(e=i.next()).done){ 
+               console.log(e.value);
+               if($article.articleID==e.value)
+               {
+                 document.getElementById("$article.articleID").checked = "checked";
+               }
+               else{
+                 alert("jnsflkjn");
+               }
+              }
+            }
+            };
+            window.onload = load()
+          </script>
        </div>
 </div>
 #end

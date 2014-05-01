@@ -25,12 +25,17 @@ public class UnpublishedArticles extends VelocityViewServlet {
 		ArrayList<Article> unpubArticle=new ArrayList<Article>();
 		HttpSession session = request.getSession();
 		int authorID =(Integer) session.getAttribute("userID");
-		System.out.println("authorID servlet :" +authorID);
+		
 		try {
+			
+			ArrayList<Integer> artCkeckId = absModel.getReviewChoice(authorID);
+			System.out.println("CHEEEEEEEEEEEEECK: "+artCkeckId);
+			context.put("artCheck",artCkeckId );
 			unpubArticle=absModel.getUnpublishedArticle();
 			System.out.println("UnpublisheArticle unpubArticle :"+unpubArticle);
 			context.put("unpubArticle", unpubArticle);
 			String[] articleId= request.getParameterValues("article");
+			
 			if (articleId != null){
 				System.out.println("not null");
 				absModel.setReviewChoice(articleId,authorID);

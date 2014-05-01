@@ -130,6 +130,34 @@ public class AbstractModel {
 		return unpubArticle;
 
 	}
+	
+	public ArrayList<Integer> getReviewChoice(int authorID){
+		
+		ArrayList<Integer> selectedArcticleID = new ArrayList<Integer>();
+		ArrayList<Choice> resultID=new ArrayList<Choice>();
+		ConnectionManager conn;
+		try {
+			int aID; 
+			conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String selectQuery ="Select * from Choice where authorReviewerID = '"+ authorID +"'";
+			ResultSet rs = st.executeQuery(selectQuery);
+			while (rs.next()) {
+				aID= rs.getInt("Choice.articleID");
+				Choice ch = new Choice(aID);
+				resultID.add(ch);
+			}
+			for(Choice result :resultID ){
+				selectedArcticleID.add(result.getArticleID());
+			}
+			System.out.println("AbstracTTTT model "+selectedArcticleID);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return selectedArcticleID;
+		
+		
+	}
 
 	public void setReviewChoice(String[] articleID,int authorID){
 		ArrayList<Choice> resultID=new ArrayList<Choice>();
