@@ -168,7 +168,7 @@
     <servlet-name>EditJournal</servlet-name>
     <url-pattern>/editJournal</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>UnpublishedArticles</display-name>
     <servlet-name>UnpublishedArticles</servlet-name>
@@ -177,5 +177,25 @@
   <servlet-mapping>
     <servlet-name>UnpublishedArticles</servlet-name>
     <url-pattern>/articles</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Reviews</display-name>
+    <servlet-name>Reviews</servlet-name>
+    <servlet-class>Reviews</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Reviews</servlet-name>
+    <url-pattern>/reviews</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReviewerManagement</display-name>
+    <servlet-name>ReviewerManagement</servlet-name>
+    <servlet-class>ReviewerManagement</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReviewerManagement</servlet-name>
+    <url-pattern>/reviewerManagement</url-pattern>
   </servlet-mapping>
 </web-app>

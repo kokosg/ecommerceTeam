@@ -1,35 +1,40 @@
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.SystemManagementmModel;
+import models.ReviewerManagementModel;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.view.VelocityViewServlet;
 
 /**
- * Servlet implementation class SystemManagement
+ * Servlet implementation class ReviewerManagement
  */
-public class SystemManagement extends VelocityViewServlet {
+public class ReviewerManagement extends VelocityViewServlet {
 	private static final long serialVersionUID = 1L;
 
 	public Template handleRequest(HttpServletRequest request, HttpServletResponse response, Context context) {
 
-		context.put("apptitle", "E-com Journal - UserManagement");
+		context.put("apptitle", "E-com Journal - ReviewerManagement");
 		Template template = null;
 		response.setContentType("text/html");
 
 		//create JournalModel object
-		SystemManagementmModel model = new SystemManagementmModel();
+		ReviewerManagementModel model = new ReviewerManagementModel();
 
 		
 		try {
 
+			String assignID = request.getParameter("choiceID");
+
+			if (assignID != null){
+				model.deleteChoice(assignID);
+			}
+			
 				//return getUsers from UserManagementModel and put them in contexts
-				context.put("Articles", model.getArticle());
-				context.put("ArticleRevisions", model.getArticleRevision());
+				context.put("Choices", model.getChoices());
 				
-				template = getTemplate("/pages/systemManagement.vm");
+				template = getTemplate("/pages/reviewerManagement.vm");
 				
 			} catch (Exception e) {
 				System.out.println("Error " + e);

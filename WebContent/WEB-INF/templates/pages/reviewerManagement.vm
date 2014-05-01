@@ -1,0 +1,77 @@
+<HTML>
+<head>
+  <meta charset="ISO-8859-1">
+  #include( "/commonElements/head.html" )
+  <TITLE>$apptitle</TITLE>
+</head>
+
+<body>
+#parse( "/commonElements/navbar.vm" )
+<!-- Main jumbotron for a primary marketing message or call to action -->
+
+	<div class="jumbotron">
+	
+<div class="col-md-12">
+#if($userRole == "Editor")
+		
+   #if ($Choices)
+      <div class="row">
+		<div class="row">
+		   <div class="well bs-component">
+			 <h1>List of Choices</h1>
+				<div class="row">
+					<div class="col-md-10">
+						<table class="table table-hover table-responsive table-bordered table-condensed">
+							<thead>
+						      <tr>
+						        <th>Name</th>
+						        <th>email - ADD SOME MORE?</th>
+						        <th>Current Role</th>
+						      </tr>
+						    </thead>
+							<tbody class="table-hover">
+							#foreach($choice in $Choices) 
+							<tr>
+								<td>$choice.title</td>
+								<td>$choice.articleID</td>
+								<td>
+								<form action="reviewerManagement" method="post" class="form-horizontal">
+									<input id="choiceID" name="choiceID" type="hidden" value="$choice.assignID">
+									<div class="col-lg-10 col-lg-offset-2">
+										<button type="submit" class="btn btn-primary">Remove Author</button>
+									</div>
+								</form>
+								</td>
+							</tr>
+							#end
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	#else
+	<h1>Nothing to see here.</h1>
+	#end
+
+		
+		
+	#else
+		<h2 >Sorry you are not authenticated to access this part of website</h2>
+	#end
+	</div>
+	</div>
+	<div class="col-lg-4">
+		<div class="bs-component">
+			<div class="well">Look, I'm in a well!</div>
+		</div>
+	</div>
+	<div class="col-lg-8">
+		<div class="bs-component">
+			<div class="well">Look, I'm in a small well!</div>
+		</div>
+	</div>
+#parse( "/commonElements/footer.vm" )
+</body>
+</html>
