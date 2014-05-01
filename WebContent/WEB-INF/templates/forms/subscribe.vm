@@ -35,7 +35,7 @@
 								$keyword.text
 							</label>
 						#end
-					</div>
+          </div>
 					<label class="control-label" for="checkboxes">Future Editions:</label>
 					<label class="checkbox inline" for="checkboxes-0">
 					<input type="checkbox" name="futureEditions" id="futureEditions" value="1">

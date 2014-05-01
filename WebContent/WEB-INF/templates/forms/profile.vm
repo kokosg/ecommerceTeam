@@ -10,20 +10,17 @@
 #if(!$session.user.name)
 <div class="jumbotron"> 
          <div class="container">
-<h2 >Sorry you are not authenticated to access this part of website</h2>
-</div>
+           <h2 >Sorry you are not authenticated to access this part of website</h2>
+         </div>
 </div
 #else
 <div class="jumbotron"> 
          <div class="container">
-<h3>Welcome to eCom-Journal</h3>
-
-<h3 >$session.user.name  $session.user.surname</h3>
-
-               </div>
-             </div>
-
-             <div class="container">
+           <h3>Welcome to eCom-Journal</h3>
+           <h3 >$session.user.name  $session.user.surname</h3>
+          </div>
+</div>
+<div class="container">
                <!-- Example row of columns -->
                <div class="row">
                  <div class="col-md-4">
@@ -44,6 +41,7 @@
                    <p><a class="btn btn-default" href="upload" role="button">View details &raquo;</a></p>
                  </div>
        </div>
+     </div>
 </div>
 #end
 </body>
