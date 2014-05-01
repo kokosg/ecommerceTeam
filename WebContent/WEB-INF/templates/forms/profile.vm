@@ -19,12 +19,6 @@
 <h3>Welcome to eCom-Journal</h3>
 
 <h3 >$session.user.name  $session.user.surname</h3>
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> b51469791044e241793c9c1596f5bde7a5ebf122
 
                </div>
              </div>

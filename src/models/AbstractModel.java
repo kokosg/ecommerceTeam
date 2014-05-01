@@ -115,7 +115,7 @@ public class AbstractModel {
 			while (rs.next()) {
 				String unpublishedTitle = (String) rs.getObject("Article.title");
 				String unpublishedSummary = (String) rs.getObject("Article.summary");
-				int  articleId= (Integer) rs.getInt("Article.articleID");
+				int  articleId=rs.getInt("Article.articleID");
 				article = new Article( articleId,unpublishedTitle, unpublishedSummary);
 				unpubArticle.add(article);
 			}
