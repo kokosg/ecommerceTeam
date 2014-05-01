@@ -16,6 +16,7 @@ import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import objects.Article;
+import objects.Choice;
 import objects.Keyword;
 import objects.User;
 import sun.print.resources.serviceui;
@@ -145,21 +146,49 @@ public class AbstractModel {
 	}
 
 	public void setReviewChoice(String[] articleID,int authorID){
-		//get current date time with Date() 
+		ArrayList<Choice> resultID=new ArrayList<Choice>();
+		//get current date time with Date()
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
 
 		ConnectionManager conn;
 		try {
+			int aID; 
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			for(int i = 0; i<articleID.length; i++){
-				System.out.println(articleID[i]);
-				String queryReview = "INSERT INTO Choice (articleID, authorReviewerID, dateChosen) VALUE ('" + articleID[i] + "', '" + authorID + "', '" + dateFormat.format(date) + "')";
-				st.executeUpdate(queryReview);
+			String selectQuery ="Select * from Choice where authorReviewerID = '"+ authorID +"'";
+			ResultSet rs = st.executeQuery(selectQuery);
+			while (rs.next()) {
+				aID= rs.getInt("Choice.articleID");
+				Choice ch = new Choice(aID);
+				resultID.add(ch);
+
+			}
+			if (resultID.isEmpty()){
+				System.out.println("aid is null");
+				for(int i = 0; i<articleID.length; i++){
+					String queryReview = "INSERT INTO Choice (articleID, authorReviewerID, dateChosen) VALUE ('" + articleID[i] + "', '" + authorID + "', '" + dateFormat.format(date) + "')";
+					st.executeUpdate(queryReview);
+				}
+			}else{
+				for (int i=0 ;i< articleID.length;i++){
+					boolean flag = false;
+						for(Choice result :resultID ){
+							int id=result.getArticleID();
+							int viewID = Integer.parseInt(articleID[i]);
+							if (id== viewID ){
+								flag = true;
+							}
+						}
+						if(flag==false){
+							String queryReview = "INSERT INTO Choice (articleID, authorReviewerID, dateChosen) VALUE ('" + articleID[i] + "', '" + authorID + "', '" + dateFormat.format(date) + "')";
+							st.executeUpdate(queryReview);
+						}
+				}
 			}
 			st.close();
 			conn.close();
+
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
