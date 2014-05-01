@@ -5,12 +5,12 @@ package objects;
 
 
 /**
- * @author 
+ * @author Master Team 10
  *
  */
 public class Article {
 
-	private long articleID;
+	private int articleID;
 	private String title;
 	private String summary;
 	private boolean published;
@@ -35,17 +35,12 @@ public class Article {
 		this.reviewed = reviewed;
 		this.pageNo = pageNo;
 	}
-   
-	public Article(long id ,String title, String Summary) {
-		this.articleID=id;
-		this.title = title;
-		this.summary = Summary;
-	}
-	
+
+
 	/**
 	 * @return the articleID
 	 */
-	public long getArticleID() {
+	public int getArticleID() {
 		return articleID;
 	}
 

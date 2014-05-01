@@ -1,6 +1,6 @@
 package objects;
 /** User(author) object
- * @author Team:Master10
+ * @author Master Team 10
  */
 public class User {
 

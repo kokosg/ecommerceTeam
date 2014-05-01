@@ -17,7 +17,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
- * @author acp13gg
+ * @author Master Team 10
  *
  */
 public class ContactModel {

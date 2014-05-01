@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import objects.Article;
 
 /**
- * @author acp13gg
+ * @author Master Team 10
  *
  */
 public class AdvanceSearchModel {

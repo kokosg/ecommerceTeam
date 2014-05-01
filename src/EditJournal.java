@@ -1,47 +1,44 @@
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.UserManagementModel;
+import models.JournalModel;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.view.VelocityViewServlet;
 
 /**
- * Servlet implementation class abstructPage
+ * Servlet implementation class EditJournal
  */
-public class UserManagement extends VelocityViewServlet {
+public class EditJournal extends VelocityViewServlet {
 	private static final long serialVersionUID = 1L;
 
 	public Template handleRequest(HttpServletRequest request, HttpServletResponse response, Context context) {
 
-		context.put("apptitle", "E-com Journal - UserManagement");
+		context.put("apptitle", "E-com Journal - EditJournal");
 		Template template = null;
 		response.setContentType("text/html");
 
-		//create UserManagementModel object
-		UserManagementModel model = new UserManagementModel();
+		//create JournalModel object
+		JournalModel model = new JournalModel();
 
 		//get the parameters from the form
-		String userID = request.getParameter("authorReviewerID");
+		String aimsGoals = request.getParameter("aimsGoals");
 		
 		try {
 
-			if (userID != null) {
-				int isEditor = Integer.parseInt(request.getParameter("isEditor"));
-				model.setUserRole(isEditor, userID);
+			if (aimsGoals != null) {
+				int journalID = 1;
+				String title = request.getParameter("title");
+				model.setJournal(journalID, title, aimsGoals);
 			}
 				//return getUsers from UserManagementModel and put them in contexts
-				context.put("searchResults", model.getUsers());
+				context.put("searchResults", model.getJournal());
 				
-				template = getTemplate("/pages/userManagement.vm");
+				template = getTemplate("/pages/editJournal.vm");
 			} catch (Exception e) {
 				System.out.println("Error " + e);
 			}
 			return template;
 		}
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> 79a8e91772eb0ea2e3f9a8575928324a1828780a

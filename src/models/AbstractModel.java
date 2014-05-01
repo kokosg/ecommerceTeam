@@ -6,23 +6,15 @@ package models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
-import javax.mail.Session;
-import javax.servlet.http.HttpSession;
 
 import objects.Article;
 import objects.Choice;
 import objects.Keyword;
 import objects.User;
-import sun.print.resources.serviceui;
 
 /**
- * @author acp13gg
+ * @author Master Team 10
  * 
  */
 public class AbstractModel {
@@ -59,9 +51,9 @@ public class AbstractModel {
 		}
 		return article;
 	}
-
+	
 	public ArrayList<Keyword> getKeywords(int article_ID) throws SQLException {
-
+		
 		ArrayList<Keyword> arrayResults = new ArrayList<Keyword>(); 
 		String queryKeywords = "select Keyword.keywordID, Keyword.text from Keyword INNER JOIN ArticleKeyword ON Keyword.keywordID = ArticleKeyword.keywordID INNER JOIN Article ON ArticleKeyword.articleID = Article.articleID where Article.articleID ='" + article_ID + "'";
 		Keyword keyword = new Keyword();
@@ -73,9 +65,9 @@ public class AbstractModel {
 				System.out.println("a" + (String)rs.getObject("Keyword.text"));
 				int keywordID = rs.getInt("Keyword.keywordID");
 				String keywordText = (String)rs.getObject("Keyword.text");
-
-				keyword = new Keyword(keywordID, keywordText);
-				arrayResults.add(keyword);
+				
+	        	keyword = new Keyword(keywordID, keywordText);
+		        arrayResults.add(keyword);
 			}
 			rs.close();
 			st.close();
@@ -87,10 +79,10 @@ public class AbstractModel {
 		System.out.print(keyword.getKeywordID());
 		return arrayResults;
 	}
-
-
+	
+	
 	public ArrayList<User> getAuthor(int article_ID) throws SQLException {
-
+		
 		ArrayList<User> arrayResults = new ArrayList<User>(); 
 		String queryAuthor = "select Author.name, Author.surname, Author.email from Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID where Article.articleID = '" + article_ID + "'"; 
 		try {
@@ -99,12 +91,11 @@ public class AbstractModel {
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
 				String userName = (String)rs.getObject("Author.name");
-				String userSurname = (String)rs.getObject("Author.surname");
-				String userEmail = (String)rs.getObject("Author.email");
-
-				User user = new User(userName, userSurname, userEmail);
-				arrayResults.add(user);
-
+		        String userSurname = (String)rs.getObject("Author.surname");
+		        String userEmail = (String)rs.getObject("Author.email");
+				
+	        	User user = new User(userName, userSurname, userEmail);
+		        arrayResults.add(user);
 			}
 			rs.close();
 			st.close();
@@ -116,6 +107,7 @@ public class AbstractModel {
 		return arrayResults;
 	}
 
+<<<<<<< HEAD
 	public ArrayList<Article> getUnpublishedArticle() throws SQLException {
 		Article article;
 
@@ -198,5 +190,6 @@ public class AbstractModel {
 
 	}
 
+=======
+>>>>>>> 79a8e91772eb0ea2e3f9a8575928324a1828780a
 }
-
