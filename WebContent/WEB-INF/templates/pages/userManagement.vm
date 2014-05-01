@@ -23,26 +23,52 @@
 		<h2>Welcome to eCom-Journal</h2>
 		<h3 >$email</h3>
 		
-		
 <div class="col-md-8">
 #if ($searchResults)
 	<div class="row">
-		<div id="results_table">
-			<div class="row">
-				<div class="well bs-component">
-				   <h1>List of Editions</h1>
-					<div class="row">
-						<div class="col-md-10">
-							<table class="table table-hover table-responsive table-bordered table-condensed">
-								<tbody class="table-hover">
-								#foreach($article in $searchResults) 
-								<tr>
-									<td>Title: <a href='abstractPage?id=$article.userID'><strong>$article.userName</strong></a></td> 
-								</tr>
+		<div class="row">
+			<div class="well bs-component">
+			   <h1>List of Editions</h1>
+				<div class="row">
+					<div class="col-md-10">
+						<table class="table table-hover table-responsive table-bordered table-condensed">
+							<tbody class="table-hover">
+							#foreach($article in $searchResults) 
+							<tr>
+								<td>
+								Username: <strong>$article.name $article.surname</strong> Email: $article.email
+								
+								#if ($article.isEditor == true)
+									Current Role: Admin
+								#else
+									Current Role: Author
 								#end
-								</tbody>
-							</table>
-						</div>
+								
+								#if ($user.email != $article.email)
+								 <form action="userManagement" method="post" class="form-horizontal">
+									<input id="authorReviewerID" name="authorReviewerID" type="hidden" value="$article.authorReviewerID">
+									
+								#if ($article.isEditor == true)
+									<input id="isEditor" name="isEditor" type="hidden" value="0">
+									<div class="col-lg-10 col-lg-offset-2">
+										<button type="submit" class="btn btn-primary">Go Author</button>
+									</div>
+								#else
+									<input id="isEditor" name="isEditor" type="hidden" value="1">
+									<div class="col-lg-10 col-lg-offset-2">
+										<button type="submit" class="btn btn-primary">Go Editor</button>
+									</div>
+								#end
+									
+								</form>
+								
+								#end
+
+								</td> 
+							</tr>
+							#end
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>

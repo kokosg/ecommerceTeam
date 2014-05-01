@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <HTML>
 <head>
   <meta charset="ISO-8859-1">
@@ -82,4 +83,109 @@
 #parse("/commonElements/footer.vm")
 </div>
 </body>
+=======
+<HTML>
+<head>
+  <meta charset="ISO-8859-1">
+  #include( "/commonElements/head.html" )
+  <title>$apptitle</title>
+<script src="assets/js/advanceSearch.js" type="text/javascript"></script>
+<script src="assets/js/onLoad.js" type="text/javascript"></script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script type="text/javascript">
+		var counter = 0;
+		
+		function addKeyword(){
+			var test = document.getElementById("articleKeyword").value;
+			if (test) {
+				if (counter < 10) {		
+					var keyword = "<div><input type='text' name='keywords' value='" + test + "' disabled/><a href='javascript:removeKeyword()' id='removeKeyword'><input class='btn btn-danger' value='Remove'/></a></div>";
+					counter++;
+					$("#articleKeywords").append(keyword); 
+				} else {
+					alert("You can add up to 10 keywords!");
+				}
+			}
+		}
+		
+		function removeKeyword(){
+			$('#removeKeyword').closest('div').remove(); 
+			counter--;
+		}
+
+		function addAuthor(){
+			var newContent = "<div><label class='control-label' for='authorNames'>Name:</label><input id='authorNames' type='text' name='authorNames' />" 
+					+ "<label class='control-label' for='authorSurnames'>Surname:</label><input id='authorSurnames' type='text' name='authorSurnames' /><br />"
+					+ "<label class='control-label' for='authorEmails'>Email:</label><input id='authorEmails' name='authorEmails' type='email' placeholder='email@example.com' />"
+					+ "<label class='control-label' for='authorAffiliations'>Affiliations:</label><input id='authorAffiliations' type='text' name='authorAffiliations' />"
+					+ "<label class='checkbox inline' for='checkboxes-0'>"
+					+ "<input type='checkbox' name='futureEditions' id='futureEditions' value='1'>Main Contact</label><a href='javascript:removeAuthor()' id='removeAuthor'><input class='btn btn-danger' value='Remove'/></a></div>";
+			$('#authorFields').append(newContent); 
+		}
+
+		function removeAuthor(){
+			$('#removeAuthor').closest('div').remove(); 
+		}
+	</script>
+
+</head>
+
+<body>
+#parse( "/commonElements/navbar.vm" )
+
+<div class="jumbotron">
+
+<div class="bs-docs-section">
+	<div class="row">
+		<div class="col-lg-7 col-md-10 col-md-push-3">
+			<!-- Form================================================== -->		
+
+			<form action="submit" id="submit" method="post" class="form-horizontal">
+			<fieldset>
+				<input id="flag" name="flag" type="hidden" value = "1">
+				<!-- Form Name -->
+				<legend>Submit an Article</legend>
+				<h2>Author(s):</h2>
+				<!-- Text input-->
+				<div id="authorFields">
+					<div><label class="control-label" for="authorNames">Name:</label><input id="authorNames" type="text" name="authorNames" />
+					<label class="control-label" for="authorSurnames">Surname:</label><input id="authorSurnames" type="text" name="authorSurnames" /><br />
+					<label class="control-label" for="authorEmails">Email:</label><input id="authorEmails" name="authorEmails" type="email" placeholder="email@example.com" />
+					<label class="control-label" for="authorAffiliations">Affiliations:</label><input id="authorAffiliations" type="text" name="authorAffiliations" />
+					<label class="checkbox inline" for="checkboxes-0">
+					<input type="checkbox" name="futureEditions" id="futureEditions" value="1">
+						Main Contact
+					</label></div>
+				</div>
+				<a href="javascript:addAuthor()"><input class="btn btn-success" value="ADD AUTHOR"/></a>
+				
+				<h2>Article:</h2>
+				<div id="articleFields"> 
+					<label class="control-label" for="articleTitle">Title:</label><input id="articleTitle" type="text" name="articleTitle" required/>
+					<label class="control-label" for="articleAbstract">Abstract:</label><textarea id="articleAbstract" type="text" name="articleAbstract" required></textarea><br />
+					<label class="control-label" for="articleKeywords">Keywords:</label><input id="articleKeyword" type="text" name="articleKeyword" required/><a href="javascript:addKeyword()"><input class="btn btn-success" value="ADD"/></a><div id="articleKeywords"></div>
+					<label class="control-label" for="articlePath">Upload File:</label>
+				</div>
+								
+				<!-- Button -->
+				<div class="control-group">
+					<label class="control-label" for="subscribe"></label>
+					<div class="controls">
+						<button id="submitArticle" name="submitArticle" class="btn btn-primary">Submit</button>
+						<input type="reset" class="btn btn-default" value="Reset" />
+					</div>
+				</div>
+				
+			</fieldset>
+			</form>
+
+		</div>
+	</div>
+</div>
+</div>
+
+#parse("/commonElements/footer.vm")
+</div>
+</body>
+>>>>>>> b51469791044e241793c9c1596f5bde7a5ebf122
 </html>

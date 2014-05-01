@@ -17,16 +17,21 @@ public class Contact extends VelocityViewServlet {
 		private static final long serialVersionUID = 1L;
 
 	public Template handleRequest( HttpServletRequest request, HttpServletResponse response, Context context ) { 
-	      /* get the template */
 		
-		String flag = request.getParameter("flag"); // get the value of a hidden field in a form to determine if we have posted data
+		// get the value of a hidden field in a form to determine if we have posted data
+		String flag = request.getParameter("flag"); 
+		
+		//create ContactModel object
 		ContactModel contactModel = new ContactModel();
 		
 	      Template template = null;
 	      context.put("apptitle", "Ecom Journal - Contact");
 		  response.setContentType("text/html");
+		  
+		  //initialised value
 	      boolean emailStatus = false;
 		  
+		  //if we haven't post any data then we have just to load the template
 	      if (flag == null) {
 		  
 	    	  template = getTemplate("/forms/contact.vm");
@@ -35,15 +40,20 @@ public class Contact extends VelocityViewServlet {
 	      } else {
 
 	    	  try {
+	    	  // get the value of a hidden field in a form to determine if we have posted data
 	    	  String name = request.getParameter("name");
 			  String title = request.getParameter("title");
 			  String email = request.getParameter("email");
 			  String messageText = request.getParameter("messageText");
 
-	    	  EmailMessage emailMessage = new EmailMessage(name, title, email, messageText); 
-			  
+			  //create EmailMessage object by passing values
+	    	  EmailMessage emailMessage = new EmailMessage(name, title, email, messageText);
+	    	  
+	    	  //call the method sendEmail from contactModel object and passing values in order to trigger the email function
 			  emailStatus = contactModel.sendEmail(emailMessage.getName(), emailMessage.getTitle(), emailMessage.getEmail(), emailMessage.getMessage());
 	    	  
+			  //check if the emailStatus status is true to display the message and insert into the database the details of the email
+			  //or if is false to display an error message
 	    	  if (emailStatus) {
 	  			context.put("status", "message was send");
 	  			contactModel.insertEmail(emailMessage.getName(), emailMessage.getTitle(), emailMessage.getEmail(), emailMessage.getMessage());
