@@ -36,7 +36,12 @@ public class Article {
 		this.pageNo = pageNo;
 	}
 
-
+	public Article(int articleId,String title, String summary) {
+		this.articleID = articleId;
+		this.title = title;
+		this.summary = summary;
+		
+	}
 	/**
 	 * @return the articleID
 	 */

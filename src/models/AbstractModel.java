@@ -1,27 +1,22 @@
-/**
- * 
- */
 package models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import objects.Article;
 import objects.Choice;
 import objects.Keyword;
 import objects.User;
 
-/**
- * @author Master Team 10
- * 
- */
+
 public class AbstractModel {
 
-	/**
-	 * 
-	 */
+
 	public AbstractModel() {
 		// TODO Auto-generated constructor stub
 	}
@@ -107,7 +102,6 @@ public class AbstractModel {
 		return arrayResults;
 	}
 
-<<<<<<< HEAD
 	public ArrayList<Article> getUnpublishedArticle() throws SQLException {
 		Article article;
 
@@ -121,7 +115,7 @@ public class AbstractModel {
 			while (rs.next()) {
 				String unpublishedTitle = (String) rs.getObject("Article.title");
 				String unpublishedSummary = (String) rs.getObject("Article.summary");
-				long  articleId= (Long) rs.getObject("Article.articleID");
+				int  articleId= (Integer) rs.getInt("Article.articleID");
 				article = new Article( articleId,unpublishedTitle, unpublishedSummary);
 				unpubArticle.add(article);
 			}
@@ -189,7 +183,4 @@ public class AbstractModel {
 		}
 
 	}
-
-=======
->>>>>>> 79a8e91772eb0ea2e3f9a8575928324a1828780a
 }

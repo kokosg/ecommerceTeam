@@ -41,7 +41,3 @@ public class UserManagement extends VelocityViewServlet {
 			return template;
 		}
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> 79a8e91772eb0ea2e3f9a8575928324a1828780a
