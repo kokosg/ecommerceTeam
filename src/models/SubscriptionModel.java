@@ -13,7 +13,7 @@ import objects.Subscriber;
 public class SubscriptionModel {
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public SubscriptionModel() {
 		

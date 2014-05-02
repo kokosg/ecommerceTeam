@@ -11,7 +11,9 @@ public class User {
     private String email;
     private String password;
     private Boolean isEditor;
+    private Boolean isMain;
     private int authorReviewerID;
+    
  
 	/**
 	 * Empty constructor
@@ -179,4 +181,19 @@ public class User {
 	public void setIsEditor(Boolean isEditor) {
 		this.isEditor = isEditor;
 	}
+	
+	/**
+	 * @return the isMain
+	 */
+	public Boolean getIsMain() {
+		return isMain;
+	}
+
+	/**
+	 * @param isMain the isMain to set
+	 */
+	public void setIsMain(Boolean isMain) {
+		this.isMain = isMain;
+	}
+	
 }

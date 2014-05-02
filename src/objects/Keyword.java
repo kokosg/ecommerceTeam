@@ -30,6 +30,13 @@ public class Keyword {
 	}
 
 	/**
+	 * @param keywordID the keywordID to set
+	 */
+	public void setKeywordID(int keywordID) {
+		this.keywordID = keywordID;
+	}
+	
+	/**
 	 * @return the text
 	 */
 	public String getText() {
