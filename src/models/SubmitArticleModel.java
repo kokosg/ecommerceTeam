@@ -29,9 +29,18 @@ public class SubmitArticleModel {
 			Statement st = conn.getInstance().getConnection().createStatement();
 			
 			for (Keyword keyword : keywords) {
-				String keywordText = keyword.getText();
-				String updateQuery = "INSERT INTO Keyword (text) VALUES ('" + keywordText + "')";
-				st.executeUpdate(updateQuery);
+				//check if keyword already in database
+				String getKeywordID = "SELECT keywordID FROM Keyword WHERE text ='" + keyword.getText()+ "' "; 
+				ResultSet keywordResult=st.executeQuery(getKeywordID);
+				if (keywordResult.next()) {
+					System.out.println("keyword already in db - do nothing");
+				//else insert the keyword in the database
+				} else {
+					String keywordText = keyword.getText();
+					String updateQuery = "INSERT INTO Keyword (text) VALUES ('" + keywordText + "')";
+					st.executeUpdate(updateQuery);
+				}
+				keywordResult.close();
 			} 
 			st.close();
 			conn.close();
@@ -92,16 +101,17 @@ public class SubmitArticleModel {
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String insertQuery;
 			//String titleExists= getFileName(title);
-			//if(titleExists==null){
+			if (path != null) {
 				System.out.println("INSERT");
 				Date now = new Date();
 				Date subDate = new java.sql.Date(now.getTime());
 				insertQuery = "INSERT INTO ArticleRevision (articleID, filePath, dateSubmitted) VALUES ('" + article.getArticleID() + "', '" + path + "', '" + subDate +"')";
-			//} else {
-			//	System.out.println("already exist");
+				st.executeUpdate(insertQuery);
+			} else {
+				System.out.println("no file found");
 			//	insertQuery = "UPDATE Template SET filePath ='"+path+"' WHERE title='"+title+"'";
-			//}
-			st.executeUpdate(insertQuery);
+			}
+			
 			st.close();
 			conn.close();
 		} catch (ClassNotFoundException | SQLException e) {

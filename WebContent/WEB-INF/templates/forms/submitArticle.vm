@@ -57,7 +57,7 @@
 				<input id="flag" name="flag" type="hidden" value = "1">
 				<!-- Form Name -->
 				<legend>Submit an Article</legend>
-				<h2>Author(s):</h2>
+				<legend>Author(s):</legend>
 				<p>Insert author(s) details, starting with the main author first.</p>
 				<!-- Text input-->
 				<div id="authorFields">
@@ -69,12 +69,13 @@
 				</div>
 				<a href="javascript:addAuthor()"><input class="btn btn-xs btn-success" value="ADD AUTHOR"/></a>
 				
-				<h2>Article:</h2>
+				<legend>Article:</legend>
+				<p>Insert article(s) details</p>
 				<div id="articleFields"> 
-					<label class="control-label" for="articleTitle">Title:</label><input id="articleTitle" type="text" name="articleTitle" required/> <br />
+					<label class="control-label" for="articleTitle">Title:</label><br /><input id="articleTitle" type="text" name="articleTitle" required/> <br />
 					<label class="control-label" for="articleAbstract">Abstract:</label><br /><textarea id="articleAbstract" type="text" name="articleAbstract" rows="6" placeholder="Enter abstract of article" required></textarea><br />
-					<label class="control-label" for="pageNum">Number of pages:</label><input type="number" id="pageNum" name ="pageNum" min="1" step="1"/><br />
-					<label class="control-label" for="articleKeywords">Keywords:</label><input id="articleKeyword" type="text" name="articleKeyword"/>
+					<label class="control-label" for="pageNum">Number of pages:</label><br /><input type="number" id="pageNum" name ="pageNum" min="1" step="1"/><br />
+					<label class="control-label" for="articleKeywords">Keywords:</label><input id="articleKeyword" type="text" name="articleKeyword"/><br />
 						<a href="javascript:addKeyword()"><input class="btn btn-xs btn-success" value="ADD"/></a>
 					<div id="articleKeywords"></div>
 					<label class="control-label" for="articlePath">Upload File:</label> 
