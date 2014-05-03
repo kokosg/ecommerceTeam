@@ -14,7 +14,6 @@ public class BrowseObject {
 	 private int volumeID;
 	 private int volumeNo;
 	 private int editionNo;
-	 private Date endDate;
 	 private int startPageNo;
 	 private Date datePublished;
 	 private int articleID;
@@ -34,19 +33,16 @@ public class BrowseObject {
 	 * @param volumeID
 	 * @param volumeNo
 	 * @param editionNo
-	 * @param endDate
 	 */
-	public BrowseObject(int volumeID, int volumeNo, int editionNo, Date endDate) {
+	public BrowseObject(int volumeID, int volumeNo, int editionNo) {
 		this.volumeID = volumeID;
 		this.volumeNo = volumeNo;
 		this.editionNo = editionNo;
-		this.endDate = endDate;
 	}
 	
 	
 	/**
 	 * @param editionNo
-	 * @param endDate
 	 * @param startPageNo
 	 * @param datePublished
 	 * @param articleID
@@ -55,9 +51,8 @@ public class BrowseObject {
 	 * @param pageNo
 	 * @param filePath
 	 */
-	public BrowseObject(int editionNo, Date endDate,int startPageNo, Date datePublished, int articleID, String title, String summary, int pageNo, String filePath) {
+	public BrowseObject(int editionNo, int startPageNo, Date datePublished, int articleID, String title, String summary, int pageNo, String filePath) {
 		this.editionNo = editionNo;
-		this.endDate = endDate;
 		this.startPageNo = startPageNo;
 		this.datePublished = datePublished;
 		this.articleID = articleID;
@@ -111,20 +106,6 @@ public class BrowseObject {
 	 */
 	public void setEditionNo(int editionNo) {
 		this.editionNo = editionNo;
-	}
-
-	/**
-	 * @return the endDate
-	 */
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	/**
-	 * @param endDate the endDate to set
-	 */
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
 	}
 
 	/**

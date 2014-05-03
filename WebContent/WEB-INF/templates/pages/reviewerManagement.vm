@@ -13,7 +13,20 @@
 	
 <div class="col-md-12">
 #if($userRole == "Editor")
-		
+	
+	   	#if ($successfully) 
+   		<div class="alert alert-success alert-dismissable">
+		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  <strong>$successfully
+		</div>
+   		#end
+   		#if ($error) 
+   		<div class="alert alert-danger alert-dismissable">
+		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  <strong>$error
+		</div>
+   		#end
+	
    #if ($Choices)
       <div class="row">
 		<div class="row">
@@ -38,7 +51,7 @@
 								<form action="reviewerManagement" method="post" class="form-horizontal">
 									<input id="choiceID" name="choiceID" type="hidden" value="$choice.assignID">
 									<div class="col-lg-10 col-lg-offset-2">
-										<button type="submit" class="btn btn-primary">Remove Author</button>
+										<button type="submit" class="btn btn-primary">Remove Review</button>
 									</div>
 								</form>
 								</td>

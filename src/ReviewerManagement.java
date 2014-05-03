@@ -22,13 +22,21 @@ public class ReviewerManagement extends VelocityViewServlet {
 		//create JournalModel object
 		ReviewerManagementModel model = new ReviewerManagementModel();
 
+		boolean status = false;
 		
 		try {
 
 			String assignID = request.getParameter("choiceID");
 
 			if (assignID != null){
-				model.deleteChoice(assignID);
+				status = model.deleteChoice(assignID);
+
+				if (status) {
+					context.put("successfully", "has been created successfully Rejected");
+				} else {
+					context.put("error", "Problem occurred");
+				}
+				
 			}
 			
 				//return getUsers from UserManagementModel and put them in contexts

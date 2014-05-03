@@ -15,6 +15,20 @@
 #if($userRole == "Editor")
 		
    #if ($searchResults)
+   
+      	#if ($successfully) 
+   		<div class="alert alert-success alert-dismissable">
+		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  <strong>$successfully
+		</div>
+   		#end
+   		#if ($error) 
+   		<div class="alert alert-danger alert-dismissable">
+		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  <strong>$error
+		</div>
+   		#end
+   
       <div class="row">
 		<div class="row">
 		   <div class="well bs-component">
@@ -31,13 +45,13 @@
 						      </tr>
 						    </thead>
 							<tbody class="table-hover">
-							#foreach($article in $searchResults) 
+							#foreach($reultsUser in $searchResults) 
 							<tr>
-								<td>$article.name $article.surname</td>
-								<td>$article.email</td>
+								<td>$reultsUser.name $reultsUser.surname</td>
+								<td>$reultsUser.email</td>
 								
 								<td>
-								#if ($article.isEditor == true)
+								#if ($reultsUser.isEditor == true)
 									Admin
 								#else
 									Author
@@ -45,23 +59,22 @@
 								</td>
 								
 								<td>
-								#if ($user.email != $article.email)
-								 <form action="userManagement" method="post" class="form-horizontal">
-									<input id="authorReviewerID" name="authorReviewerID" type="hidden" value="$article.authorReviewerID">
-								#if ($article.isEditor == true)
-									<input id="isEditor" name="isEditor" type="hidden" value="0">
-									<div class="col-lg-10 col-lg-offset-2">
-										<button type="submit" class="btn btn-primary">Go Author</button>
-									</div>
-								#else
-									<input id="isEditor" name="isEditor" type="hidden" value="1">
-									<div class="col-lg-10 col-lg-offset-2">
-										<button type="submit" class="btn btn-primary">Go Editor</button>
-									</div>
-								#end
-								</form>
-								</td>
-																
+								#if ($user.email != $reultsUser.email)
+									 <form action="userManagement" method="post" class="form-horizontal">
+										<input id="authorReviewerID" name="authorReviewerID" type="hidden" value="$reultsUser.authorReviewerID">
+									#if ($reultsUser.isEditor == true)
+										<input id="isEditor" name="isEditor" type="hidden" value="0">
+										<div class="col-lg-10 col-lg-offset-2">
+											<button type="submit" class="btn btn-primary">Go Author</button>
+										</div>
+									#else
+										<input id="isEditor" name="isEditor" type="hidden" value="1">
+										<div class="col-lg-10 col-lg-offset-2">
+											<button type="submit" class="btn btn-primary">Go Editor</button>
+										</div>
+									#end
+									</form>
+									</td>
 								#end
 							</tr>
 							#end

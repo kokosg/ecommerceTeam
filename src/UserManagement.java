@@ -25,11 +25,20 @@ public class UserManagement extends VelocityViewServlet {
 		//get the parameters from the form
 		String userID = request.getParameter("authorReviewerID");
 		
+		boolean status = false;
+		
 		try {
 
 			if (userID != null) {
 				int isEditor = Integer.parseInt(request.getParameter("isEditor"));
-				model.setUserRole(isEditor, userID);
+				status = model.setUserRole(isEditor, userID);
+
+				if (status) {
+					context.put("successfully", "User role has been updated");
+				} else {
+					context.put("error", "Problem occurred on User role");
+				}
+				
 			}
 				//return getUsers from UserManagementModel and put them in contexts
 				context.put("searchResults", model.getUsers());

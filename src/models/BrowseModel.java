@@ -26,7 +26,7 @@ public class BrowseModel {
 
 	public ArrayList<BrowseObject> getBrowse() throws SQLException{
 		ArrayList<BrowseObject> arrayResults = new ArrayList<BrowseObject>(); 
-		  String query = "SELECT Volume.volumeID, Volume.volumeNo, Edition.editionNo, Edition.endDate, Published.startPageNo, Published.datePublished, Article.articleID, Article.title, Article.summary, Article.pageNo, ArticleRevision.filePath from Volume INNER JOIN Edition ON Volume.volumeID = Edition.volumeID INNER JOIN Published ON Edition.editionID = Published.editionID INNER JOIN Article ON Published.articleID = Article.articleID INNER JOIN ArticleRevision ON Article.articleID = ArticleRevision.articleID ";
+		  String query = "SELECT Volume.volumeID, Volume.volumeNo, Edition.editionNo, Published.startPageNo, Published.datePublished, Article.articleID, Article.title, Article.summary, Article.pageNo, ArticleRevision.filePath from Volume INNER JOIN Edition ON Volume.volumeID = Edition.volumeID INNER JOIN Published ON Edition.editionID = Published.editionID INNER JOIN Article ON Published.articleID = Article.articleID INNER JOIN ArticleRevision ON Article.articleID = ArticleRevision.articleID ";
 		try {
 		      ConnectionManager conn = new ConnectionManager();
 	    	  Statement st = conn.getInstance().getConnection().createStatement();
@@ -35,8 +35,7 @@ public class BrowseModel {
 					int volumeID = rs.getInt("Volume.volumeID");
 					int volumeNo = rs.getInt("Volume.volumeNo");
 			        int editionNo = rs.getInt("Edition.editionNo");
-			        Date endDate = (Date)rs.getObject("Edition.endDate");
-			        BrowseObject browseObject = new BrowseObject(volumeID, volumeNo, editionNo, endDate);
+			        BrowseObject browseObject = new BrowseObject(volumeID, volumeNo, editionNo);
 			        arrayResults.add(browseObject);
 				}
 				rs.close();
@@ -52,14 +51,13 @@ public class BrowseModel {
 	
 	public ArrayList<BrowseObject> getEdition(String edition) throws SQLException {
 		ArrayList<BrowseObject> arrayResults = new ArrayList<BrowseObject>(); 
-		  String query = "SELECT Edition.editionNo, Edition.endDate, Published.startPageNo, Published.datePublished, Article.articleID, Article.title, Article.summary, Article.pageNo, ArticleRevision.filePath FROM Edition INNER JOIN Published ON Edition.editionID = Published.editionID INNER JOIN Article ON Published.articleID = Article.articleID INNER JOIN ArticleRevision ON Article.articleID = ArticleRevision.articleID WHERE Edition.editionNo ='" + edition + "'";
+		  String query = "SELECT Edition.editionNo, Published.startPageNo, Published.datePublished, Article.articleID, Article.title, Article.summary, Article.pageNo, ArticleRevision.filePath FROM Edition INNER JOIN Published ON Edition.editionID = Published.editionID INNER JOIN Article ON Published.articleID = Article.articleID INNER JOIN ArticleRevision ON Article.articleID = ArticleRevision.articleID WHERE Edition.editionNo ='" + edition + "'";
 		try {
 		      ConnectionManager conn = new ConnectionManager();
 	    	  Statement st = conn.getInstance().getConnection().createStatement();
 	    	  ResultSet rs = st.executeQuery(query);
 				while (rs.next()) {
 			        int editionNo = rs.getInt("Edition.editionNo");
-			        Date endDate = (Date)rs.getObject("Edition.endDate");
 			        int startPageNo = rs.getInt("Published.startPageNo");
 			        Date datePublished = (Date)rs.getObject("Published.datePublished");
 					int articleID = rs.getInt("Article.articleID");
@@ -67,7 +65,7 @@ public class BrowseModel {
 			        String summary = (String)rs.getObject("Article.summary");
 			        int pageNo = rs.getInt("Article.pageNo");
 			        String filePath = (String)rs.getObject("ArticleRevision.filePath");
-			        BrowseObject browseObject = new BrowseObject(editionNo, endDate, startPageNo, datePublished, articleID, title, summary, pageNo, filePath);
+			        BrowseObject browseObject = new BrowseObject(editionNo, startPageNo, datePublished, articleID, title, summary, pageNo, filePath);
 			        arrayResults.add(browseObject);
 				}
 				rs.close();

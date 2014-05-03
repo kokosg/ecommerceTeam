@@ -3,38 +3,39 @@
  */
 package models;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import objects.JournalObject;
+import objects.VolumeObject;
 
 /**
  * @author Master Team 10
  *
  */
-public class JournalModel {
+public class VolumeModel {
 
 	/**
 	 * 
 	 */
-	public JournalModel() {
+	public VolumeModel() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public JournalObject getJournal() throws SQLException {
-		String queryAuthor = "SELECT journalID, title, aimsGoals FROM Journal";
-		JournalObject journal = new JournalObject();
+	public VolumeObject getVolume() throws SQLException {
+		String queryAuthor = "SELECT volumeID, journalID, volumeNo, date, current FROM Volume ORDER BY volumeID DESC LIMIT 1;";
+		VolumeObject volume = new VolumeObject();
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
+				int volumeID = rs.getInt("volumeID");
 				int journalID = rs.getInt("journalID");
-				String title = (String) rs.getObject("title");
-				String aimsGoals = (String) rs.getObject("aimsGoals");
-
-				journal = new JournalObject(journalID, title, aimsGoals);
+				int volumeNo = rs.getInt("volumeNo");
+				Date date1 = (Date) rs.getObject("date");
+				boolean current = (boolean) rs.getObject("current");
+				volume = new VolumeObject(volumeID, journalID, volumeNo, date1, current);
 			}
 			rs.close();
 			st.close();
@@ -42,17 +43,17 @@ public class JournalModel {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		return journal;
+		return volume;
 	}
 	
-	public boolean setJournal(int journalID, String title, String aimsGoals) throws SQLException {
+	public boolean createVolume(String journalID, int volumeNo, String date) throws SQLException {
 		
 		boolean status = false;
 		
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			String updateQuery = "UPDATE Journal SET title = '" + title + "' ,  aimsGoals = '" + aimsGoals + "' WHERE  journalID= '" + journalID + "'";
+			String updateQuery = "INSERT INTO Volume (journalID, volumeNo, date) VALUES ('" + journalID + "','" + volumeNo + "','" + date + "')";
 			st.executeUpdate(updateQuery);
 			st.close();
 			conn.close();

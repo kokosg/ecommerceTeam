@@ -50,6 +50,12 @@ public class AdvanceSearch extends VelocityViewServlet {
 					String datepickerFrom = request.getParameter("datepickerFrom");
 					String datepickerTo = request.getParameter("datepickerTo");
 					
+					//check if datepickers values are not null and then pass the UK date to dateConvertor method
+					if ((datepickerFrom != null) && (datepickerTo != null)){
+						datepickerFrom = dateCovertor(datepickerFrom);
+						datepickerTo = dateCovertor(datepickerTo);
+					}
+					
 					// the categoryType depends the value call a different method from AdvanceSearchModel
 					if (categoryType.equals("article")) {
 						arrayResults = model.getArticle(queryName, categoryType);
@@ -80,5 +86,16 @@ public class AdvanceSearch extends VelocityViewServlet {
 			}
 			return template; 
 		}
+	}
+	
+	//convert the UK date format to USA
+	private String dateCovertor(String dateUK) {
+		String[] dateSplitter = dateUK.split("/");
+		String day = dateSplitter[0];
+		String month = dateSplitter[1];
+		String year = dateSplitter[2];
+		
+		String dateUSA = year + "/" + month + "/" + day;
+		return dateUSA;
 	}
 }

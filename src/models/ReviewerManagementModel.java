@@ -54,7 +54,10 @@ public class ReviewerManagementModel {
 		return arrayResults;
 	}
 	
-	public void deleteChoice(String assignID) throws SQLException {
+	public boolean deleteChoice(String assignID) throws SQLException {
+		
+		boolean status = false;
+		
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
@@ -62,9 +65,14 @@ public class ReviewerManagementModel {
 			st.executeUpdate(updateQuery);
 			st.close();
 			conn.close();
+			
+			status = true;
+			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		
+		return status;
 	}
 	
 }

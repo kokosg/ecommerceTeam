@@ -25,12 +25,22 @@ public class EditJournal extends VelocityViewServlet {
 		//get the parameters from the form
 		String aimsGoals = request.getParameter("aimsGoals");
 		
+		boolean status = false;
+		
 		try {
 
 			if (aimsGoals != null) {
 				int journalID = 1;
 				String title = request.getParameter("title");
-				model.setJournal(journalID, title, aimsGoals);
+				
+				status = model.setJournal(journalID, title, aimsGoals);
+				
+				if (status) {
+					context.put("successfully", "Journal has been updated successfully");
+				} else {
+					context.put("error", "Problem occurred on Journal");
+				}
+				
 			}
 				//return getUsers from UserManagementModel and put them in contexts
 				context.put("searchResults", model.getJournal());

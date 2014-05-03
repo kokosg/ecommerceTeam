@@ -47,7 +47,10 @@ public class UserManagementModel {
 		return arrayResults;
 	}
 
-	public void setUserRole(int isEditor, String userID) throws SQLException {
+	public boolean setUserRole(int isEditor, String userID) throws SQLException {
+		
+		boolean status = false;
+		
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
@@ -55,9 +58,15 @@ public class UserManagementModel {
 			st.executeUpdate(updateQuery);
 			st.close();
 			conn.close();
+			
+			status = true;
+			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		
+		return status;
+		
 	}
 
 }

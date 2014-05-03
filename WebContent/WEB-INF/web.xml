@@ -198,4 +198,34 @@
     <servlet-name>ReviewerManagement</servlet-name>
     <url-pattern>/reviewerManagement</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RecentReviews</display-name>
+    <servlet-name>RecentReviews</servlet-name>
+    <servlet-class>RecentReviews</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RecentReviews</servlet-name>
+    <url-pattern>/recentReviews</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditVolume</display-name>
+    <servlet-name>EditVolume</servlet-name>
+    <servlet-class>EditVolume</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditVolume</servlet-name>
+    <url-pattern>/editVolume</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditEdition</display-name>
+    <servlet-name>EditEdition</servlet-name>
+    <servlet-class>EditEdition</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditEdition</servlet-name>
+    <url-pattern>/editEdition</url-pattern>
+  </servlet-mapping>
 </web-app>

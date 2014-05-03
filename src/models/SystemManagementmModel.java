@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import objects.Article;
 import objects.ArticleRevision;
+import objects.Choices;
 import objects.Criticism;
 import objects.Response;
 import objects.Review;
@@ -114,6 +115,65 @@ public class SystemManagementmModel {
 		return arrayResults;
 	}
 	
+	
+	public ArrayList<Review> getAllReviews() throws SQLException {
+		ArrayList<Review> arrayResults = new ArrayList<Review>();
+		String queryAuthor = "select Review.reviewID, Review.authorReviewerID, Review.articleID, Review.judgement, Review.expertise, Review.summary, Review.criticismID, Review.smallErrors, Review.editorComments, Review.isAccepted, Review.dateSubmitted from Review ";
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			ResultSet rs = st.executeQuery(queryAuthor);
+			while (rs.next()) {
+				int reviewID = rs.getInt("Review.reviewID");
+				int authorReviewerID = rs.getInt("Review.authorReviewerID");
+				int articleID = rs.getInt("Review.articleID");
+				int judgement = rs.getInt("Review.judgement");
+				int expertise = rs.getInt("Review.expertise");
+				String summary = (String) rs.getObject("Review.summary");
+				int criticismID = rs.getInt("Review.criticismID");
+				String smallErrors = (String) rs.getObject("Review.smallErrors");
+				String editorComments = (String) rs.getObject("Review.editorComments");
+				boolean isAccepted =(boolean) rs.getObject("Review.isAccepted");
+				Date dateSubmitted = (Date) rs.getObject("Review.dateSubmitted");
+				
+				Review review = new Review(reviewID, authorReviewerID, articleID, judgement, expertise, summary, criticismID, smallErrors, editorComments, isAccepted, dateSubmitted);
+				arrayResults.add(review);
+			}
+			rs.close();
+			st.close();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return arrayResults;
+	}
+	
+	public ArrayList<Choices> getAuthorReviewer() throws SQLException {
+		ArrayList<Choices> arrayResults = new ArrayList<Choices>();
+		String queryAuthor = "SELECT AuthorReviewer.authorReviewerID, Author.authorID, Author.name, Author.surname, Author.email FROM AuthorReviewer INNER JOIN Author ON AuthorReviewer.authorID = Author.authorID";
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			ResultSet rs = st.executeQuery(queryAuthor);
+			while (rs.next()) {
+				int authorReviewerID = rs.getInt("AuthorReviewer.authorReviewerID");
+				int authorID = rs.getInt("Author.authorID");
+				String name = rs.getString("Author.name");
+				String surname = rs.getString("Author.surname");
+				String email = rs.getString("Author.email");
+				
+				Choices response = new Choices(authorReviewerID, authorID, name, surname, email);
+				arrayResults.add(response);
+			}
+			rs.close();
+			st.close();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return arrayResults;
+	}
+	
 	public ArrayList<Criticism> getCriticisms() throws SQLException {
 		ArrayList<Criticism> arrayResults = new ArrayList<Criticism>();
 		String queryAuthor = "SELECT Criticism.criticismID, Criticism.criticism, Criticism.reviewID, Criticism.isCorrected, Criticism.isAccepted FROM Criticism";
@@ -162,6 +222,29 @@ public class SystemManagementmModel {
 			e.printStackTrace();
 		}
 		return arrayResults;
+	}
+	
+	public boolean deleteReview(String reviewID, String authorReviewerID) throws SQLException {
+		
+		boolean deleteStatus = false;
+		
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String updateQuery = "DELETE Review, Criticism FROM Review INNER JOIN Criticism ON Review.reviewID = Criticism.reviewID WHERE Review.reviewID = '" + reviewID + "' and Review.authorReviewerID = '" + authorReviewerID + "'";
+			st.executeUpdate(updateQuery);
+			st.close();
+			conn.close();
+			
+			deleteStatus = true;
+			System.out.print("Delete done");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return deleteStatus;
+	
 	}
 	
 }

@@ -31,18 +31,14 @@ public Template handleRequest( HttpServletRequest request, HttpServletResponse r
 			
 		context.put("searchResults", browseModel.getBrowse());
 		
-         template = getTemplate("/pages/browse.vm"); 
-        
          //if edition is not null call the method which is in the model browseModel by passing a value
          if (edition != null) {
-
-        	 System.out.print("oo " + browseModel.getEdition(edition));
-        	
      		context.put("editionResults", browseModel.getEdition(edition));
-        	 
-
          }
-      
+
+         template = getTemplate("/pages/browse.vm"); 
+
+         
       } catch(Exception e ) {
          System.out.println("Error " + e);
       }

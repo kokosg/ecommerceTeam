@@ -29,6 +29,21 @@ public class Choices {
 	}
 
 	/**
+	 * @param authorReviewerID
+	 * @param authorID
+	 * @param name
+	 * @param surname
+	 * @param email
+	 */
+	public Choices(int authorReviewerID, int authorID, String name, String surname, String email) {
+		this.authorReviewerID = authorReviewerID;
+		this.authorID = authorID;
+		this.name = name;
+		this.surname = surname;
+		this.email = email;
+	}
+	
+	/**
 	 * @param articleID
 	 * @param title
 	 * @param assignID
