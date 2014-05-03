@@ -23,61 +23,73 @@ public class Login extends VelocityViewServlet {
 		context.put("apptitle", "E-com Journal");
 		Template template=null;
 		response.setContentType("text/html");
-		try {
-			ConnectionManager conn = new ConnectionManager();			
-			//query Author and AuthorReviewer tables to retrieve data regarding the current user (given email and password)
-			String selectQuery = "SELECT Author.authorID, Author.name, Author.surname, Author.affiliations, Author.email, AuthorReviewer.password, AuthorReviewer.isEditor"
-					+ " from Author INNER JOIN AuthorReviewer ON Author.authorID = AuthorReviewer.authorID"
-					+ " where Author.email ='" + eml + "'and AuthorReviewer.password ='" + pwd + " ' ";
-			Statement st = conn.getInstance().getConnection().createStatement();
-			ResultSet rs = st.executeQuery(selectQuery);
-
-			if (rs.next()) {
-				//get all forms' attribute values
-				int userID = rs.getInt("Author.authorID");
-				String userName = (String)rs.getObject("Author.name");
-		        String userSurname = (String)rs.getObject("Author.surname");
-		        String userAffiliations = (String)rs.getObject("Author.affiliations");
-		        String userEmail = (String)rs.getObject("Author.email");
-		        String userPassword = (String)rs.getObject("AuthorReviewer.password");
-		        Boolean isEditor = (Boolean)rs.getObject("AuthorReviewer.isEditor");
-		        //get session object
-		        HttpSession session = request.getSession();
-	            userEmail = (String)session.getAttribute("email");
-	            
-	           if (request.getParameter("email") != null) {
-	        	   //create a user object
-	        	   User user = new User(userID, userName, userSurname, userAffiliations, request.getParameter("email"), userPassword, isEditor); //see email again
-	        	   //add user object to session
-	        	   session.setAttribute("user", user);
-	        	   session.setAttribute("userID", userID);
-	        	   //add userRole to session
-	        	   if (isEditor == false) {
-	        		   session.setAttribute("userRole", "AuthorReviewer");    		
-	        	   } else {
-	        		   session.setAttribute("userRole", "Editor"); //think again - change that??		
-	        	   }
-	           } 
-	           if (userEmail != null) {
-	        	   // This user already has a session; show the name and show the list of
-	        	   // items entered.
-	        	   System.out.println("already has a session" + userName + " " + userSurname + "!");
-	           }
-	           //context.put("session", (User)session.getAttribute("user"));
-			} else {
-				//msg = "<font size='8'color = red>Your login Failed</font>";
-				//request.setAttribute("message123", msg);
-				//response.getWriter().println("<font size='8'color = red>1" + msg);
-				//request.getRequestDispatcher("index.jsp").forward(request,response);
-				//System.out.println("error");
-			}
+		
+		// get the value of a hidden field in a form to determine if we have posted data
+		String flag = request.getParameter("flag"); 
+		
+		//if we haven't post any data then we have just to load the template
+		if (flag == null) {
 			template = getTemplate("/forms/profile.vm"); 
-			//release resources
-			rs.close();
-			st.close();
-			conn.close();
-		} catch(Exception e ) {
-			System.out.println("Error " + e);
+		} else {
+			try {
+				ConnectionManager conn = new ConnectionManager();			
+				//query Author and AuthorReviewer tables to retrieve data regarding the current user (given email and password)
+				String selectQuery = "SELECT Author.authorID, Author.name, Author.surname, Author.affiliations, Author.email, AuthorReviewer.password, AuthorReviewer.isEditor"
+						+ " from Author INNER JOIN AuthorReviewer ON Author.authorID = AuthorReviewer.authorID"
+						+ " where Author.email ='" + eml + "'and AuthorReviewer.password ='" + pwd + " ' ";
+				Statement st = conn.getInstance().getConnection().createStatement();
+				ResultSet rs = st.executeQuery(selectQuery);
+	
+				if (rs.next()) {
+					//get all forms' attribute values
+					int userID = rs.getInt("Author.authorID");
+					String userName = (String)rs.getObject("Author.name");
+			        String userSurname = (String)rs.getObject("Author.surname");
+			        String userAffiliations = (String)rs.getObject("Author.affiliations");
+			        String userEmail = (String)rs.getObject("Author.email");
+			        String userPassword = (String)rs.getObject("AuthorReviewer.password");
+			        Boolean isEditor = (Boolean)rs.getObject("AuthorReviewer.isEditor");
+			        //get session object
+			        HttpSession session = request.getSession();
+		            userEmail = (String)session.getAttribute("email");
+		            
+		           if (request.getParameter("email") != null) {
+		        	   	//alert message
+						context.put("successfully", "Successfully Login!");
+		        	   //create a user object
+		        	   User user = new User(userID, userName, userSurname, userAffiliations, request.getParameter("email"), userPassword, isEditor); //see email again
+		        	   //add user object to session
+		        	   session.setAttribute("user", user);
+		        	   session.setAttribute("userID", userID);
+		        	   //add userRole to session
+		        	   if (isEditor == false) {
+		        		   session.setAttribute("userRole", "AuthorReviewer");    		
+		        	   } else {
+		        		   session.setAttribute("userRole", "Editor");		
+		        	   }
+		           } 
+		           if (userEmail != null) {
+		        	   // This user already has a session; show the name and show the list of
+		        	   // items entered.
+		        	   System.out.println("already has a session" + userName + " " + userSurname + "!");
+		           }
+		           //context.put("session", (User)session.getAttribute("user"));
+				} else {
+					context.put("error", "Problem occurred on Login check your password or username/email!");
+					//msg = "<font size='8'color = red>Your login Failed</font>";
+					//request.setAttribute("message123", msg);
+					//response.getWriter().println("<font size='8'color = red>1" + msg);
+					//request.getRequestDispatcher("index.jsp").forward(request,response);
+					//System.out.println("error");
+				}
+				template = getTemplate("/forms/profile.vm"); 
+				//release resources
+				rs.close();
+				st.close();
+				conn.close();
+			} catch(Exception e ) {
+				System.out.println("Error " + e);
+			}
 		}
 		return template;
 	}

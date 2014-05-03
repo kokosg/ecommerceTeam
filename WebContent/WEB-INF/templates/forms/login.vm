@@ -18,6 +18,7 @@ label.error {
                        <label> Password :</label> 
                        <input class="form-control" type="password" name="password" id="password" size="30" />
                </div>
+               <input id="flag" name="flag" type="hidden" value = "1">
                <input class="btn btn-success submit-btn" type="submit" value="Sign in">
        </form>
 </div>

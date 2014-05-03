@@ -21,9 +21,13 @@ public class Logout extends VelocityViewServlet {
 	    	  //get the session object and invalidate() it
 	  		HttpSession session = request.getSession();
 			session.invalidate();
+			
+				context.put("successfully", "Your have been logout successfully");
+			
 	         template = getTemplate("/forms/home.vm"); 
 	      } catch(Exception e ) {
 	         System.out.println("Error " + e);
+				context.put("error", "Problem occurred during logout process");
 	      }
 	      return template;
 	   }

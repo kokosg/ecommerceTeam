@@ -10,6 +10,19 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 	<div class="jumbotron">
 	
+	   	#if ($successfully) 
+   		<div class="alert alert-success alert-dismissable">
+		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  <strong>$successfully
+		</div>
+   		#end
+   		#if ($error) 
+   		<div class="alert alert-danger alert-dismissable">
+		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  <strong>$error
+		</div>
+   		#end
+	
 		#if (!$session.user.email)
 			<h1>Hello, Guest!</h1>
 		#else
