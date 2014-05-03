@@ -23,7 +23,7 @@ public class AbstractModel {
 
 	public Article getArticle(int article_ID) throws SQLException {
 		String queryArticle = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article where articleID LIKE '%" + article_ID + "%'";
-		Article article = new Article();
+		Article article = null ;
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
@@ -131,34 +131,6 @@ public class AbstractModel {
 
 	}
 
-//	public ArrayList<Integer> getReviewChoice(int authorID){
-//
-//		ArrayList<Integer> selectedArcticleID = new ArrayList<Integer>();
-//		ArrayList<Choice> resultID=new ArrayList<Choice>();
-//		ConnectionManager conn;
-//		try {
-//			int aID; 
-//			conn = new ConnectionManager();
-//			Statement st = conn.getInstance().getConnection().createStatement();
-//			String selectQuery ="Select * from Choice where authorReviewerID = '"+ authorID +"'";
-//			ResultSet rs = st.executeQuery(selectQuery);
-//			while (rs.next()) {
-//				aID= rs.getInt("Choice.articleID");
-//				Choice ch = new Choice(aID);
-//				resultID.add(ch);
-//			}
-//			for(Choice result :resultID ){
-//				selectedArcticleID.add(result.getArticleID());
-//			}
-//			System.out.println("AbstracTTTT model "+selectedArcticleID);
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}
-//		return selectedArcticleID;
-//
-//
-//	}
-
 	public void setReviewChoice(String[] articleID,int authorID){
 		ArrayList<Choice> resultID=new ArrayList<Choice>();
 		//get current date time with Date()
@@ -244,24 +216,44 @@ public class AbstractModel {
 		ConnectionManager conn;
 		try {
 			String aTitle; 
+			String aSummary;
+			int aID;
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			String selectQuery ="Select Article.title from Article,Choice where Choice.authorReviewerID = '"+ authorID +"' and  Article.articleID =Choice.articleID";
+			String selectQuery ="Select Article.articleID,Article.title,Article.summary from Article,Choice where Choice.authorReviewerID = '"+ authorID +"' and  Article.articleID =Choice.articleID";
 			ResultSet rs = st.executeQuery(selectQuery);
 			while (rs.next()) {
 				aTitle= (String) rs.getObject("Article.title");
-				Article title = new Article(aTitle,true);
-				//title.setChosen(true);
+				System.out.println("aTitle "+aTitle);
+				aSummary= (String) rs.getObject("Article.summary");
+				System.out.println("aSummary "+aSummary);
+				aID = (int) rs.getInt("Article.articleID");
+				System.out.println("aID "+aID);
+				Article title = new Article(aID,aTitle,aSummary,true);
 				resultID.add(title);
 			}
-//			for(Article result :resultID ){
-//				selectedArcticleID.add(result.getTitle());
-//			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return resultID;
 
+	}
+	
+	public void deleteChoice(int authorID, int articleID){
+		
+		ConnectionManager conn;
+		try {
+			
+			conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String selectQuery ="DELETE FROM Choice WHERE Choice.articleID = "+articleID+" and "+"Choice.authorReviewerID="+authorID;
+			st.executeUpdate(selectQuery);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
 
 

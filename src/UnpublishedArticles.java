@@ -27,10 +27,6 @@ public class UnpublishedArticles extends VelocityViewServlet {
 		int authorID =(Integer) session.getAttribute("userID");
 		
 		try {
-			
-//			ArrayList<Integer> artCkeckId = absModel.getReviewChoice(authorID);
-//			System.out.println("CHEEEEEEEEEEEEECK: "+artCkeckId);
-//			context.put("artCheck",artCkeckId );
 			unpubArticle=absModel.getUnpublishedArticle();
 			for(Article a : unpubArticle){
 				 if(absModel.checkData(a.getArticleID(), authorID)){
@@ -51,13 +47,12 @@ public class UnpublishedArticles extends VelocityViewServlet {
 				System.out.println("not null");
 				absModel.setReviewChoice(articleId,authorID);
 				}
+				template = getTemplate("/forms/unpublishedArticles.vm");
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		template = getTemplate("/forms/unpublishedArticles.vm");
 		return template;
 		
 	}

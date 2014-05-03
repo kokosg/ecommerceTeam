@@ -45,8 +45,10 @@ public class Article {
 		
 	}
 	
-	public Article(String title,boolean chosen) {
+	public Article(int articleID,String title,String summary,boolean chosen) {
+		this.articleID = articleID;
 		this.title = title;
+		this.summary = summary;
 		this.chosen=chosen;
 		
 		

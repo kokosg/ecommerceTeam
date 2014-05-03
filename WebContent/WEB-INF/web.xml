@@ -228,7 +228,7 @@
     <servlet-name>EditEdition</servlet-name>
     <url-pattern>/editEdition</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>ArticleStatusServlet</display-name>
     <servlet-name>ArticleStatusServlet</servlet-name>
@@ -237,5 +237,15 @@
   <servlet-mapping>
     <servlet-name>ArticleStatusServlet</servlet-name>
     <url-pattern>/status</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SelectedArticlesForReview</display-name>
+    <servlet-name>SelectedArticlesForReview</servlet-name>
+    <servlet-class>SelectedArticlesForReview</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SelectedArticlesForReview</servlet-name>
+    <url-pattern>/selected</url-pattern>
   </servlet-mapping>
 </web-app>

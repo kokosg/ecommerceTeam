@@ -3,6 +3,11 @@
  <meta charset="ISO-8859-1">
  #include( "/commonElements/head.html" )
  <TITLE>$apptitle</TITLE>
+  <script>
+ $('#unpublishArt').click(function() {
+ location.reload();
+ });
+  </script>
 </head>
 
 #parse( "/commonElements/navbar.vm" )
@@ -19,13 +24,16 @@
 #else
 
 <div class="container">
+
     <div class="page-header">
       <br/>
       <h1>List of the Unpublished Articles</h1>
     </div> 
     <div class="col-md-10">
+      <h4><a href="selected">Goto All You Choices </a></h4>
+      <h4><a href="status">Check your Review Status </a></h4>
       
-        <form name="myform" action="articles" method="post" class="form-horizontal" onsubmit="setTimeout('parent.location.reload()',500); return true;">
+        <form id ="unpublishArt" name="unpublishArt" action="articles" method="post" class="form-horizontal" onsubmit="setTimeout('parent.location.reload()',500); return true;">
              #foreach($article in $unpubArticle) 
              
              <div class="panel-group" id="accordion"  >
@@ -39,7 +47,7 @@
                         #else
                           <input type="checkbox" name="article" id="$article.getArticleID()" value="$article.getArticleID()">
                       	#end
-                        &nbsp;&nbsp;&nbsp; $article.getTitle()
+                         $article.getTitle()
 			</div>
                         </h4>
                   	</div> 

@@ -30,6 +30,7 @@
            <h3>Welcome to eCom-Journal</h3>
            <h3 >$session.user.name  $session.user.surname</h3>
           </div>
+</div>
 <div class="container">
                <!-- Example row of columns -->
                <div class="row">
@@ -42,7 +43,7 @@
                  <div class="col-md-4">
                    <h2>Unpublished Articles</h2>
                    <p>View Unpublished Articles</p>
-                   <p><a class="btn btn-default" href="articles" role="button">View details &raquo;</a></p>
+                   <p><a class="btn btn-default" href="selected" role="button">View details &raquo;</a></p>
                 </div>
                 #end
                  <div class="col-md-4">
@@ -53,7 +54,7 @@
        </div>
      </div>
 #end
-</div>
+
 #parse("/commonElements/footer.vm")
 </body>
 </html>

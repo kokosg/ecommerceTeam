@@ -20,7 +20,7 @@ public class UploadServlet extends VelocityViewServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String UPLOAD_DIRECTORY = "/Users/shreebha/Downloads/apache-tomcat-6.0.39/webapps/data/";
+	private final String UPLOAD_DIRECTORY = "/Users/renuka/Downloads/apache-tomcat-6.0.39/webapps/data/";
 	// private String filePath;
 
 	@Override
@@ -55,6 +55,7 @@ public class UploadServlet extends VelocityViewServlet {
 							}
 							else{
 								TemplateTitle = item.getString();
+								System.out.println("jbskbkf+ ttt "+TemplateTitle);
 							}
 						}
 						UploadModel uc = new UploadModel();
