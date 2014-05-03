@@ -22,12 +22,12 @@ public class Subscribe extends VelocityViewServlet {
 		
 		String flag = request.getParameter("flag"); // get the value of a hidden field in a form to determine if we have posted data
 		SubscriptionModel model = new SubscriptionModel();
-		context.put("apptitle", "E-com Journal - Subscribe");
 		Template template = null;
 		response.setContentType("text/html");
         
 		//if we haven't post any data then we have just to load the template
 		if (flag == null) {
+			context.put("apptitle", "E-com Journal - Subscribe");
 			try {
 	            ArrayList<Keyword> keywords = new ArrayList<Keyword>(); 
 				//return all keywords in the Keywords table
@@ -40,6 +40,7 @@ public class Subscribe extends VelocityViewServlet {
 			return template;
 		//if we have posted data from a form do the following
 		} else {
+			context.put("apptitle", "E-com Journal - Home");
 			//get form attributes' values
 			String email = request.getParameter("email");
 			String[] keywords = request.getParameterValues("keywords");
