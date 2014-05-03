@@ -26,6 +26,7 @@
 							<li class="divider"></li>
 							<li class="dropdown-header">Author - Reviewer</li>
 							<li><a href="#">Separated link</a></li>
+							<li><a href="status">Review Status</a></li>
 						#elseif ($session.userRole == "Editor")
 							<!-- ADD EDITOR ACTIONS HERE-->
 							<li class="divider"></li>

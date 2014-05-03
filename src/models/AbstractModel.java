@@ -46,9 +46,9 @@ public class AbstractModel {
 		}
 		return article;
 	}
-	
+
 	public ArrayList<Keyword> getKeywords(int article_ID) throws SQLException {
-		
+
 		ArrayList<Keyword> arrayResults = new ArrayList<Keyword>(); 
 		String queryKeywords = "select Keyword.keywordID, Keyword.text from Keyword INNER JOIN ArticleKeyword ON Keyword.keywordID = ArticleKeyword.keywordID INNER JOIN Article ON ArticleKeyword.articleID = Article.articleID where Article.articleID ='" + article_ID + "'";
 		Keyword keyword = new Keyword();
@@ -60,9 +60,9 @@ public class AbstractModel {
 				System.out.println("a" + (String)rs.getObject("Keyword.text"));
 				int keywordID = rs.getInt("Keyword.keywordID");
 				String keywordText = (String)rs.getObject("Keyword.text");
-				
-	        	keyword = new Keyword(keywordID, keywordText);
-		        arrayResults.add(keyword);
+
+				keyword = new Keyword(keywordID, keywordText);
+				arrayResults.add(keyword);
 			}
 			rs.close();
 			st.close();
@@ -74,10 +74,10 @@ public class AbstractModel {
 		System.out.print(keyword.getKeywordID());
 		return arrayResults;
 	}
-	
-	
+
+
 	public ArrayList<User> getAuthor(int article_ID) throws SQLException {
-		
+
 		ArrayList<User> arrayResults = new ArrayList<User>(); 
 		String queryAuthor = "select Author.name, Author.surname, Author.email from Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID where Article.articleID = '" + article_ID + "'"; 
 		try {
@@ -86,11 +86,11 @@ public class AbstractModel {
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
 				String userName = (String)rs.getObject("Author.name");
-		        String userSurname = (String)rs.getObject("Author.surname");
-		        String userEmail = (String)rs.getObject("Author.email");
-				
-	        	User user = new User(userName, userSurname, userEmail);
-		        arrayResults.add(user);
+				String userSurname = (String)rs.getObject("Author.surname");
+				String userEmail = (String)rs.getObject("Author.email");
+
+				User user = new User(userName, userSurname, userEmail);
+				arrayResults.add(user);
 			}
 			rs.close();
 			st.close();
@@ -130,40 +130,41 @@ public class AbstractModel {
 		return unpubArticle;
 
 	}
-	
-	public ArrayList<Integer> getReviewChoice(int authorID){
-		
-		ArrayList<Integer> selectedArcticleID = new ArrayList<Integer>();
-		ArrayList<Choice> resultID=new ArrayList<Choice>();
-		ConnectionManager conn;
-		try {
-			int aID; 
-			conn = new ConnectionManager();
-			Statement st = conn.getInstance().getConnection().createStatement();
-			String selectQuery ="Select * from Choice where authorReviewerID = '"+ authorID +"'";
-			ResultSet rs = st.executeQuery(selectQuery);
-			while (rs.next()) {
-				aID= rs.getInt("Choice.articleID");
-				Choice ch = new Choice(aID);
-				resultID.add(ch);
-			}
-			for(Choice result :resultID ){
-				selectedArcticleID.add(result.getArticleID());
-			}
-			System.out.println("AbstracTTTT model "+selectedArcticleID);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return selectedArcticleID;
-		
-		
-	}
+
+//	public ArrayList<Integer> getReviewChoice(int authorID){
+//
+//		ArrayList<Integer> selectedArcticleID = new ArrayList<Integer>();
+//		ArrayList<Choice> resultID=new ArrayList<Choice>();
+//		ConnectionManager conn;
+//		try {
+//			int aID; 
+//			conn = new ConnectionManager();
+//			Statement st = conn.getInstance().getConnection().createStatement();
+//			String selectQuery ="Select * from Choice where authorReviewerID = '"+ authorID +"'";
+//			ResultSet rs = st.executeQuery(selectQuery);
+//			while (rs.next()) {
+//				aID= rs.getInt("Choice.articleID");
+//				Choice ch = new Choice(aID);
+//				resultID.add(ch);
+//			}
+//			for(Choice result :resultID ){
+//				selectedArcticleID.add(result.getArticleID());
+//			}
+//			System.out.println("AbstracTTTT model "+selectedArcticleID);
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
+//		return selectedArcticleID;
+//
+//
+//	}
 
 	public void setReviewChoice(String[] articleID,int authorID){
 		ArrayList<Choice> resultID=new ArrayList<Choice>();
 		//get current date time with Date()
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
+		Choice choice=new Choice();
 
 		ConnectionManager conn;
 		try {
@@ -174,6 +175,7 @@ public class AbstractModel {
 			ResultSet rs = st.executeQuery(selectQuery);
 			while (rs.next()) {
 				aID= rs.getInt("Choice.articleID");
+
 				Choice ch = new Choice(aID);
 				resultID.add(ch);
 
@@ -187,19 +189,20 @@ public class AbstractModel {
 			}else{
 				for (int i=0 ;i< articleID.length;i++){
 					boolean flag = false;
-						for(Choice result :resultID ){
-							int id=result.getArticleID();
-							int viewID = Integer.parseInt(articleID[i]);
-							if (id== viewID ){
-								flag = true;
-							}
+					for(Choice result :resultID ){
+						int id=result.getArticleID();
+						int viewID = Integer.parseInt(articleID[i]);
+						if (id== viewID ){
+							flag = true;
 						}
-						if(flag==false){
-							String queryReview = "INSERT INTO Choice (articleID, authorReviewerID, dateChosen) VALUE ('" + articleID[i] + "', '" + authorID + "', '" + dateFormat.format(date) + "')";
-							st.executeUpdate(queryReview);
-						}
+					}
+					if(flag==false){
+						String queryReview = "INSERT INTO Choice (articleID, authorReviewerID, dateChosen) VALUE ('" + articleID[i] + "', '" + authorID + "', '" + dateFormat.format(date) + "')";
+						st.executeUpdate(queryReview);
+					}
 				}
 			}
+			
 			st.close();
 			conn.close();
 
@@ -211,4 +214,55 @@ public class AbstractModel {
 		}
 
 	}
+
+	public boolean checkData(int articleId,int authorID){
+		ConnectionManager conn;
+		try {
+			conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String selectQuery ="Select * from Choice where authorReviewerID = '"+ authorID +"'";
+			ResultSet rs = st.executeQuery(selectQuery);
+			while (rs.next()) {
+				if( articleId == rs.getInt("Choice.articleID")){
+					return true;
+				}
+			}
+			st.close();
+			conn.close();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public ArrayList<Article> getChoiceTitle(int authorID){
+
+		//ArrayList<String> selectedArcticleID = new ArrayList<String>();
+		ArrayList<Article> resultID=new ArrayList<Article>();
+		ConnectionManager conn;
+		try {
+			String aTitle; 
+			conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String selectQuery ="Select Article.title from Article,Choice where Choice.authorReviewerID = '"+ authorID +"' and  Article.articleID =Choice.articleID";
+			ResultSet rs = st.executeQuery(selectQuery);
+			while (rs.next()) {
+				aTitle= (String) rs.getObject("Article.title");
+				Article title = new Article(aTitle,true);
+				//title.setChosen(true);
+				resultID.add(title);
+			}
+//			for(Article result :resultID ){
+//				selectedArcticleID.add(result.getTitle());
+//			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return resultID;
+
+	}
+
+
 }

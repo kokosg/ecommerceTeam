@@ -1,0 +1,49 @@
+<HTML>
+<head>
+ <meta charset="ISO-8859-1">
+ #include( "/commonElements/head.html" )
+ <TITLE>$apptitle</TITLE>
+</head>
+
+#parse( "/commonElements/navbar.vm" )
+<body>
+#if(!$session.user.name)
+<div class="jumbotron"> 
+
+             <div class="container">
+             
+<h2 >Sorry you are not authenticated to access this part of website</h2>
+</div>
+</div>
+
+#else
+<div class="container">
+    <div class="page-header">
+      <br/>
+      <h2>Review Status</h2>
+    </div> 
+           <table class="table table-hover">
+    		<tr>
+      			<th>Titles</th>
+      			<th>Chosen</th>
+    			<th>Downloaded</th>
+    			<th>Reviewed</th>
+    		</tr>
+  				
+  				#foreach($article in $artCkeckId)
+  				<tr>
+   			 	</br>
+      			<td>$article.title</td>
+      			<td>$article.chosen</td>
+      			<td>yes</td>
+      			<td>yes</td>
+   	    		</tr>
+   	    	#end
+	</table>
+	   </div>
+	  
+#end
+</body>
+</br>
+#parse( "/commonElements/footer.vm" )
+</html>

@@ -28,12 +28,23 @@ public class UnpublishedArticles extends VelocityViewServlet {
 		
 		try {
 			
-			ArrayList<Integer> artCkeckId = absModel.getReviewChoice(authorID);
-			System.out.println("CHEEEEEEEEEEEEECK: "+artCkeckId);
-			context.put("artCheck",artCkeckId );
+//			ArrayList<Integer> artCkeckId = absModel.getReviewChoice(authorID);
+//			System.out.println("CHEEEEEEEEEEEEECK: "+artCkeckId);
+//			context.put("artCheck",artCkeckId );
 			unpubArticle=absModel.getUnpublishedArticle();
+			for(Article a : unpubArticle){
+				 if(absModel.checkData(a.getArticleID(), authorID)){
+					 a.setSelected(true);
+				 }else{
+					 a.setSelected(false);
+				 }
+				}
 			System.out.println("UnpublisheArticle unpubArticle :"+unpubArticle);
 			context.put("unpubArticle", unpubArticle);
+			for(Article a : unpubArticle){
+				 System.out.print("article id" + a.getArticleID() + "     ");
+				 System.out.print(a.isSelected());
+				}
 			String[] articleId= request.getParameterValues("article");
 			
 			if (articleId != null){

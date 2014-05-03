@@ -16,6 +16,8 @@ public class Article {
 	private boolean published;
 	private boolean reviewed;
 	private int pageNo;
+	private boolean selected;
+	private boolean chosen;
 	
 	/**
 	 * 
@@ -40,6 +42,13 @@ public class Article {
 		this.articleID = articleId;
 		this.title = title;
 		this.summary = summary;
+		
+	}
+	
+	public Article(String title,boolean chosen) {
+		this.title = title;
+		this.chosen=chosen;
+		
 		
 	}
 	/**
@@ -126,4 +135,22 @@ public class Article {
 		this.pageNo = pageNo;
 	}
 
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+		
+	}
+	public boolean isSelected(){
+		return selected;
+	}
+
+
+	public boolean isChosen() {
+		return chosen;
+	}
+
+
+	public void setChosen(boolean chosen) {
+		this.chosen = chosen;
+	}
 }

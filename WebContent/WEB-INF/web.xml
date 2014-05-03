@@ -228,4 +228,14 @@
     <servlet-name>EditEdition</servlet-name>
     <url-pattern>/editEdition</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>ArticleStatusServlet</display-name>
+    <servlet-name>ArticleStatusServlet</servlet-name>
+    <servlet-class>ArticleStatusServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ArticleStatusServlet</servlet-name>
+    <url-pattern>/status</url-pattern>
+  </servlet-mapping>
 </web-app>
