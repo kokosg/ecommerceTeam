@@ -18,6 +18,7 @@ public class Article {
 	private int pageNo;
 	private boolean selected;
 	private boolean chosen;
+	private boolean isDownloaded;
 	
 	/**
 	 * 
@@ -154,5 +155,16 @@ public class Article {
 
 	public void setChosen(boolean chosen) {
 		this.chosen = chosen;
+	}
+
+
+	public void setDownloaded(boolean isDownloaded){
+		this.isDownloaded= isDownloaded;
+	}
+	/**
+	 * @return the isDownloaded
+	 */
+	public boolean isDownloaded() {
+		return isDownloaded;
 	}
 }

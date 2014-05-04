@@ -245,5 +245,26 @@ public class SubmitArticleModel {
 		}
 		return recentDate;
 	}
+	
+	//Review - set isDownloaded
+	public void setArticleDownloaded(String articleID, int authorID){
+		ConnectionManager conn;
+		try {
+			conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String insertQuery ="INSERT INTO Review (articleID, authorReviewerID,isDownloaded) VALUES ('" + articleID + "', '" + authorID + "','1')";
+			st.executeUpdate(insertQuery);
+			st.close();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 
 }

@@ -22,6 +22,7 @@ public class Review {
 	private String editorsComments;
 	private boolean isAccepted;
 	private Date dateSubmitted;
+	private boolean isDownloaded;
 	
 	/**
 	 * 
@@ -214,5 +215,17 @@ public class Review {
 	public void setDateSubmitted(Date dateSubmitted) {
 		this.dateSubmitted = dateSubmitted;
 	}
-	
+	/**
+	 * @return the isDownloaded
+	 */
+	public boolean isDownloaded() {
+		return isDownloaded;
+	}
+
+	/**
+	 * @param isDownloaded the isDownloaded to set
+	 */
+	public void setDownloaded(boolean isDownloaded) {
+		this.isDownloaded = isDownloaded;
+	}
 }

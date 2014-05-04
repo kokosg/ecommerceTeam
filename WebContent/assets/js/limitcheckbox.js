@@ -1,4 +1,4 @@
-$(document).ready(function limitCheckbox(el) {
+function limitCheckbox(el) {
     var count = 0,
         i;
     var checkboxes = document.getElementsByName(el.name);
@@ -11,4 +11,4 @@ $(document).ready(function limitCheckbox(el) {
 	    el.checked = false;
     }
   }
-});
+}

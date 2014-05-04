@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import models.AbstractModel;
 import objects.Article;
-
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.view.VelocityViewServlet;
@@ -25,8 +24,17 @@ public class SelectedArticlesForReview extends VelocityViewServlet {
 		HttpSession session = request.getSession();
 		int authorID =(Integer) session.getAttribute("userID");
 		AbstractModel absModel=new AbstractModel();
+		
+		ArrayList<Integer> downloadedReview = absModel.getDownloaded(authorID);
+		//context.put("downloadedReview", downloadedReview);
+		//System.out.println("Downloaded ^^^^^^^^ "+downloadedReview);
 		ArrayList<Article> checkTitle =absModel.getChoiceTitle(authorID);
 		for(Article result :checkTitle ){
+			for(int reviewDwnld : downloadedReview){
+				if(reviewDwnld==result.getArticleID()){
+					result.setDownloaded(true);
+				}
+			}
 			System.out.println("Title :"+ result.getTitle() +" Summary: "+result.getSummary()+ " Chosen  :" + result.isChosen() );
 		}
 		context.put("artCkeckId", checkTitle);

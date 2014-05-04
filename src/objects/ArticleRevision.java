@@ -16,6 +16,7 @@ public class ArticleRevision {
 	private String filePath;
 	private Date dateSubmitted;
 	
+	
 	/**
 	 * 
 	 */
@@ -92,5 +93,7 @@ public class ArticleRevision {
 	public void setDateSubmitted(Date dateSubmitted) {
 		this.dateSubmitted = dateSubmitted;
 	}
+
+
 
 }

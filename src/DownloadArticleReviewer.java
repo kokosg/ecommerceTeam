@@ -4,11 +4,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import models.SubmitArticleModel;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -36,6 +39,7 @@ public class DownloadArticleReviewer extends VelocityViewServlet {
 
 				HttpSession session = request.getSession();
 				String UserRole=(String) session.getAttribute("userRole");
+				int authorID = (int) session.getAttribute("userID");
 				System.out.println(UserRole);
 				if (UserRole == "AuthorReviewer"){
 					try{
@@ -51,6 +55,7 @@ public class DownloadArticleReviewer extends VelocityViewServlet {
 							}
 
 							String filePath = sam.getArticleRevision(articleID);
+							sam.setArticleDownloaded(articleID, authorID);
 							System.out.println("filePAth: "+filePath);
 							File file = new File(filePath);
 							outStream = response.getOutputStream();

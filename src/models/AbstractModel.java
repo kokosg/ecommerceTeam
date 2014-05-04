@@ -11,6 +11,7 @@ import java.util.Date;
 import objects.Article;
 import objects.Choice;
 import objects.Keyword;
+import objects.Review;
 import objects.User;
 
 
@@ -251,10 +252,26 @@ public class AbstractModel {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		
+	}
+	
+	public ArrayList<Integer> getDownloaded(int authorID){
+		ConnectionManager conn;
+		ArrayList<Integer> downloadedReview = new ArrayList<Integer>();
+		try {
+			
+			conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String selectQuery ="SELECT Review.articleID FROM REVIEW WHERE isDownloaded =1 and authorReviewerID ='"+authorID +"'";
+			ResultSet rs= st.executeQuery(selectQuery);
+			while (rs.next()){
+				int r = (int) rs.getObject("articleID");
+				downloadedReview.add(r);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return downloadedReview;
 		
 	}
-
 
 }

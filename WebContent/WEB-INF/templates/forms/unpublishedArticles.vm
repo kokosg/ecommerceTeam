@@ -42,7 +42,7 @@
                         <div>
                        
                         #if($article.isSelected() == true)
-                          <input type="checkbox" name="article" id="$article.getArticleID()" value="$article.getArticleID()" checked>
+                          <input type="checkbox" name="article" id="$article.getArticleID()" value="$article.getArticleID()" checked disabled>
                         #else
                           <input type="checkbox" name="article" id="$article.getArticleID()" value="$article.getArticleID()" onclick="limitCheckbox(this)">
                       	#end
@@ -59,7 +59,7 @@
             	</div>
               
             	#end
-              <input type="submit" class="btn btn-default" value="Select" onclick="refreshpage()"/>
+              <input type="submit" id="submitselected" class="btn btn-default" value="Select" onclick="refreshpage()"/>
           </form>
        </div>
 </div>

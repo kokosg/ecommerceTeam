@@ -29,7 +29,7 @@ public class ReviewForm {
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 //			form.insertReviewForm(authorID, articleID, judge, expertise, reviewSummary,comments,criticism, errors);
-			String insertQuery = "INSERT INTO REVIEW (authorReviewerID, articleID, judgement,expertise,summary,editorComments,smallErrors,dateSubmitted) VALUE ('" + authorID + "', '" + articleID + "','" + judge + "','" + expertise + "','" + reviewSummary + "','" + comments + "','" + errors + "','" + dateFormat.format(date) + "')";
+			String insertQuery = "UPDATE REVIEW SET authorReviewerID = '" + authorID + "', articleID= '" + articleID + "', judgement = '" + judge + "',expertise = '" + expertise + "',summary ='" + reviewSummary + "',editorComments = '" + comments + "',smallErrors = '" + errors + "',dateSubmitted = '" + dateFormat.format(date) + "'";
 			st.executeUpdate(insertQuery);
 			Date reviewDate =getReviewRevisionDate(authorID,articleID);
 			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
