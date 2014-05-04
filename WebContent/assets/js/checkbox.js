@@ -1,4 +1,3 @@
             $("input:checkbox").click(function() {
-              var actualTime = "";
-              $(this).parent().toggleClass("bg-info");
+              $(this).parent().parent().parennt().parent().toggleClass("bg-warning");
             });

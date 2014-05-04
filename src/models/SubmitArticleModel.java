@@ -3,6 +3,7 @@ package models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,22 +20,22 @@ public class SubmitArticleModel {
 	 * Empty Constructor
 	 */
 	public SubmitArticleModel() {
-		
+
 	}
-	
+
 	//Keyword - insert a new keyword in the database
 	public void insertKeyword(ArrayList<Keyword> keywords) {
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			
+
 			for (Keyword keyword : keywords) {
 				//check if keyword already in database
 				String getKeywordID = "SELECT keywordID FROM Keyword WHERE text ='" + keyword.getText()+ "' "; 
 				ResultSet keywordResult=st.executeQuery(getKeywordID);
 				if (keywordResult.next()) {
 					System.out.println("keyword already in db - do nothing");
-				//else insert the keyword in the database
+					//else insert the keyword in the database
 				} else {
 					String keywordText = keyword.getText();
 					String updateQuery = "INSERT INTO Keyword (text) VALUES ('" + keywordText + "')";
@@ -48,17 +49,17 @@ public class SubmitArticleModel {
 			System.out.println("Error " + e);
 		}
 	}
-	
+
 	//Article - insert a new article in the database
 	public void insertArticle(Article article) {
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			
+
 			String articleTitle = article.getTitle();
 			String articleSummary = article.getSummary();
 			int pageNum = article.getPageNo();
-			
+
 			String updateQuery = "INSERT INTO Article (title, summary, pageNo) VALUES ('" + articleTitle + "', '" + articleSummary + "', '" + pageNum + "')";
 			st.executeUpdate(updateQuery);
 			st.close();
@@ -67,7 +68,7 @@ public class SubmitArticleModel {
 			System.out.println("Error " + e);
 		}
 	}
-	
+
 	//ArticleKeyword - insert article's keywords in the database
 	public void updateArticleKeyword(Article article, ArrayList<Keyword> keywords) {
 		try {
@@ -93,7 +94,7 @@ public class SubmitArticleModel {
 			System.out.println("Error " + e);
 		}
 	}
-	
+
 	//ArticleRevision - insert new article revision in database (insert article's path)
 	public void insertArticleRevision(Article article, String path) {
 		try {
@@ -109,9 +110,9 @@ public class SubmitArticleModel {
 				st.executeUpdate(insertQuery);
 			} else {
 				System.out.println("no file found");
-			//	insertQuery = "UPDATE Template SET filePath ='"+path+"' WHERE title='"+title+"'";
+				//	insertQuery = "UPDATE Template SET filePath ='"+path+"' WHERE title='"+title+"'";
 			}
-			
+
 			st.close();
 			conn.close();
 		} catch (ClassNotFoundException | SQLException e) {
@@ -119,7 +120,7 @@ public class SubmitArticleModel {
 			e.printStackTrace();
 		}
 	}
-	
+
 	//return article object with its ID
 	public Article getArticleWithID(Article article) {
 		try {
@@ -140,7 +141,7 @@ public class SubmitArticleModel {
 		}
 		return article;
 	}
-	
+
 	//insert article's authors in the database
 	public void insertAuthors(Article article, ArrayList<User> authors) {
 		try {
@@ -164,14 +165,85 @@ public class SubmitArticleModel {
 				//insert article's authors in database
 				String insertArticleAuthor = "INSERT INTO ArticleAuthor (articleID, authorID, isMainContact) VALUES ('" + article.getArticleID() + "', '" + author.getAuthorID() + "', '" + isMain + "')";
 				st.executeUpdate(insertArticleAuthor);
-				
+
 			}
-			
+
 			st.close();
 			conn.close();
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
 		}
 	}
-	
+
+	//ArticleRevision - get the article revision from database (get article's path)
+	public String getArticleRevision(String articleID) {
+		String filepath = null;
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String selectQuery;
+
+			System.out.println("Select article revision");
+			Date date = getArticleRevisionDate(articleID);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String dateForMySql = "";
+			dateForMySql = sdf.format(date);
+			
+	        selectQuery = "Select ArticleRevision.filePath from ArticleRevision where articleID= '"+articleID +"' AND dateSubmitted= '"+dateForMySql+"'";
+
+			ResultSet artResult = st.executeQuery(selectQuery);
+			if (artResult.next()) {
+				filepath = (String) artResult.getObject("filePath");
+			}
+			artResult.close();
+			st.close();
+			conn.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return filepath;
+	}
+
+	//ArticleRevision - get the article revision from database (get article's recent revision date)
+	public Date getArticleRevisionDate(String articleID) {
+		Date recentDate= new Date();
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String selectQuery;
+			System.out.println("Select article revision date ");
+			selectQuery = "Select ArticleRevision.dateSubmitted from ArticleRevision where articleID="+articleID;
+			ArrayList<Date> date= new ArrayList<Date>();
+			ResultSet artResult = st.executeQuery(selectQuery);
+			while (artResult.next()) {
+				Date d = (Date) artResult.getObject("dateSubmitted");
+				date.add(d);
+			}
+			System.out.println("Date arrayList: "+ date);
+			int i=1;
+			if(!date.isEmpty()){
+				for(Date da: date){
+					if(i==1){
+						recentDate = da;
+					}
+					else {
+						if(recentDate.before(da)){
+						}
+						recentDate = da;
+					}
+					i++;
+				}
+			}
+			System.out.println("recentDate: "+recentDate);
+			artResult.close();
+			st.close();
+			conn.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return recentDate;
+	}
+
 }

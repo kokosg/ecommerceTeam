@@ -55,7 +55,6 @@ public class UploadServlet extends VelocityViewServlet {
 							}
 							else{
 								TemplateTitle = item.getString();
-								System.out.println("jbskbkf+ ttt "+TemplateTitle);
 							}
 						}
 						UploadModel uc = new UploadModel();

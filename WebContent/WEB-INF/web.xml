@@ -248,4 +248,14 @@
     <servlet-name>SelectedArticlesForReview</servlet-name>
     <url-pattern>/selected</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DownloadArticleReviewer</display-name>
+    <servlet-name>DownloadArticleReviewer</servlet-name>
+    <servlet-class>DownloadArticleReviewer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadArticleReviewer</servlet-name>
+    <url-pattern>/downloadArticle</url-pattern>
+  </servlet-mapping>
 </web-app>

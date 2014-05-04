@@ -26,7 +26,7 @@ public class ReviewerManagementModel {
 
 	public ArrayList<Choices> getChoices() throws SQLException {
 		ArrayList<Choices> arrayResults = new ArrayList<Choices>();
-		String queryAuthor = "SELECT Article.articleID, Article.title, Choice.dateChosen, Choice.assignID, AuthorReviewer.authorReviewerID, Author.authorID, Author.name, Author.surname, Author.email FROM Article INNER JOIN Choice ON Article.articleID = Choice.articleID INNER JOIN AuthorReviewer ON Choice.authorReviewerID = AuthorReviewer.authorReviewerID INNER JOIN Author ON AuthorReviewer.authorID = Author.authorID";
+		String queryAuthor = "SELECT Article.articleID, Article.title, Choice.dateChosen, Choice.choiceID, AuthorReviewer.authorReviewerID, Author.authorID, Author.name, Author.surname, Author.email FROM Article INNER JOIN Choice ON Article.articleID = Choice.articleID INNER JOIN AuthorReviewer ON Choice.authorReviewerID = AuthorReviewer.authorReviewerID INNER JOIN Author ON AuthorReviewer.authorID = Author.authorID";
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
@@ -34,7 +34,7 @@ public class ReviewerManagementModel {
 			while (rs.next()) {
 				int articleID = rs.getInt("Article.articleID");
 				String title = rs.getString("Article.title");
-				int assignID = rs.getInt("Choice.assignID");
+				int assignID = rs.getInt("Choice.choiceID");
 				Date dateChosen = (Date) rs.getObject("Choice.dateChosen");
 				int authorReviewerID = rs.getInt("AuthorReviewer.authorReviewerID");
 				int authorID = rs.getInt("Author.authorID");
