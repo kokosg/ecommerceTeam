@@ -35,6 +35,7 @@ public class SelectedArticlesForReview extends VelocityViewServlet {
 		}
 		
 		String unselect = request.getParameter("unselect");
+		
 		if(unselect!=null){
 			System.out.println("String: selected servlet="+unselect);
 			absModel.deleteChoice(authorID, Integer.parseInt(unselect));

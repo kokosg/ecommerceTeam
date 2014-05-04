@@ -1,0 +1,68 @@
+<HTML>
+<head>
+  <meta charset="ISO-8859-1">
+  #include( "/commonElements/head.html" )
+  <title>$apptitle</title>
+</head>
+#parse( "/commonElements/navbar.vm" )
+<body>
+
+#if(!$session.user.name)
+<div class="jumbotron"> 
+
+             <div class="container">
+             
+<h2 >Sorry you are not authenticated to access this part of website</h2>
+</div>
+</div>
+#else
+<div class="container">
+    <div class="page-header">
+      <br/>
+            <h1>Review Form</h1>
+        </div> 
+              <div>
+            <div class="row">
+              <div class="col-md-10">
+				<form action="reviewForm" method="post" class="form-horizontal">
+					<div class="radio">
+						<label><h4>1. Are you?</h4></label><br>
+							<input type="radio" name="judge" id="champion" value="Champion">Champion<br>
+							<input type="radio" name="judge" id="detractor" value="detractor">detractor<br>
+							<input type="radio" name="judge" id="favourable" value="favourable">favourable<br>
+							<input type="radio" name="judge" id="indifferent" value="indifferent">indifferent<br><br>
+					 </div>
+					 <br>
+					 <div class="radio">
+					 <label><h4>2. Expertise Level?</h4></label><br>
+							<input type="radio" name="level" id="expert" value="expert">expert<br>
+							<input type="radio" name="level" id="knowledgable" value="knowledgable">knowledgable<br>
+							<input type="radio" name="level" id="outsider" value="outsider">outsider<br>
+					 </div>
+					    <br>
+					 	<label><h4>3. Summary of the content and novel contribution of the article </h4></label>
+							<div><textarea name="summary" rows="10" cols="100"  placeholder="Brief explanation of the article"></textarea></div>
+							
+						<br>
+					 	<label><h4>4. Criticism </h4></label>
+							<div><textarea name="criticism" rows="10" cols="80" placeholder="Provide structured criticism"></textarea></div>
+							
+						<br>
+						<label><h4>5. Secret Comments( **comments will be visible only to the editor) </h4></label>
+							<div><textarea name="comments" rows="10" cols="80" placeholder="Comments will be visible to Editor only"></textarea></div>
+						<br>
+						
+					 	<label><h4>6. List of other errors.(example: typographical or grammatical mistakes) </h4></label>
+							<div><textarea name="errors" rows="10" cols="80" placeholder="Provide other errors"></textarea></div>
+						<br>
+						<br>
+							<input type="hidden" id="formart" name="formart" value="$articleID"/>
+							<input type="submit"  id ="Submit" value="Submit" />
+						<br>
+				 </form>
+			 </div>
+		</div>
+#end
+</body>
+#parse("/commonElements/footer.vm")
+</html>

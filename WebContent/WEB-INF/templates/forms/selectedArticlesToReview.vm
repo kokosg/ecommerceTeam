@@ -58,19 +58,30 @@ location.reload();
             </div>
             	
           
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <h5>To unselect the chosen article click "Unselect"</h5>
                 <input type="hidden" id="$article.getArticleID()" name="unselect" value="$article.getArticleID()">
                 <input type="submit" class="btn btn-primary" value="Unselect"/>
               </div>
           </form>
-          <div class="col-md-6">
+          
+          <div class="col-md-4">
             <form enctype="multipart/form-data" action="download"  method="post">
-            <h5>To download full version of article " $article.title "</h5>
+            <h5>To download full version of article </h5>
               <input type="hidden" id="downloadTitle" name="downloadTitle" value="Article_Review">
-	            <input type="submit"  id ="download" class="btn btn-default" value="Download Article" />
+              <li><a href="reviewForm">Download</a></li>
 	          </form>
           </div>
+          
+          <div class="col-md-4">
+          	<form action="reviewForm" method="post" class="form-horizontal">
+                <h5>Review this Article </h5>
+              	<input type="hidden" id="reviewArt" name="reviewArt" value="$article.getArticleID()"/>
+              	<input type="submit" class="btn btn-primary" value="Review"/>
+               </form>
+              </div>
+           	
+              
           <hr width=100% align=left>
           <br><br>
         #end

@@ -14,7 +14,7 @@ public class ConnectionManager {
 //	String dbName="team104";
 	private final String USERNAME = "root";
 	private final String PASSWORD = "root";
-	private final String CONN_STRING = "jdbc:mysql://localhost:8889/";
+	private final String CONN_STRING = "jdbc:mysql://localhost:3306/";
 	String dbName="team104";
 
 	private Connection conn = null;
