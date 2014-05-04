@@ -12,7 +12,7 @@
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="browse">Browse</a></li>
-				<li><a href="#about">About eCom Journal</a></li>
+				<li><a href="about">About/FAQs</a></li>
 				<li><a href="contact">Contact Us</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Actions <b class="caret"></b></a>
 				<ul class="dropdown-menu">

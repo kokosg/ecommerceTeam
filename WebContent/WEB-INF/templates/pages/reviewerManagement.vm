@@ -49,7 +49,7 @@
 								<td>$choice.articleID</td>
 								<td>
 								<form action="reviewerManagement" method="post" class="form-horizontal">
-									<input id="choiceID" name="choiceID" type="hidden" value="$choice.assignID">
+									<input id="choiceID" name="choiceID" type="hidden" value="$choice.choiceID">
 									<div class="col-lg-10 col-lg-offset-2">
 										<button type="submit" class="btn btn-primary">Remove Review</button>
 									</div>

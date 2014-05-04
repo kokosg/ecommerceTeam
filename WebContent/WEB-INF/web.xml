@@ -266,5 +266,15 @@
   <servlet-mapping>
     <servlet-name>DownloadArticleReviewer</servlet-name>
     <url-pattern>/downloadArticle</url-pattern>
-    </servlet-mapping>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>About</display-name>
+    <servlet-name>About</servlet-name>
+    <servlet-class>About</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>About</servlet-name>
+    <url-pattern>/about</url-pattern>
+  </servlet-mapping>
 </web-app>

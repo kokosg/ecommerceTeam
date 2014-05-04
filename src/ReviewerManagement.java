@@ -26,10 +26,10 @@ public class ReviewerManagement extends VelocityViewServlet {
 		
 		try {
 
-			String assignID = request.getParameter("choiceID");
+			String choiceID = request.getParameter("choiceID");
 
-			if (assignID != null){
-				status = model.deleteChoice(assignID);
+			if (choiceID != null){
+				status = model.deleteChoice(choiceID);
 
 				if (status) {
 					context.put("successfully", "has been created successfully Rejected");

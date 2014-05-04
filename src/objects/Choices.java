@@ -13,7 +13,7 @@ public class Choices {
 
 	private int articleID;
 	private String title;
-	private int assignID;
+	private int choiceID;
 	private Date dateChosen;
 	private int authorReviewerID;
 	private int authorID;
@@ -46,7 +46,7 @@ public class Choices {
 	/**
 	 * @param articleID
 	 * @param title
-	 * @param assignID
+	 * @param choiceID
 	 * @param dateChosen
 	 * @param authorReviewerID
 	 * @param authorID
@@ -54,10 +54,10 @@ public class Choices {
 	 * @param surname
 	 * @param email
 	 */
-	public Choices(int articleID, String title, int assignID, Date dateChosen, int authorReviewerID, int authorID, String name, String surname, String email) {
+	public Choices(int articleID, String title, int choiceID, Date dateChosen, int authorReviewerID, int authorID, String name, String surname, String email) {
 		this.articleID = articleID;
 		this.title = title;
-		this.assignID = assignID;
+		this.choiceID = choiceID;
 		this.dateChosen = dateChosen;
 		this.authorReviewerID = authorReviewerID;
 		this.authorID = authorID;
@@ -95,17 +95,17 @@ public class Choices {
 	}
 
 	/**
-	 * @return the assignID
+	 * @return the choiceID
 	 */
-	public int getAssignID() {
-		return assignID;
+	public int getchoiceID() {
+		return choiceID;
 	}
 
 	/**
-	 * @param assignID the assignID to set
+	 * @param choiceID the choiceID to set
 	 */
-	public void setAssignID(int assignID) {
-		this.assignID = assignID;
+	public void setchoiceID(int choiceID) {
+		this.choiceID = choiceID;
 	}
 
 	/**

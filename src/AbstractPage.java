@@ -15,8 +15,6 @@ public class AbstractPage extends VelocityViewServlet {
 
 	public Template handleRequest(HttpServletRequest request, HttpServletResponse response, Context context) {
 
-		System.out.println("in");
-
 		String flag = request.getParameter("flag");
 		context.put("apptitle", "E-com Journal - Abstract Page");
 		Template template = null;
@@ -25,7 +23,6 @@ public class AbstractPage extends VelocityViewServlet {
 		AbstractModel abstractModel = new AbstractModel();
 
 		if (flag == null) {
-			System.out.println("if");
 			try {
 
 				int article_ID = Integer.parseInt(request.getParameter("id"));

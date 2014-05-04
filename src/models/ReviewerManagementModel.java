@@ -34,7 +34,7 @@ public class ReviewerManagementModel {
 			while (rs.next()) {
 				int articleID = rs.getInt("Article.articleID");
 				String title = rs.getString("Article.title");
-				int assignID = rs.getInt("Choice.choiceID");
+				int choiceID = rs.getInt("Choice.choiceID");
 				Date dateChosen = (Date) rs.getObject("Choice.dateChosen");
 				int authorReviewerID = rs.getInt("AuthorReviewer.authorReviewerID");
 				int authorID = rs.getInt("Author.authorID");
@@ -42,7 +42,7 @@ public class ReviewerManagementModel {
 				String surname = rs.getString("Author.surname");
 				String email = rs.getString("Author.email");
 				
-				Choices response = new Choices(articleID, title, assignID, dateChosen, authorReviewerID, authorID, name, surname, email);
+				Choices response = new Choices(articleID, title, choiceID, dateChosen, authorReviewerID, authorID, name, surname, email);
 				arrayResults.add(response);
 			}
 			rs.close();
@@ -54,14 +54,14 @@ public class ReviewerManagementModel {
 		return arrayResults;
 	}
 	
-	public boolean deleteChoice(String assignID) throws SQLException {
+	public boolean deleteChoice(String choiceID) throws SQLException {
 		
 		boolean status = false;
 		
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			String updateQuery = "DELETE FROM Choice WHERE assignID = '" + assignID + "'";
+			String updateQuery = "DELETE FROM Choice WHERE choiceID = '" + choiceID + "'";
 			st.executeUpdate(updateQuery);
 			st.close();
 			conn.close();
