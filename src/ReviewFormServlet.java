@@ -1,13 +1,9 @@
-import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import models.ReviewForm;
 import objects.Article;
-import objects.Review;
-
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.view.VelocityViewServlet;
@@ -46,7 +42,15 @@ public class ReviewFormServlet extends VelocityViewServlet {
 				form.insertReviewForm(authorID, article.getArticleID(), judge, expertise, reviewSummary,comments,criticism, errors);
 			}
 		}
-		template = getTemplate("/forms/reviewForm.vm");
+		System.out.println("DVFEFVSFF^^^^^^^^^ "+request.getParameter("redirectAck"));
+		if(request.getParameter("redirectAck")!=null){
+			if(request.getParameter("redirectAck").equalsIgnoreCase("Submit")){
+				template = getTemplate("/pages/acknowledgementReview.vm");
+			}
+		}
+		else{
+			template = getTemplate("/forms/reviewForm.vm");
+		}
 		return template;
 
 	}

@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,16 +27,22 @@ public class ArticleStatusServlet extends VelocityViewServlet {
 		AbstractModel absModel=new AbstractModel();
 		ArrayList<Article> checkTitle =absModel.getChoiceTitle(authorID);
 		System.out.println("checkTitle: "+ checkTitle);
+		
+		ArrayList<Integer> status = absModel.getDownloaded(authorID);
+		for(Article result :checkTitle ){
+			for(int reviewDwnld : status){
+				if(reviewDwnld==result.getArticleID()){
+					result.setDownloaded(true);
+				}
+			}
+			System.out.println("Title :"+ result.getTitle() +" Summary: "+result.getSummary()+ " Chosen  :" + result.isChosen() );
+		}
 		for(Article result :checkTitle ){
 			System.out.println("Title :"+ result.getTitle()+ "Chosen  :" + result.isChosen() );
 		}
 	    context.put("artCkeckId", checkTitle);
 		template = getTemplate("/pages/articleStatus.vm");
 		return template;
-	
-		
-		
-		
 		
 	}
    }
