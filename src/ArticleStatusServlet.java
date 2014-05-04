@@ -20,6 +20,7 @@ public class ArticleStatusServlet extends VelocityViewServlet {
 	
 	public Template handleRequest( HttpServletRequest request, HttpServletResponse response, Context context ) {
 		Template template=null;
+		context.put("apptitle", "Ecom Journal - Home");
 		HttpSession session = request.getSession();
 		int authorID =(Integer) session.getAttribute("userID");
 		AbstractModel absModel=new AbstractModel();
