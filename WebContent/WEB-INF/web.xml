@@ -250,15 +250,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-<<<<<<< HEAD
-    <display-name>DownloadArticleReviewer</display-name>
-    <servlet-name>DownloadArticleReviewer</servlet-name>
-    <servlet-class>DownloadArticleReviewer</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DownloadArticleReviewer</servlet-name>
-    <url-pattern>/downloadArticle</url-pattern>
-=======
     <display-name>ReviewFormServlet</display-name>
     <servlet-name>ReviewFormServlet</servlet-name>
     <servlet-class>ReviewFormServlet</servlet-class>
@@ -266,6 +257,14 @@
   <servlet-mapping>
     <servlet-name>ReviewFormServlet</servlet-name>
     <url-pattern>/reviewForm</url-pattern>
->>>>>>> 44ca18c729d4dd015b4840a1ef998fe99efeb5f2
   </servlet-mapping>
+  <servlet>
+    <display-name>DownloadArticleReviewer</display-name>
+    <servlet-name>DownloadArticleReviewer</servlet-name>
+    <servlet-class>DownloadArticleReviewer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadArticleReviewer</servlet-name>
+    <url-pattern>/downloadArticle</url-pattern>
+    </servlet-mapping>
 </web-app>
