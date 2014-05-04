@@ -45,7 +45,7 @@ public class EditJournal extends VelocityViewServlet {
 				//return getUsers from UserManagementModel and put them in contexts
 				context.put("searchResults", model.getJournal());
 				
-				template = getTemplate("/pages/editJournal.vm");
+				template = getTemplate("/pages/journal.vm");
 			} catch (Exception e) {
 				System.out.println("Error " + e);
 			}

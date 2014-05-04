@@ -166,7 +166,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>EditJournal</servlet-name>
-    <url-pattern>/editJournal</url-pattern>
+    <url-pattern>/journal</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
