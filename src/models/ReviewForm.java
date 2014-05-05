@@ -11,6 +11,7 @@ import java.util.Date;
 import objects.Review;
 
 public class ReviewForm {
+	private static int countReview=1;
 	
 	public ReviewForm(){
 		
@@ -30,8 +31,7 @@ public class ReviewForm {
 		try {
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-//			form.insertReviewForm(authorID, articleID, judge, expertise, reviewSummary,comments,criticism, errors);
-			String insertQuery = "UPDATE REVIEW SET authorReviewerID = '" + authorID + "', articleID= '" + articleID + "', judgement = '" + judge + "',expertise = '" + expertise + "',summary ='" + reviewSummary + "',editorComments = '" + comments + "',smallErrors = '" + errors + "',dateSubmitted = '" + dateFormat.format(date) + "'";
+			String insertQuery = "UPDATE REVIEW SET judgement = '" + judge + "',expertise = '" + expertise + "',summary ='" + reviewSummary + "',editorComments = '" + comments + "',smallErrors = '" + errors + "',dateSubmitted = '" + dateFormat.format(date) + "' where authorReviewerID = '" + authorID + "' and articleID='" +articleID+"'";
 			st.executeUpdate(insertQuery);
 			Date reviewDate =getReviewRevisionDate(authorID,articleID);
 			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
@@ -122,15 +122,10 @@ public class ReviewForm {
 		try {
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			String selectQuery = " Select * from REVIEW where authorReviewerID = "+authorID+" and articleID="+articleID+" ";
+			String selectQuery = " Select * from REVIEW where authorReviewerID = "+authorID+" and articleID="+articleID;
 			ResultSet result =st.executeQuery(selectQuery);
-			Date date = getReviewRevisionDate(articleID,authorID);
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String dateForMySql = "";
-			dateForMySql = sdf.format(date);
 			
 			if (result.next()){
-				
 				int criticismID=(Integer) result.getObject("criticismID");
 				reviewart.setCriticismID(criticismID);
 				String judgement= (String) result.getObject("judgement"); 
@@ -143,9 +138,8 @@ public class ReviewForm {
 				reviewart.setSmallErrors(smallErrors);
 				String editorComments= (String) result.getObject("editorComments");
 				reviewart.setEditorsComments(editorComments);
-				reviewart.setDateForMySql(dateForMySql);
-				
-				
+				Date dateSubmitted=(Date)result.getObject("dateSubmitted");
+				reviewart.setDateSubmitted(dateSubmitted);
 			}
 
 			String selectQuery1 = " Select criticism from Criticism where criticismID = "+reviewart.getCriticismID();
@@ -168,6 +162,11 @@ public class ReviewForm {
 		
 	}
 
+	public void checkCountReviews(){
+		
+		
+	}
+	
 
 }
    

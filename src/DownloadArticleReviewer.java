@@ -39,7 +39,7 @@ public class DownloadArticleReviewer extends VelocityViewServlet {
 
 				HttpSession session = request.getSession();
 				String UserRole=(String) session.getAttribute("userRole");
-				int authorID = (int) session.getAttribute("userID");
+				int authorID = (Integer) session.getAttribute("userID");
 				System.out.println(UserRole);
 				if (UserRole == "AuthorReviewer"){
 					try{

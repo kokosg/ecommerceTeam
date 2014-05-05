@@ -3,7 +3,7 @@
  */
 package objects;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author Master Team 10
@@ -23,7 +23,6 @@ public class Review {
 	private boolean isAccepted;
 	private Date dateSubmitted;
 	private boolean isDownloaded;
-	private String dateForMySql;
 	private String criticism;
 	
 	/**
@@ -231,13 +230,6 @@ public class Review {
 		this.isDownloaded = isDownloaded;
 	}
 
-	public void setDateForMySql(String dateForMySql) {
-		this.dateForMySql = dateForMySql;
-		
-	}
-	public String getDateForMySql() {
-		return dateForMySql;
-	}
 
 	public String getCriticism() {
 		return criticism;
