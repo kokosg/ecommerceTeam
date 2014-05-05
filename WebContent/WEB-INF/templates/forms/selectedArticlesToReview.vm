@@ -67,7 +67,7 @@
                    <input type="submit" id = "unselect" class="btn btn-primary" value="Unselect" disabled/>
                 #else
                   <input type="hidden" id="$article.getArticleID()" name="unselect" value="$article.getArticleID()">
-                  <input type="submit" id = "unselect" class="btn btn-primary" value="Unselect" onclick="refreshpage()"/>
+                  <input type="submit" id = "unselect" class="btn btn-primary" value="Unselect" />
                 #end
               </div>
           </form>
@@ -84,7 +84,12 @@
           	<form action="reviewForm" method="post" class="form-horizontal">
                 <h5>Review this Article </h5>
               	<input type="hidden" id="reviewArt" name="reviewArt" value="$article.getArticleID()"/>
+                #if($article.isDownloaded())
               	<input type="submit" class="btn btn-primary" value="Review"/>
+                #else
+                <input type="submit" class="btn btn-primary" value="Review" disabled/>
+                #end
+                
                </form>
               </div>
            	

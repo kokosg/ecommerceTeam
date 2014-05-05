@@ -59,7 +59,7 @@
             	</div>
               
             	#end
-              <input type="submit" id="submitselected" class="btn btn-default" value="Select" onclick="refreshpage()"/>
+              <input type="submit" id="submitselected" class="btn btn-default" value="Select"/>
           </form>
        </div>
 </div>

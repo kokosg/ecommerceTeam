@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import models.AbstractModel;
 import objects.Article;
+
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.view.VelocityViewServlet;
@@ -30,7 +31,6 @@ public class SelectedArticlesForReview extends VelocityViewServlet {
 		//System.out.println("Downloaded ^^^^^^^^ "+downloadedReview);
 
 		String unselect = request.getParameter("unselect");
-		
 		if(unselect!=null){
 			System.out.println("String: selected servlet="+unselect);
 			absModel.deleteChoice(authorID, Integer.parseInt(unselect));
@@ -52,6 +52,5 @@ public class SelectedArticlesForReview extends VelocityViewServlet {
 		context.put("artCkeckId", checkTitle);
 		template = getTemplate("/forms/selectedArticlesToReview.vm");
 		return template;
-	
 	}
    }

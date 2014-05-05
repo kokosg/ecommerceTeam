@@ -11,8 +11,6 @@ import java.util.Date;
 import objects.Review;
 
 public class ReviewForm {
-	private static int countReview=1;
-	
 	public ReviewForm(){
 		
 	}
