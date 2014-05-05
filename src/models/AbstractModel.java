@@ -22,6 +22,7 @@ public class AbstractModel {
 		// TODO Auto-generated constructor stub
 	}
 
+	//get the article based on the ID and return an object with all the details of the article
 	public Article getArticle(int article_ID) throws SQLException {
 		String queryArticle = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article where articleID LIKE '%" + article_ID + "%'";
 		Article article = null ;
@@ -48,6 +49,8 @@ public class AbstractModel {
 		return article;
 	}
 
+	
+	//return an ArrayList of keywords objects based on the article_ID
 	public ArrayList<Keyword> getKeywords(int article_ID) throws SQLException {
 
 		ArrayList<Keyword> arrayResults = new ArrayList<Keyword>(); 
@@ -77,6 +80,7 @@ public class AbstractModel {
 	}
 
 
+	//return an ArrayList of Author objects based on the article_ID
 	public ArrayList<User> getAuthor(int article_ID) throws SQLException {
 
 		ArrayList<User> arrayResults = new ArrayList<User>(); 
@@ -103,6 +107,8 @@ public class AbstractModel {
 		return arrayResults;
 	}
 
+
+	//return an ArrayList of Article objects where articles are not published yet
 	public ArrayList<Article> getUnpublishedArticle() throws SQLException {
 		Article article;
 

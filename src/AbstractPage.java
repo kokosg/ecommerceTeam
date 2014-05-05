@@ -15,22 +15,26 @@ public class AbstractPage extends VelocityViewServlet {
 
 	public Template handleRequest(HttpServletRequest request, HttpServletResponse response, Context context) {
 
+		// get the value of a hidden field in a form to determine if we have posted data
 		String flag = request.getParameter("flag");
+
 		context.put("apptitle", "E-com Journal - Abstract Page");
 		Template template = null;
 		response.setContentType("text/html");
 
+		//create AbstractModel object
 		AbstractModel abstractModel = new AbstractModel();
 
+		//if we haven't post any data then we have just to load the template
 		if (flag == null) {
 			try {
 
+				//get the parameters from the form
 				int article_ID = Integer.parseInt(request.getParameter("id"));
 
+				//return article, keywords and authors from abstractModel and put them in contexts
 				context.put("article", abstractModel.getArticle(article_ID));
-
 				context.put("keywords", abstractModel.getKeywords(article_ID));
-
 				context.put("authors", abstractModel.getAuthor(article_ID));
 
 				template = getTemplate("/forms/abstractPage.vm");
@@ -42,7 +46,6 @@ public class AbstractPage extends VelocityViewServlet {
 			return template;
 
 		} else {
-			System.out.println("else");
 
 			try {
 				template = getTemplate("/forms/abstractPage.vm");

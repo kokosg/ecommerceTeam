@@ -12,6 +12,7 @@
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="browse">Browse</a></li>
+				<li><a href="journal">Journal</a></li>
 				<li><a href="about">About/FAQs</a></li>
 				<li><a href="contact">Contact Us</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Actions <b class="caret"></b></a>
@@ -31,7 +32,7 @@
 							<!-- ADD EDITOR ACTIONS HERE-->
 							<li class="divider"></li>
 							<li class="dropdown-header">Editor</li>
-							<li><a href="editJournal">editJournal</a></li>
+							<li><a href="journal">editJournal</a></li>
 							<li><a href="reviewerManagement">reviewerManagement</a></li>
 							<li><a href="systemManagement">systemManagement</a></li>
 							<li><a href="userManagement">userManagement</a></li>
@@ -44,13 +45,6 @@
 					#end
 				</ul></li>
 			</ul>
-			<form class="navbar-form navbar-right" role="search">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search...">
-				</div>
-				<button type="submit" class="btn"><i class="glyphicon glyphicon-search"></i></button>
-				<button type="submit" class="btn"><a href="advanceSearch"> Advance </a><i class="glyphicon glyphicon-cog"></i></button>
-			</form>
 			<ul class="nav navbar-nav pull-right">
 				#if (!$session.user.email)
 					<li id="login_form" class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
@@ -62,6 +56,7 @@
 				#else
 					<li><a href="#">Hello, $session.user.name $session.user.surname!</a></li>
 				#end
+				<li><button type="submit" class="btn"><a href="advanceSearch"> Search </a><i class="glyphicon glyphicon-cog"></i></button></li>
 			</ul>
 		</div>
 	<!--/.nav-collapse -->

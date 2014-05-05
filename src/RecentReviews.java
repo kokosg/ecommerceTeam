@@ -62,7 +62,7 @@ public class RecentReviews extends VelocityViewServlet {
 				  //or if is false to display an error message
 		    	  if (emailStatus) {
 		  			context.put("successfully", "message was send");
-		  			contactModel.insertEmail(emailMessage.getName(), emailMessage.getTitle(), emailMessage.getEmail(), emailMessage.getMessage());
+		  			//contactModel.insertEmail(emailMessage.getName(), emailMessage.getTitle(), emailMessage.getEmail(), emailMessage.getMessage());
 		    	  } else {
 		  			context.put("error", "message was not send");
 		    	  }

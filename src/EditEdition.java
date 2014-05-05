@@ -23,7 +23,7 @@ public class EditEdition extends VelocityViewServlet {
 		Template template = null;
 		response.setContentType("text/html");
 
-		//create JournalModel object
+		//create model object
 		Edition model = new Edition();
 		
 		DateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
@@ -32,18 +32,20 @@ public class EditEdition extends VelocityViewServlet {
 		//get the parameters from the form
 		String editionID = request.getParameter("editionID");
 		
+		//Initialised boolean to false
 		boolean status = false;
 			
 		try {
 
+			//if edition is not null
 			if (editionID != null) {
 				
+				//get the parameters from the form
 				int editionNo = Integer.parseInt(request.getParameter("editionNo"));
 				int volumeID = Integer.parseInt(request.getParameter("volumeID"));
 				String title = request.getParameter("title");
 
-				System.out.print("dasdas  " + editionID + " " + volumeID + " " + editionNo + " " + title + " " + currentDate.format(newDate));
-				
+				//changed the status of the "status" value based on the results from the crate edition
 				status = model.createEdition(editionID, volumeID, editionNo, title, currentDate.format(newDate));
 				
 				if (status) {
@@ -53,8 +55,7 @@ public class EditEdition extends VelocityViewServlet {
 				}
 				
 			}
-				//return getUsers from UserManagementModel and put them in contexts
-			
+				//return Edition from Edition Model and put them in contexts
 				context.put("Edition", model.getEdition());
 				context.put("currentDate", currentDate.format(newDate));
 

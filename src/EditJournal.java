@@ -25,14 +25,20 @@ public class EditJournal extends VelocityViewServlet {
 		//get the parameters from the form
 		String aimsGoals = request.getParameter("aimsGoals");
 		
+		//Initialised boolean to false
 		boolean status = false;
 		
 		try {
-
+			//if the aimsGoals is not null continue to update the request
 			if (aimsGoals != null) {
+				
+				//page has only one journal, in case will have more than one this will remove
 				int journalID = 1;
+				
+				//get the parameter from form
 				String title = request.getParameter("title");
 				
+				//update the status and update the journal details by passing the parameters from the form
 				status = model.setJournal(journalID, title, aimsGoals);
 				
 				if (status) {
@@ -42,10 +48,10 @@ public class EditJournal extends VelocityViewServlet {
 				}
 				
 			}
-				//return getUsers from UserManagementModel and put them in contexts
+				//return journal details from Journal Model and put them in contexts
 				context.put("searchResults", model.getJournal());
 				
-				template = getTemplate("/pages/editJournal.vm");
+				template = getTemplate("/pages/journal.vm");
 			} catch (Exception e) {
 				System.out.println("Error " + e);
 			}
