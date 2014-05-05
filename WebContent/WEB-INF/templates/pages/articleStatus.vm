@@ -35,7 +35,7 @@
    			 	</br>
       			<td>$article.title</td>
       			<td>$article.chosen</td>
-      			<td>yes</td>
+      			<td>$article.isDownloaded()</td>
       			<td>yes</td>
    	    		</tr>
    	    	#end

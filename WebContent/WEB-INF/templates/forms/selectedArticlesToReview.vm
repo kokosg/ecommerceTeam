@@ -7,7 +7,6 @@
 #parse( "/commonElements/navbar.vm" )
 
 <body>
-<script src="assets/js/disablebutton.js" type="text/javascript"></script>
 <script src="assets/js/refresh.js" type="text/javascript"></script>
 <script src="assets/js/checkbox.js" type="text/javascript"> </script>
 
@@ -73,11 +72,11 @@
               </div>
           </form>
 
-          <div class="col-md-6">
+          <div class="col-md-4">
             <form enctype="multipart/form-data" action="downloadArticle"  method="post">
             <h5>To download full version of article " $article.title "</h5>
               <input type="hidden" id="$article.getArticleID()" name="$article.getArticleID()" value="$article.getArticleID()">
-	            <input type="submit"  id ="download" class="btn btn-default" value="Download Article" onclick="disablebutton($article.getArticleID())" />
+	            <input type="submit"  id ="download" class="btn btn-default" value="Download Article" />
 	          </form>
           </div>
           
