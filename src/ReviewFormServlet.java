@@ -2,8 +2,11 @@
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import models.ReviewForm;
 import objects.Article;
+import objects.Review;
+
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.view.VelocityViewServlet;
@@ -14,6 +17,7 @@ import org.apache.velocity.tools.view.VelocityViewServlet;
 public class ReviewFormServlet extends VelocityViewServlet {
 	private static final long serialVersionUID = 1L;
 	Article article=new Article();
+	Review reviewart= new Review();
 	public boolean LOOP =true;
 	public Template handleRequest( HttpServletRequest request, HttpServletResponse response, Context context ) { 
 		Template template=null;
@@ -40,11 +44,13 @@ public class ReviewFormServlet extends VelocityViewServlet {
 				String comments=request.getParameter("comments");
 				ReviewForm form =new ReviewForm();
 				form.insertReviewForm(authorID, article.getArticleID(), judge, expertise, reviewSummary,comments,criticism, errors);
+				reviewart=form.selectReviewForm(authorID, article.getArticleID());
+				
 			}
 		}
-		System.out.println("DVFEFVSFF^^^^^^^^^ "+request.getParameter("redirectAck"));
 		if(request.getParameter("redirectAck")!=null){
 			if(request.getParameter("redirectAck").equalsIgnoreCase("Submit")){
+				context.put("reviewart", reviewart);
 				template = getTemplate("/pages/acknowledgementReview.vm");
 			}
 		}

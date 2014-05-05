@@ -264,7 +264,7 @@ public class AbstractModel {
 			String selectQuery ="SELECT Review.articleID FROM REVIEW WHERE isDownloaded =1 and authorReviewerID ='"+authorID +"'";
 			ResultSet rs= st.executeQuery(selectQuery);
 			while (rs.next()){
-				int r = (int) rs.getObject("articleID");
+				int r = (Integer) rs.getObject("articleID");
 				downloadedReview.add(r);
 			}
 		}catch(Exception e){

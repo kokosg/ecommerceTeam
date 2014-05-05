@@ -1,0 +1,67 @@
+<HTML>
+<head>
+ <meta charset="ISO-8859-1">
+ #include( "/commonElements/head.html" )
+ <TITLE>$apptitle</TITLE>
+</head>
+
+#parse( "/commonElements/navbar.vm" )
+<body>
+#if(!$session.user.name)
+<div class="jumbotron"> 
+
+             <div class="container">
+             
+<h2 >Sorry you are not authenticated to access this part of website</h2>
+</div>
+</div>
+
+#else
+<div class="container">
+    <div class="page-header">
+      <br/>
+            <h1>Acknowledgement of your Submitted Review </h1>
+        </div> 
+              <div>
+            <div class="row">
+              <div class="col-md-10">
+				<form id="Review-form"action="acknowledge" method="post" class="form-horizontal">
+					<div>
+						<label><h4>1. Are you a?</h4></label><br>
+							<p>$reviewart.judgement</p>
+					 </div>
+					 <br>
+					 <div>
+					 <label><h4>2. Expertise Level?</h4></label><br>
+							<p>$reviewart.getExpertise()</p>
+					 </div>
+					    <br>
+					 	<label><h4>3. Summary of the content and novel contribution of the article </h4></label>
+								<p>$reviewart.getSummary()</p>
+							
+						<br>
+					 	<label><h4>4. Criticism </h4></label>
+								<p>$reviewart.getCriticism()</p>							
+						<br>
+						<label><h4>5. Secret Comments( **comments will be visible only to the editor) </h4></label>
+								<p>$reviewart.getEditorsComments()</p>
+						<br>
+						
+					 	<label><h4>6. List of other errors.(example: typographical or grammatical mistakes) </h4></label>
+									<p>$reviewart.getSmallErrors()</p>
+						<br>
+						<br>
+							<input type="submit"  name="OK" id ="OK" value="OK" />
+              
+						<br>
+				 </form>
+			 </div>
+		</div>
+
+
+
+#end
+</body>
+</br>
+#parse( "/commonElements/footer.vm" )
+</html>

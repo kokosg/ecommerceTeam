@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import models.AbstractModel;
+import models.ReviewForm;
 import objects.Article;
+import objects.Review;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
@@ -27,6 +29,7 @@ public class ArticleStatusServlet extends VelocityViewServlet {
 		AbstractModel absModel=new AbstractModel();
 		ArrayList<Article> checkTitle =absModel.getChoiceTitle(authorID);
 		System.out.println("checkTitle: "+ checkTitle);
+		ReviewForm form =new ReviewForm();
 		
 		ArrayList<Integer> status = absModel.getDownloaded(authorID);
 		for(Article result :checkTitle ){
@@ -36,6 +39,8 @@ public class ArticleStatusServlet extends VelocityViewServlet {
 				}
 			}
 			System.out.println("Title :"+ result.getTitle() +" Summary: "+result.getSummary()+ " Chosen  :" + result.isChosen() );
+			Review review=form.selectReviewForm(authorID, result.getArticleID());
+			result.setDatereviewSubmitted(review.getDateForMySql());
 		}
 		for(Article result :checkTitle ){
 			System.out.println("Title :"+ result.getTitle()+ "Chosen  :" + result.isChosen() );

@@ -277,4 +277,14 @@
     <servlet-name>About</servlet-name>
     <url-pattern>/about</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AcknowledgeReviewServlet</display-name>
+    <servlet-name>AcknowledgeReviewServlet</servlet-name>
+    <servlet-class>AcknowledgeReviewServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AcknowledgeReviewServlet</servlet-name>
+    <url-pattern>/acknowledge</url-pattern>
+  </servlet-mapping>
 </web-app>

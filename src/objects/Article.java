@@ -19,6 +19,7 @@ public class Article {
 	private boolean selected;
 	private boolean chosen;
 	private boolean isDownloaded;
+	private String datereviewSubmitted;
 	
 	/**
 	 * 
@@ -166,5 +167,15 @@ public class Article {
 	 */
 	public boolean isDownloaded() {
 		return isDownloaded;
+	}
+
+
+	public String getDatereviewSubmitted() {
+		return datereviewSubmitted;
+	}
+
+
+	public void setDatereviewSubmitted(String datereviewSubmitted) {
+		this.datereviewSubmitted = datereviewSubmitted;
 	}
 }

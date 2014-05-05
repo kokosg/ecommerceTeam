@@ -115,7 +115,10 @@ public class SubmitArticleModel {
 
 			st.close();
 			conn.close();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -135,7 +138,10 @@ public class SubmitArticleModel {
 			}
 			statement.close();
 			connection.close();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -198,7 +204,10 @@ public class SubmitArticleModel {
 			artResult.close();
 			st.close();
 			conn.close();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -239,7 +248,10 @@ public class SubmitArticleModel {
 			artResult.close();
 			st.close();
 			conn.close();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch ( SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

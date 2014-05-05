@@ -33,10 +33,19 @@
   				#foreach($article in $artCkeckId)
   				<tr>
    			 	</br>
-      			<td>$article.title</td>
-      			<td>$article.chosen</td>
+   			 	#if(!$article.title)
+      				<td>N/A</td>
+      			#else
+      				<td>$article.title</td>
+      			#end
+    			<td>$article.chosen</td>
       			<td>$article.isDownloaded()</td>
-      			<td>yes</td>
+      			#if(!$article.getDatereviewSubmitted())
+      				<td>N/A</td>
+      			#else
+      				<td>$article.getDatereviewSubmitted()</td>
+      			#end
+      			
    	    		</tr>
    	    	#end
 	</table>

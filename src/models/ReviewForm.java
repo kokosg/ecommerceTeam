@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import objects.Review;
+
 public class ReviewForm {
 	
 	public ReviewForm(){
@@ -113,14 +115,46 @@ public class ReviewForm {
     }
 
 	
-	public void selectReviewForm(int authorID,int articleID){
+	public Review selectReviewForm(int authorID,int articleID){
 		ConnectionManager conn;
+		 Review reviewart=new Review();
 		//get current date time with Date()
 		try {
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			String selectQuery = " ";
-			st.executeQuery(selectQuery);
+			String selectQuery = " Select * from REVIEW where authorReviewerID = "+authorID+" and articleID="+articleID+" ";
+			ResultSet result =st.executeQuery(selectQuery);
+			Date date = getReviewRevisionDate(articleID,authorID);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String dateForMySql = "";
+			dateForMySql = sdf.format(date);
+			
+			if (result.next()){
+				
+				int criticismID=(Integer) result.getObject("criticismID");
+				reviewart.setCriticismID(criticismID);
+				String judgement= (String) result.getObject("judgement"); 
+				reviewart.setJudgement(judgement);
+				String expertise= (String) result.getObject("expertise"); 
+				reviewart.setExpertise(expertise);
+				String summary= (String) result.getObject("summary");
+				reviewart.setSummary(summary);
+				String smallErrors= (String) result.getObject("smallErrors");
+				reviewart.setSmallErrors(smallErrors);
+				String editorComments= (String) result.getObject("editorComments");
+				reviewart.setEditorsComments(editorComments);
+				reviewart.setDateForMySql(dateForMySql);
+				
+				
+			}
+
+			String selectQuery1 = " Select criticism from Criticism where criticismID = "+reviewart.getCriticismID();
+			ResultSet rs =st.executeQuery(selectQuery1);
+			if (rs.next()){
+				String criticism =(String) rs.getObject("criticism");
+				reviewart.setCriticism(criticism);
+			}
+			System.out.println("reviewart :  ))))))))))))))"+reviewart.getCriticismID());
 			st.close();
 			conn.close();
 		} catch (ClassNotFoundException e) {
@@ -130,9 +164,10 @@ public class ReviewForm {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		return reviewart;
 		
 	}
 
-    
+
 }
+   

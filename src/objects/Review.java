@@ -14,8 +14,8 @@ public class Review {
 	private int reviewID;
 	private int authorReviewerID;
 	private int articleID;
-	private int judgement;
-	private int expertise;
+	private String judgement;
+	private String expertise;
 	private String summary;
 	private int criticismID;
 	private String smallErrors;
@@ -23,6 +23,8 @@ public class Review {
 	private boolean isAccepted;
 	private Date dateSubmitted;
 	private boolean isDownloaded;
+	private String dateForMySql;
+	private String criticism;
 	
 	/**
 	 * 
@@ -45,7 +47,7 @@ public class Review {
 	 * @param dateSubmitted
 	 */
 	public Review(int reviewID, int authorReviewerID, int articleID,
-			int judgement, int expertise, String summary, int criticismID,
+			String judgement, String expertise, String summary, int criticismID,
 			String smallErrors, String editorsComments, boolean isAccepted,
 			Date dateSubmitted) {
 		super();
@@ -107,28 +109,28 @@ public class Review {
 	/**
 	 * @return the judgement
 	 */
-	public int getJudgement() {
+	public String getJudgement() {
 		return judgement;
 	}
 
 	/**
-	 * @param judgement the judgement to set
+	 * @param judgement2 the judgement to set
 	 */
-	public void setJudgement(int judgement) {
-		this.judgement = judgement;
+	public void setJudgement(String judgement2) {
+		this.judgement = judgement2;
 	}
 
 	/**
 	 * @return the expertise
 	 */
-	public int getExpertise() {
+	public String getExpertise() {
 		return expertise;
 	}
 
 	/**
 	 * @param expertise the expertise to set
 	 */
-	public void setExpertise(int expertise) {
+	public void setExpertise(String expertise) {
 		this.expertise = expertise;
 	}
 
@@ -227,5 +229,21 @@ public class Review {
 	 */
 	public void setDownloaded(boolean isDownloaded) {
 		this.isDownloaded = isDownloaded;
+	}
+
+	public void setDateForMySql(String dateForMySql) {
+		this.dateForMySql = dateForMySql;
+		
+	}
+	public String getDateForMySql() {
+		return dateForMySql;
+	}
+
+	public String getCriticism() {
+		return criticism;
+	}
+
+	public void setCriticism(String criticism) {
+		this.criticism = criticism;
 	}
 }
