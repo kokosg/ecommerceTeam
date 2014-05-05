@@ -36,7 +36,7 @@ public class UnpublishedArticles extends VelocityViewServlet {
 				System.out.println("not null");
 				absModel.setReviewChoice(articleId,authorID);
 				}
-			unpubArticle=absModel.getUnpublishedArticle();
+			unpubArticle=absModel.getUnpublishedArticle(authorID);
 			for(Article a : unpubArticle){
 				 if(absModel.checkData(a.getArticleID(), authorID)){
 					 a.setSelected(true);

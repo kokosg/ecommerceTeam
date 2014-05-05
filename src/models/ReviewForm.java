@@ -162,10 +162,6 @@ public class ReviewForm {
 		
 	}
 
-	public void checkCountReviews(){
-		
-		
-	}
 	
 
 }

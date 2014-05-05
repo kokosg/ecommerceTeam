@@ -109,12 +109,12 @@ public class AbstractModel {
 
 
 	//return an ArrayList of Article objects where articles are not published yet
-	public ArrayList<Article> getUnpublishedArticle() throws SQLException {
+	public ArrayList<Article> getUnpublishedArticle(int authorID) throws SQLException {
 		Article article;
 
 		ArrayList<Article> unpubArticle = new ArrayList<Article>();
 
-		String queryArticle = "select Article.articleID, Article.title, Article.summary from Article where published= 0";
+		String queryArticle = "select Article.articleID, Article.title, Article.summary from Article,ArticleAuthor where Article.published= 0 and Article.articleID=ArticleAuthor.articleID and (ArticleAuthor.authorID !="+authorID+")";
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();

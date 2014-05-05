@@ -61,6 +61,7 @@ public class RecentReviews extends VelocityViewServlet {
 				  //check if the emailStatus status is true to display the message and insert into the database the details of the email
 				  //or if is false to display an error message
 		    	  if (emailStatus) {
+		    		  System.out.println("sssent");
 		  			context.put("successfully", "message was send");
 		  			//contactModel.insertEmail(emailMessage.getName(), emailMessage.getTitle(), emailMessage.getEmail(), emailMessage.getMessage());
 		    	  } else {

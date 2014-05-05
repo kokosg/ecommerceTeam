@@ -55,7 +55,7 @@ public class ContactModel {
 		
 		boolean emailStatus = false;
 		
-		String to = "sirdevious@gmail.com";// change accordingly
+		String to =email;// change accordingly
 
 		// Get the session object
 		Properties props = new Properties();
@@ -88,7 +88,7 @@ public class ContactModel {
 					message.setFrom(new InternetAddress(editorEmail));// change accordingly
 					message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 					message.setSubject("Automatic Message - Java ecommarce");
-					message.setText("Name: " + name + "\n" + "email:" + email + "\n" + "Title: " + title + "\n" + "Message " + messageText);
+					message.setText("Name: " + name + "\n" + "email:" + email + "\n" + "Title: " + title + "\n" + "Message: "+"\n" + messageText);
 
 					// send message
 					Transport.send(message);

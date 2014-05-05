@@ -1,11 +1,16 @@
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import models.ContactModel;
 import models.ReviewForm;
 import objects.Article;
+import objects.EmailMessage;
 import objects.Review;
+import objects.User;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
@@ -45,12 +50,56 @@ public class ReviewFormServlet extends VelocityViewServlet {
 				ReviewForm form =new ReviewForm();
 				form.insertReviewForm(authorID, article.getArticleID(), judge, expertise, reviewSummary,comments,criticism, errors);
 				reviewart=form.selectReviewForm(authorID, article.getArticleID());
-				
+
 			}
 		}
 		if(request.getParameter("redirectAck")!=null){
 			if(request.getParameter("redirectAck").equalsIgnoreCase("Submit")){
+
+				// get the value of a hidden field in a form to determine if we have posted data
+				User user = (User) session.getAttribute("user");
+				String name = user.getName();
+				String title = "Review Submission";
+				//String email = user.getEmail();
+				String email = "renuka391@gmail.com";
+				StringBuilder sb = new StringBuilder();
+				sb.append("Your review has been submitted successfully.");
+				sb.append("\n");
+				sb.append("Your Submission:");
+				String text = "\n1. Are you a?"+"\n"+reviewart.getJudgement()+"\n"+"2. Expertise Level?"+"\n"+reviewart.getExpertise()+"\n"+"3. Summary of the content and novel contribution of the article."+"\n"+reviewart.getSummary()+"\n"+"4. Criticism "+"\n"+reviewart.getCriticism()+"\n"+"5. Secret Comments( **comments will be visible only to the editor)"+"\n"+reviewart.getEditorsComments()+"\n"+"6. List of other errors.(example: typographical or grammatical mistakes)"+"\n"+reviewart.getSmallErrors()+"\n";
+				sb.append(text);
+
+				String messageText = sb.toString();
+
+				//create EmailMessage object by passing values
+				EmailMessage emailMessage = new EmailMessage(name, title, email, messageText);
+
+				//create ContactModel object
+				ContactModel contactModel = new ContactModel();
+
+				boolean emailStatus = false;
+
+				//call the method sendEmail from contactModel object and passing values in order to trigger the email function
+				try {
+					emailStatus = contactModel.sendEmail(emailMessage.getName(), emailMessage.getTitle(), emailMessage.getEmail(), emailMessage.getMessage());
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				//check if the emailStatus status is true to display the message and insert into the database the details of the email
+				//or if is false to display an error message
+				if (emailStatus) {
+					context.put("successfully", "email is sent successfully.");
+					//contactModel.insertEmail(emailMessage.getName(), emailMessage.getTitle(), emailMessage.getEmail(), emailMessage.getMessage());
+				} else {
+					context.put("error", "message was not send");
+				}
 				context.put("reviewart", reviewart);
+
 				template = getTemplate("/pages/acknowledgementReview.vm");
 			}
 		}
