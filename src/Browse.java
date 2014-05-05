@@ -37,7 +37,6 @@ public Template handleRequest( HttpServletRequest request, HttpServletResponse r
          }
 
          template = getTemplate("/pages/browse.vm"); 
-
          
       } catch(Exception e ) {
          System.out.println("Error " + e);

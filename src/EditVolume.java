@@ -30,19 +30,21 @@ public class EditVolume extends VelocityViewServlet {
 		//get the parameters from the form
 		String volumeID = request.getParameter("volumeID");
 		
+		//get the current year and the date
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
 		DateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
 		Date newDate = new Date();
 		
+		//Initialised boolean to false
 		boolean status = false;
 		
 		try {
 
 			if (volumeID != null) {
 				
+				//update the status and create the volume details by passing the parameters from the form
 				status = model.createVolume(volumeID, currentYear, currentDate.format(newDate));
-				
 
 				if (status) {
 					context.put("successfully", "Edition has been created successfully");
@@ -51,9 +53,7 @@ public class EditVolume extends VelocityViewServlet {
 				}
 				
 			}
-				//return getUsers from UserManagementModel and put them in contexts
-			
-			
+				//return Volume from Volume Model, year, date and put them in contexts
 				context.put("Volume", model.getVolume());
 				context.put("currentDate", currentDate.format(newDate));
 				context.put("currentYear", currentYear);

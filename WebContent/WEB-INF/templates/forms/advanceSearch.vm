@@ -99,8 +99,8 @@ if( searchType == "interval" ) {
 									</div>
 								</fieldset>
 							</form>
+							<p>* you can search multiple authors by separating them with comma character "," Example: "George,Afro"</p>
 							</div>
-							<div>* you can search multiple authors by separating them with comma character "," Example: "George,Afro"</div>
 							
 							<div id="intervalForm">
 							<form action="advanceSearch" id="advanceSearch" method="post"
