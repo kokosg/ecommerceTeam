@@ -28,6 +28,13 @@ public class SelectedArticlesForReview extends VelocityViewServlet {
 		ArrayList<Integer> downloadedReview = absModel.getDownloaded(authorID);
 		//context.put("downloadedReview", downloadedReview);
 		//System.out.println("Downloaded ^^^^^^^^ "+downloadedReview);
+
+		String unselect = request.getParameter("unselect");
+		
+		if(unselect!=null){
+			System.out.println("String: selected servlet="+unselect);
+			absModel.deleteChoice(authorID, Integer.parseInt(unselect));
+		}
 		ArrayList<Article> checkTitle =absModel.getChoiceTitle(authorID);
 		for(Article result :checkTitle ){
 			for(int reviewDwnld : downloadedReview){
@@ -37,17 +44,12 @@ public class SelectedArticlesForReview extends VelocityViewServlet {
 			}
 			System.out.println("Title :"+ result.getTitle() +" Summary: "+result.getSummary()+ " Chosen  :" + result.isChosen() );
 		}
-		context.put("artCkeckId", checkTitle);
+		
 		if(checkTitle.isEmpty()){
 			context.put("message", "You haven't selected any articles to Review. Go to unpublished articles to select articles to review.");
 		}
 		
-		String unselect = request.getParameter("unselect");
-		
-		if(unselect!=null){
-			System.out.println("String: selected servlet="+unselect);
-			absModel.deleteChoice(authorID, Integer.parseInt(unselect));
-		}
+		context.put("artCkeckId", checkTitle);
 		template = getTemplate("/forms/selectedArticlesToReview.vm");
 		return template;
 	

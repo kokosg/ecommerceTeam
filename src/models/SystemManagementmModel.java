@@ -94,8 +94,8 @@ public class SystemManagementmModel {
 				int reviewID = rs.getInt("Review.reviewID");
 				int authorReviewerID = rs.getInt("Review.authorReviewerID");
 				int articleID = rs.getInt("Review.articleID");
-				int judgement = rs.getInt("Review.judgement");
-				int expertise = rs.getInt("Review.expertise");
+				String judgement = (String) rs.getObject("Review.judgement");
+				String expertise = (String) rs.getObject("Review.expertise");
 				String summary = (String) rs.getObject("Review.summary");
 				int criticismID = rs.getInt("Review.criticismID");
 				String smallErrors = (String) rs.getObject("Review.smallErrors");
@@ -127,8 +127,8 @@ public class SystemManagementmModel {
 				int reviewID = rs.getInt("Review.reviewID");
 				int authorReviewerID = rs.getInt("Review.authorReviewerID");
 				int articleID = rs.getInt("Review.articleID");
-				int judgement = rs.getInt("Review.judgement");
-				int expertise = rs.getInt("Review.expertise");
+				String judgement = (String)rs.getObject("Review.judgement");
+				String expertise = (String)rs.getObject("Review.expertise");
 				String summary = (String) rs.getObject("Review.summary");
 				int criticismID = rs.getInt("Review.criticismID");
 				String smallErrors = (String) rs.getObject("Review.smallErrors");
