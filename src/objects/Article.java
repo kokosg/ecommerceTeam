@@ -3,6 +3,8 @@
  */
 package objects;
 
+import java.util.Date;
+
 
 /**
  * @author Master Team 10
@@ -19,7 +21,7 @@ public class Article {
 	private boolean selected;
 	private boolean chosen;
 	private boolean isDownloaded;
-	private String datereviewSubmitted;
+	private Date datereviewSubmitted;
 	
 	/**
 	 * 
@@ -170,12 +172,12 @@ public class Article {
 	}
 
 
-	public String getDatereviewSubmitted() {
+	public Date getDatereviewSubmitted() {
 		return datereviewSubmitted;
 	}
 
 
-	public void setDatereviewSubmitted(String datereviewSubmitted) {
+	public void setDatereviewSubmitted(Date datereviewSubmitted) {
 		this.datereviewSubmitted = datereviewSubmitted;
 	}
 }

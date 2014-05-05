@@ -40,7 +40,7 @@ public class ArticleStatusServlet extends VelocityViewServlet {
 			}
 			System.out.println("Title :"+ result.getTitle() +" Summary: "+result.getSummary()+ " Chosen  :" + result.isChosen() );
 			Review review=form.selectReviewForm(authorID, result.getArticleID());
-			result.setDatereviewSubmitted(review.getDateForMySql());
+			result.setDatereviewSubmitted(review.getDateSubmitted());
 		}
 		for(Article result :checkTitle ){
 			System.out.println("Title :"+ result.getTitle()+ "Chosen  :" + result.isChosen() );
