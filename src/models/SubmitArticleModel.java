@@ -264,7 +264,7 @@ public class SubmitArticleModel {
 		try {
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			String insertQuery ="INSERT INTO Review (articleID, authorReviewerID,isDownloaded) VALUES ('" + articleID + "', '" + authorID + "','1')";
+			String insertQuery ="INSERT INTO Review (articleID, authorReviewerID,isDownloaded,reviewCount) VALUES ('" + articleID + "', '" + authorID + "','1','0')";
 			st.executeUpdate(insertQuery);
 			st.close();
 			conn.close();

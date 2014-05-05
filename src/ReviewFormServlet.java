@@ -30,15 +30,18 @@ public class ReviewFormServlet extends VelocityViewServlet {
 		HttpSession session = request.getSession();
 		int authorID =(Integer) session.getAttribute("userID");
 		String UserRole=(String) session.getAttribute("userRole");
-
+		System.out.println("Inside ReviewFormServlet");
 		if (UserRole == "AuthorReviewer"){
+			System.out.println("I am author reviewer");
 			if(LOOP){
 				String articleID= request.getParameter("reviewArt");
 				article.setArticleID(Integer.parseInt(articleID));
 				LOOP=false;
-			}
-			else{
+				System.out.println("I am in LOOP");
 
+			}
+			else{	
+				System.out.println("outside LOOP");
 				int formart=article.getArticleID();
 				System.out.println("formart :"+formart);
 				String judge =request.getParameter("judge");
@@ -48,11 +51,14 @@ public class ReviewFormServlet extends VelocityViewServlet {
 				String errors =request.getParameter("errors");
 				String comments=request.getParameter("comments");
 				ReviewForm form =new ReviewForm();
-				form.insertReviewForm(authorID, article.getArticleID(), judge, expertise, reviewSummary,comments,criticism, errors);
+				int count=form.getReviewCount(authorID, formart);
+				if (count<2){
+					form.insertReviewForm(authorID, article.getArticleID(), judge, expertise, reviewSummary,comments,criticism, errors);
+				}
 				reviewart=form.selectReviewForm(authorID, article.getArticleID());
 
 			}
-		}
+		
 		if(request.getParameter("redirectAck")!=null){
 			if(request.getParameter("redirectAck").equalsIgnoreCase("Submit")){
 
@@ -99,12 +105,14 @@ public class ReviewFormServlet extends VelocityViewServlet {
 					context.put("error", "message was not send");
 				}
 				context.put("reviewart", reviewart);
-
+				LOOP=true;
 				template = getTemplate("/pages/acknowledgementReview.vm");
 			}
 		}
+		
 		else{
 			template = getTemplate("/forms/reviewForm.vm");
+		}
 		}
 		return template;
 
