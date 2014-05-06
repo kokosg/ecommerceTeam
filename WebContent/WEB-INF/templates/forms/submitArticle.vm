@@ -46,12 +46,12 @@
 #parse( "/commonElements/navbar.vm" )
 
 <div class="jumbotron">
-
+</div>
 <div class="bs-docs-section">
 	<div class="row">
 		<div class="col-lg-7 col-md-10 col-md-push-3">
 			<!-- Form================================================== -->		
-
+			<div class="well bs-component">
 			<form action="submit" id="submit" method="post" class="form-horizontal" enctype="multipart/form-data">
 			<fieldset>
 				<input id="flag" name="flag" type="hidden" value = "1">
@@ -93,10 +93,9 @@
 				
 			</fieldset>
 			</form>
-
+			</form>
 		</div>
 	</div>
-</div>
 </div>
 
 #parse("/commonElements/footer.vm")

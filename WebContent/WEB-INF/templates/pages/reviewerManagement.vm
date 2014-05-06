@@ -45,13 +45,13 @@
 							<tbody class="table-hover">
 							#foreach($choice in $Choices) 
 							<tr>
-								<td>$choice.title $choice.surname</td>
-								<td>$choice.authorID</td>
+								<td>$choice.title</td>
+								<td>$choice.name $choice.surname</td>
 								<td>
 								<form action="reviewerManagement" method="post" class="form-horizontal">
 									<input id="choiceID" name="choiceID" type="hidden" value="$choice.choiceID">
 									<div class="col-lg-10 col-lg-offset-2">
-										<button type="submit" class="btn btn-primary">Remove Review</button>
+										<button type="submit" class="btn btn-primary">Reject Review</button>
 									</div>
 								</form>
 								</td>

@@ -1,0 +1,115 @@
+<HTML>
+<head>
+  <meta charset="ISO-8859-1">
+  #include( "/commonElements/head.html" )
+  <TITLE>$apptitle</TITLE>
+</head>
+
+<body>
+#parse( "/commonElements/navbar.vm" )
+<!-- Main jumbotron for a primary marketing message or call to action -->
+
+<div class="jumbotron">
+	
+<div class="col-md-12">
+#if($userRole == "Editor")
+		
+   #if ($Messages)
+   
+		#if ($successfully) 
+	   		<div class="alert alert-success alert-dismissable">
+			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			  <strong>$successfully
+			</div>
+	   		#end
+	   		#if ($error) 
+	   		<div class="alert alert-danger alert-dismissable">
+			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			  <strong>$error
+			</div>
+		#end
+	   
+	   <div class="row">
+		<div class="row">
+		   <div class="well bs-component">
+			 <h1>List of Choices</h1>
+				<div class="row">
+					<div class="col-md-12">
+						<table class="table table-hover table-responsive table-bordered table-condensed">
+							<thead>
+						      <tr>
+						        <th>Name</th>
+						        <th>Email</th>
+						        <th>Title</th>
+						        <th>Message</th>
+						        <th>Answer</th>
+						        <th></th>
+						        <th></th>
+						        <th></th>
+						      </tr>
+						    </thead>
+							<tbody class="table-hover">
+							#foreach($message in $Messages) 
+							<tr>
+								<td>$message.name</td>
+								<td>$message.email</td>
+								<td>$message.title</td>
+								<td>$message.message</td>
+								<td>
+								#if ($message.answer)
+									$message.answer
+								#else
+									No Message
+								#end
+								</td>
+								<td>
+								<form action="message" method="post" class="form-horizontal">
+				         		    <input id="messageID" name="messageID" type="hidden" value = "$message.messageID">
+				         		    <input id="action" name="action" type="hidden" value = "accept">
+									<button type="submit" class="btn btn-primary">Accept</button></td>
+								</form>
+								<td>
+								<form action="message" method="post" class="form-horizontal">
+				         		    <input id="messageID" name="messageID" type="hidden" value = "$message.messageID">
+				         		    <input id="action" name="action" type="hidden" value = "remove">
+									<button type="submit" class="btn btn-primary">Remove</button>
+								</form>
+								</td>
+								<td>
+								<form action="message" method="post" class="form-horizontal">
+				         		    <input id="messageID" name="messageID" type="hidden" value = "$message.messageID">
+				         		    <input id="action" name="action" type="hidden" value = "replay">
+									<button type="submit" class="btn btn-primary">Reply</button>
+								</form>
+								</td>
+							</tr>
+							#end
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	   #end
+
+	#else
+
+		<h2 >Sorry you are not authenticated to access this part of website</h2>
+
+	#end
+	</div>
+</div>
+
+	<div class="col-lg-4">
+		<div class="bs-component">
+			<div class="well">Look, I'm in a well!</div>
+		</div>
+	</div>
+	<div class="col-lg-8">
+		<div class="bs-component">
+			<div class="well">Look, I'm in a small well!</div>
+		</div>
+	</div>
+#parse( "/commonElements/footer.vm" )
+</body>
+</html>
