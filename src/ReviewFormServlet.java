@@ -66,8 +66,8 @@ public class ReviewFormServlet extends VelocityViewServlet {
 				User user = (User) session.getAttribute("user");
 				String name = user.getName();
 				String title = "Review Submission";
-				//String email = user.getEmail();
-				String email = "renuka391@gmail.com";
+				String email = user.getEmail();
+				//String email = "renuka391@gmail.com";
 				StringBuilder sb = new StringBuilder();
 				sb.append("Your review has been submitted successfully.");
 				sb.append("\n");

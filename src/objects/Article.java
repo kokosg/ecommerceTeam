@@ -22,6 +22,8 @@ public class Article {
 	private boolean chosen;
 	private boolean isDownloaded;
 	private Date datereviewSubmitted;
+	private int reviewCount;
+	
 	
 	/**
 	 * 
@@ -180,4 +182,15 @@ public class Article {
 	public void setDatereviewSubmitted(Date datereviewSubmitted) {
 		this.datereviewSubmitted = datereviewSubmitted;
 	}
+
+
+	public int getReviewCount() {
+		return reviewCount;
+	}
+
+
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+	
 }

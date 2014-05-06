@@ -84,7 +84,7 @@
           	<form action="reviewForm" method="post" class="form-horizontal">
                 <h5>Review this Article </h5>
               	<input type="hidden" id="reviewArt" name="reviewArt" value="$article.getArticleID()"/>
-                #if($article.isDownloaded())
+                #if(($article.isDownloaded())&&($article.getReviewCount()<2))
               	<input type="submit" class="btn btn-primary" value="Review"/>
                 #else
                 <input type="submit" class="btn btn-primary" value="Review" disabled/>
