@@ -297,4 +297,24 @@
     <servlet-name>Message</servlet-name>
     <url-pattern>/message</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AuthorArticles</display-name>
+    <servlet-name>AuthorArticles</servlet-name>
+    <servlet-class>AuthorArticles</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthorArticles</servlet-name>
+    <url-pattern>/myArticles</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SubmitArticleRevision</display-name>
+    <servlet-name>SubmitArticleRevision</servlet-name>
+    <servlet-class>SubmitArticleRevision</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SubmitArticleRevision</servlet-name>
+    <url-pattern>/submitArticleRevision</url-pattern>
+  </servlet-mapping>
 </web-app>

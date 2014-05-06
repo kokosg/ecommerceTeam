@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Random;
 
 import objects.Article;
+import objects.ArticleRevision;
 import objects.EmailMessage;
 import objects.Keyword;
 import objects.User;
@@ -26,7 +27,61 @@ public class SubmitArticleModel {
 	public SubmitArticleModel() {
 
 	}
-
+	
+	public ArrayList<Object> getAuthorArticles(int authorID) throws SQLException {
+		ArrayList<Object> arrayResults = new ArrayList<Object>();
+		ArrayList<Article> articleResults = new ArrayList<Article>();
+		ArrayList<ArticleRevision> filepathResults = new ArrayList<ArticleRevision>();
+		String findArticles = "SELECT * FROM Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID INNER JOIN ArticleRevision ON ArticleRevision.articleID = Article.articleID WHERE Author.authorID = 11";
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			ResultSet rs = st.executeQuery(findArticles);
+			while (rs.next()) {
+				int counter = 0;
+				int articleID = rs.getInt("Article.articleID");
+				String title = (String) rs.getObject("Article.title");
+				String summary = (String) rs.getObject("Article.summary");
+				boolean published = rs.getBoolean("Article.published");
+				boolean reviewed = rs.getBoolean("Article.reviewed");
+				int pageNo = rs.getInt("Article.pageNo");
+				
+				if (articleResults != null) {
+					for (Article article : articleResults) {
+					    if (article.getArticleID() == (articleID)) {
+					    	System.out.println("already in list");
+					    	counter ++;
+					    } else {
+					    	System.out.println("new article");
+					    }
+					}
+				}
+				if (counter == 0) {
+					Article article = new Article(articleID, title, summary, published, reviewed, pageNo);
+					articleResults.add(article);
+				}
+				int articleRevisionID = rs.getInt("ArticleRevision.articleRevisionID");
+				String filePath = (String) rs.getObject("ArticleRevision.filePath");
+				Date dateSubmitted = rs.getDate("ArticleRevision.dateSubmitted");
+				java.sql.Date sqlDate = new java.sql.Date(dateSubmitted.getTime());
+				
+				ArticleRevision revision = new ArticleRevision(articleRevisionID, articleID, filePath, sqlDate);
+				filepathResults.add(revision);
+				System.out.println("assoi");
+			}
+			
+			arrayResults.add(articleResults);
+			arrayResults.add(filepathResults);
+			rs.close();
+			st.close();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return arrayResults;
+	}
+	
+	
 	//Keyword - insert a new keyword in the database
 	public void insertKeyword(ArrayList<Keyword> keywords) {
 		try {

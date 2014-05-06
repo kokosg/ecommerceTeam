@@ -2,68 +2,97 @@
 <head>
   <meta charset="ISO-8859-1">
   #include( "/commonElements/head.html" )
-  <title>$apptitle</title>
+  <TITLE>$apptitle</TITLE>
 </head>
 
 <body>
 #parse( "/commonElements/navbar.vm" )
+<!-- Main jumbotron for a primary marketing message or call to action -->
 
 <div class="jumbotron">
-</div>
 
-#if ($status)
-<div class="alert">
-$status
-</div>
-#end
+<div class="col-md-12">
+#if($userRole == "Editor")
 
-<div class="bs-docs-section">
-	<div class="row">
-		<div class="col-lg-7 col-md-10 col-md-push-3">
-			<div class="well bs-component">
-				<form action="contact" method="post" class="form-horizontal">
-					<fieldset>
-					  <input id="flag" name="flag" type="hidden" value = "1">
-						<legend>Send email to Editors</legend>
-						<div class="form-group">
-							<label for="tweetData" class="col-lg-2 control-label">Name:</label>
-							<div class="col-lg-10">
-								<input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="long" class="col-lg-2 control-label">Article Title:</label>
-							<div class="col-lg-10">
-								<input type="text" class="form-control" name="title" id="title" placeholder="Title">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="lat" class="col-lg-2 control-label">Email:</label>
-							<div class="col-lg-10">
-								<input type="email" class="form-control" name="email" id="email" placeholder="email" required>
-							</div>
-						</div>
-						
-						<div class="form-group">
-							<label for="area" class="col-lg-2 control-label">Message:</label>
-							<div class="col-lg-10">
-							<textarea class="form-control" rows="5" name="messageText" id="messageText" placeholder="Message" required></textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-lg-10 col-lg-offset-2">
-								<button type="submit" class="btn btn-primary">Submit</button>
-								<input type="reset" class="btn btn-default" value="Reset" />
-							</div>
-						</div>
-					</fieldset>
-				</form>
+   #if ($searchResults)
+   
+		#if ($successfully) 
+	   		<div class="alert alert-success alert-dismissable">
+			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			  <strong>$successfully
+			</div>
+	   		#end
+	   		#if ($error) 
+	   		<div class="alert alert-danger alert-dismissable">
+			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			  <strong>$error
+			</div>
+		#end
+
+		<div class="bs-docs-section">
+			<div class="row">
+				<div class="col-lg-7 col-md-10 col-md-push-3">
+					<div class="well bs-component">
+						<form action="editJournal" method="post" class="form-horizontal">
+							<fieldset>
+								<legend>Edit Journal</legend>
+								<div class="form-group">
+									<label for="title" class="col-lg-2 control-label">Title:</label>
+									<div class="col-lg-10">
+										<input type="text" class="form-control" name="title" value="$searchResults.title" id="title" maxlength="50" required>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="aimsGoals" class="col-lg-2 control-label">Journal aims and goals:</label>
+									<div class="col-lg-10">
+										<textarea class="form-control" name="aimsGoals" rows="10" value="$searchResults.aimsGoals" id="aimsGoals" maxlength="550" required></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-lg-10 col-lg-offset-2">
+										<button type="submit" class="btn btn-primary">Update</button>
+										<input type="reset" class="btn btn-default" value="Reset" />
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
+	   #end
+
+	#else
+
+		<div class="bs-docs-section">
+			<div class="row">
+				<div class="col-lg-7 col-md-10 col-md-push-3">
+					<div class="well bs-component">
+							<fieldset>
+								<legend>Edit Journal</legend>
+								<div class="form-group">
+									<label for="title" class="col-lg-2 control-label">title:</label>
+									<div class="col-lg-10">
+										<input type="text" class="form-control" name="title" value="$searchResults.title" id="title" disabled>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="aimsGoals" class="col-lg-2 control-label">aimsGoals:</label>
+									<div class="col-lg-10">
+										<input type="text" class="form-control" name="aimsGoals" rows="10" value="$searchResults.aimsGoals" id="aimsGoals" disabled>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	#end
 	</div>
 </div>
 
-#parse("/commonElements/footer.vm")
-</div>
+#parse( "/commonElements/footer.vm" )
 </body>
 </html>

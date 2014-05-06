@@ -26,19 +26,19 @@
 						<!-- ADD AUTHOR-REVIEWER ACTIONS HERE-->
 							<li class="divider"></li>
 							<li class="dropdown-header">Author - Reviewer</li>
-							<li><a href="#">Separated link</a></li>
+							<li><a href="myArticles">My Articles</a></li>
 							<li><a href="status">Review Status</a></li>
 						#elseif ($session.userRole == "Editor")
 							<!-- ADD EDITOR ACTIONS HERE-->
 							<li class="divider"></li>
 							<li class="dropdown-header">Editor</li>
-							<li><a href="journal">editJournal</a></li>
-							<li><a href="reviewerManagement">reviewerManagement</a></li>
-							<li><a href="systemManagement">systemManagement</a></li>
-							<li><a href="userManagement">userManagement</a></li>
-							<li><a href="recentReviews">recentReviews</a></li>
-							<li><a href="editVolume">editVolume</a></li>
-							<li><a href="editEdition">editEdition</a></li>
+							<li><a href="journal">Manage Journal</a></li>
+							<li><a href="editVolume">Manage Volume</a></li>
+							<li><a href="editEdition">Manage Edition</a></li>
+							<li><a href="reviewerManagement">Reviewers Choices</a></li>
+							<li><a href="recentReviews">Reviews</a></li>
+							<li><a href="systemManagement">Articles, Reviews</a></li>
+							<li><a href="userManagement">User Management</a></li>
 						#end
 						<li class="divider"></li>
 						<li><a href="logout">Logout</a></li>

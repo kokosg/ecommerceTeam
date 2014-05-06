@@ -25,8 +25,8 @@
 				
 				<!-- Text input-->
 				<div>
-					<label class="control-label" for="email">Email:</label>
-					<input id="email" name="email" type="email" placeholder="email@example.com" class="input-xlarge" required>
+					<label class="col-lg-2 control-label" for="email">Email:</label>
+					<div class="col-lg-10"><input id="email" name="email" type="email" placeholder="email@example.com" class="form-control" required></div>
 					<div>
 						<label class="control-label">Select Keywords:</label>
 						#foreach($keyword in $keywords) 
@@ -35,7 +35,7 @@
 								$keyword.text
 							</label>
 						#end
-          </div>
+         			</div>
 					<label class="control-label" for="checkboxes">Future Editions:</label>
 					<label class="checkbox inline" for="checkboxes-0">
 					<input type="checkbox" name="futureEditions" id="futureEditions" value="1">
