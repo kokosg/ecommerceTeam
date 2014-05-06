@@ -30,7 +30,7 @@
    #if ($Articles)
 	<div class="row">
 		<div id="results_table">
-			<div class="col-lg-7 col-md-10 col-md-push-3">
+			<div>
 				<div class="row">
 					<div class="well bs-component">
 						<h1>Recent Reviews</h1>

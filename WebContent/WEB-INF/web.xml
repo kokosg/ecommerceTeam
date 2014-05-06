@@ -287,4 +287,14 @@
     <servlet-name>AcknowledgeReviewServlet</servlet-name>
     <url-pattern>/acknowledge</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Message</display-name>
+    <servlet-name>Message</servlet-name>
+    <servlet-class>Message</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Message</servlet-name>
+    <url-pattern>/message</url-pattern>
+  </servlet-mapping>
 </web-app>

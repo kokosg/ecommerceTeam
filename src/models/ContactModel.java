@@ -6,6 +6,7 @@ package models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -15,6 +16,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import objects.MessageObject;
 
 /**
  * @author Master Team 10
@@ -30,24 +33,86 @@ public class ContactModel {
 	}
 	
 	
-	public void insertEmail(String name, String title, String email, String message) throws SQLException {
-		  
-		String insertQuery = "INSERT INTO Message (name, title, email, message) VALUE ('" + name + "', '" + title + "', '" + email + "', '" + message + "')";
-			
+	public ArrayList<MessageObject> getUnpublishMessages() throws SQLException {
+		ArrayList<MessageObject> arrayResults = new ArrayList<MessageObject>();
+		String queryAuthor = "select messageID, name, title, email, message, answer, published from Message where published = 0";
 		try {
-			
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			ResultSet rs = st.executeQuery(queryAuthor);
+			while (rs.next()) {
+				int messageID = rs.getInt("messageID");
+				String name = (String) rs.getObject("name");
+				String title = (String) rs.getObject("title");
+				String email = (String) rs.getObject("email");
+				String message = (String) rs.getObject("message");
+				String answer = (String) rs.getObject("answer");
+				boolean published = (boolean) rs.getObject("published");
+
+				
+				MessageObject messageObject = new MessageObject(messageID, name, title, email, message, answer, published);
+				arrayResults.add(messageObject);
+			}
+			rs.close();
+			st.close();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return arrayResults;
+	}
+	
+	public void insertEmail(String name, String title, String email, String message) throws SQLException {
+		String insertQuery = "INSERT INTO Message (name, title, email, message) VALUE ('" + name + "', '" + title + "', '" + email + "', '" + message + "')";
+		try {
 	      ConnectionManager conn = new ConnectionManager();
     	  Statement st = conn.getInstance().getConnection().createStatement();
 		  st.executeUpdate(insertQuery);
-		  
 	      st.close();
 		  conn.close();
-			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	
+	public boolean updateMessage(String messageID) throws SQLException {
 		
+		boolean status = false;
+		
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String updateQuery = "UPDATE Message SET published = 1 WHERE messageID = '" + messageID + "'";
+			st.executeUpdate(updateQuery);
+			st.close();
+			conn.close();
+			
+			status = true;
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return status;
+	}
+	
+	
+	public boolean deleteMessage(String messageID) throws SQLException {
+		boolean status = false;
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String deleteQuery = "DELETE FROM Message WHERE messageID = '" + messageID + "'";
+			st.executeUpdate(deleteQuery);
+			st.close();
+			conn.close();
+			status = true;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return status;
 	}
 	
 	
