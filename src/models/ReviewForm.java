@@ -32,7 +32,7 @@ public class ReviewForm {
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			int reviewCount=getReviewCount(authorID, articleID);
-			String insertQuery = "UPDATE REVIEW SET judgement = '" + judge + "',expertise = '" + expertise + "',summary ='" + reviewSummary + "',editorComments = '" + comments + "',smallErrors = '" + errors + "',dateSubmitted = '" + dateFormat.format(date) + "',reviewCount ='"+ (reviewCount+1)+ "' where authorReviewerID = '" + authorID + "' and articleID='" +articleID+"'";
+			String insertQuery = "UPDATE Review SET judgement = '" + judge + "',expertise = '" + expertise + "',summary ='" + reviewSummary + "',editorComments = '" + comments + "',smallErrors = '" + errors + "',dateSubmitted = '" + dateFormat.format(date) + "',reviewCount ='"+ (reviewCount+1)+ "' where authorReviewerID = '" + authorID + "' and articleID='" +articleID+"'";
 			st.executeUpdate(insertQuery);
 			Date reviewDate =getReviewRevisionDate(authorID,articleID);
 			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
@@ -85,7 +85,7 @@ public class ReviewForm {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String selectQuery;
-			System.out.println("Select REVIEW revision date ");
+			System.out.println("Select Review revision date ");
 			selectQuery = "Select Review.dateSubmitted from Review where articleID="+articleID+" and authorReviewerID = "+authorID;
 			ArrayList<Date> date= new ArrayList<Date>();
 			ResultSet artResult = st.executeQuery(selectQuery);
@@ -130,7 +130,7 @@ public class ReviewForm {
 		try {
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			String selectQuery = " Select * from REVIEW where authorReviewerID = "+authorID+" and articleID="+articleID;
+			String selectQuery = " Select * from Review where authorReviewerID = "+authorID+" and articleID="+articleID;
 			ResultSet result =st.executeQuery(selectQuery);
 
 			if (result.next()){
@@ -176,7 +176,7 @@ public class ReviewForm {
 		try {
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			String selectQuery = " Select reviewCount from REVIEW where authorReviewerID = "+authorID+" and articleID="+articleID;
+			String selectQuery = " Select reviewCount from Review where authorReviewerID = "+authorID+" and articleID="+articleID;
 			ResultSet result =st.executeQuery(selectQuery);
 			if (result.next()){
 				reviewCount =(Integer) result.getObject("reviewCount");
