@@ -8,6 +8,7 @@ import java.sql.SQLException;
 public class ConnectionManager {
 
 	public static ConnectionManager instance = null ;
+
 	private final String USERNAME = "team104";
 	private final String PASSWORD = "4073dc3d";
 	private final String CONN_STRING = "jdbc:mysql://stusql.dcs.shef.ac.uk/"; //added jdbc:mysql://

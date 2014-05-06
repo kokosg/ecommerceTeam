@@ -44,8 +44,15 @@ public class ReviewForm {
 				System.out.println("reviewID "+reviewID);
 			}
 			rs.close();
-			String insertQuery2 = "INSERT INTO Criticism (criticism, reviewID) VALUE ('" + criticism + "', '" + reviewID + "')";
-			st.executeUpdate(insertQuery2);
+			if(reviewCount==0)
+			{
+				String insertQuery2 = "INSERT INTO Criticism (criticism, reviewID) VALUE ('" + criticism + "', '" + reviewID + "')";
+				st.executeUpdate(insertQuery2);
+			}
+			else{
+				String insertQuery2 = "UPDATE Criticism SET criticism='"+ criticism+"',reviewID='"+ reviewID + "'";
+				st.executeUpdate(insertQuery2);
+			}
 
 			String selectQuery2 = "Select Criticism.criticismID from Criticism where reviewID = '"+reviewID+"'";
 			ResultSet result=st.executeQuery(selectQuery2);
