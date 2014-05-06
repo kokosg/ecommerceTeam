@@ -11,7 +11,6 @@ import java.util.Date;
 import objects.Article;
 import objects.Choice;
 import objects.Keyword;
-import objects.Review;
 import objects.User;
 
 
@@ -49,7 +48,7 @@ public class AbstractModel {
 		return article;
 	}
 
-	
+
 	//return an ArrayList of keywords objects based on the article_ID
 	public ArrayList<Keyword> getKeywords(int article_ID) throws SQLException {
 
@@ -107,35 +106,62 @@ public class AbstractModel {
 		return arrayResults;
 	}
 
-
 	//return an ArrayList of Article objects where articles are not published yet
 	public ArrayList<Article> getUnpublishedArticle(int authorID) throws SQLException {
 		Article article;
 
+		ArrayList<Integer> intArtID = new ArrayList<Integer>();
+		ArrayList<Integer> intselectedAuthorID = new  ArrayList<Integer>();
 		ArrayList<Article> unpubArticle = new ArrayList<Article>();
 
-		String queryArticle = "select Article.articleID, Article.title, Article.summary from Article,ArticleAuthor where Article.published= 0 and Article.articleID=ArticleAuthor.articleID and (ArticleAuthor.authorID !="+authorID+")";
+
+		String queryArticle = "select ArticleAuthor.articleID from ArticleAuthor where ArticleAuthor.authorID =" + authorID;
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryArticle);
 			while (rs.next()) {
-				String unpublishedTitle = (String) rs.getObject("Article.title");
-				String unpublishedSummary = (String) rs.getObject("Article.summary");
-				int  articleId=rs.getInt("Article.articleID");
-				article = new Article( articleId,unpublishedTitle, unpublishedSummary);
-				unpubArticle.add(article);
+				int  articleId=rs.getInt("ArticleAuthor.articleID");
+				System.out.println("articleIDs aayi:"+articleId);
+				intArtID.add(articleId);
 			}
-			System.out.println(unpubArticle);
+			System.out.println(intArtID);
 			rs.close();
+			for(int a: intArtID){
+				String queryAuthorsArticle = "select ArticleAuthor.authorID from ArticleAuthor where ArticleAuthor.articleID =" + a;
+				ResultSet rs1 = st.executeQuery(queryAuthorsArticle);
+				while(rs1.next()){
+					System.out.println("authorIDs aayi:"+rs1.getInt("ArticleAuthor.authorID"));
+					intselectedAuthorID.add(rs1.getInt("ArticleAuthor.authorID"));
+				}
+				rs1.close();
+			}
+			
+			for(int autID : intselectedAuthorID  ){
+				for(int arID :intArtID){
+					String q = "select Article.articleID, Article.title, Article.summary from Article,ArticleAuthor where Article.published= 0 and Article.articleID=ArticleAuthor.articleID and Article.articleID!="+arID+" and ArticleAuthor.authorID !="+autID+" GROUP BY ArticleAuthor.articleID";
+					ResultSet rs2 = st.executeQuery(q);
+					while (rs2.next()) {
+						String unpublishedTitle = (String) rs2.getObject("Article.title");
+						String unpublishedSummary = (String) rs2.getObject("Article.summary");
+						int  articeId=rs2.getInt("Article.articleID");
+						article = new Article( articeId,unpublishedTitle, unpublishedSummary);
+						System.out.println("unpub article select huye articleIDs:"+articeId);
+						unpubArticle.add(article);
+					}
+					rs2.close();
+					System.out.println(unpubArticle);
+				}
+			}
 			st.close();
 			conn.close();
+
+
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return unpubArticle;
-
 	}
 
 	public void setReviewChoice(String[] articleID,int authorID){
@@ -143,8 +169,6 @@ public class AbstractModel {
 		//get current date time with Date()
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
-		Choice choice=new Choice();
-
 		ConnectionManager conn;
 		try {
 			int aID; 
@@ -181,7 +205,7 @@ public class AbstractModel {
 					}
 				}
 			}
-			
+
 			st.close();
 			conn.close();
 
@@ -245,12 +269,12 @@ public class AbstractModel {
 		return resultID;
 
 	}
-	
+
 	public void deleteChoice(int authorID, int articleID){
-		
+
 		ConnectionManager conn;
 		try {
-			
+
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String selectQuery ="DELETE FROM Choice WHERE Choice.articleID = "+articleID+" and "+"Choice.authorReviewerID="+authorID;
@@ -259,12 +283,12 @@ public class AbstractModel {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public ArrayList<Integer> getDownloaded(int authorID){
 		ConnectionManager conn;
 		ArrayList<Integer> downloadedReview = new ArrayList<Integer>();
 		try {
-			
+
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String selectQuery ="SELECT Review.articleID FROM REVIEW WHERE isDownloaded =1 and authorReviewerID ='"+authorID +"'";
@@ -277,7 +301,7 @@ public class AbstractModel {
 			e.printStackTrace();
 		}
 		return downloadedReview;
-		
+
 	}
 
 }
