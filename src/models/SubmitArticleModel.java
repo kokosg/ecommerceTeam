@@ -1,13 +1,17 @@
 package models;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 import objects.Article;
+import objects.EmailMessage;
 import objects.Keyword;
 import objects.User;
 
@@ -149,29 +153,50 @@ public class SubmitArticleModel {
 	}
 
 	//insert article's authors in the database
-	public void insertAuthors(Article article, ArrayList<User> authors) {
+	public Boolean insertAuthors(Article article, ArrayList<User> authors) {
+		boolean registered = false;
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			article.getArticleID();
 			for(User author : authors) {
 				System.out.println("in insert authors - name: " + author.getName() + ", surname: " + author.getSurname() + ", email: " + author.getEmail() + ", aff: " + author.getAffiliations());
-				//insert authors to database
+				//check if author is already in the database
 				int isMain = author.getIsMain()?1:0;
-				String insertAuthor = "INSERT INTO Author (name, surname, email, affiliations, hasAccount) VALUES ('" + author.getName() + "', '" + author.getSurname() + "', '" + author.getEmail() + "', '" + author.getAffiliations() + "', '" + isMain + "')";
-				st.executeUpdate(insertAuthor);
-				//find the ID for each author
-				String getKeywordID = "SELECT authorID FROM Author WHERE email ='" + author.getEmail()+ "' "; 
-				ResultSet authorResult = st.executeQuery(getKeywordID);
-				if (authorResult.next()) {
-					int authorID = authorResult.getInt("authorID");
+				int hasAccount = 0;
+				//String getAuthorID = "SELECT authorID FROM Author WHERE email ='" + author.getEmail()+ "' "; 
+				String getAuthorID = "SELECT * FROM Author WHERE email ='" + author.getEmail()+ "' "; 
+				ResultSet authorExists = st.executeQuery(getAuthorID);
+				if (authorExists.next()) {
+					int authorID = authorExists.getInt("authorID");
 					author.setAuthorID(authorID);
+					hasAccount = authorExists.getBoolean("hasAccount")?1:0;
+				} else {				
+					//insert new author to database
+					String insertAuthor = "INSERT INTO Author (name, surname, email, affiliations, hasAccount) VALUES ('" + author.getName() + "', '" + author.getSurname() + "', '" + author.getEmail() + "', '" + author.getAffiliations() + "', '" + hasAccount + "')";
+					st.executeUpdate(insertAuthor);
+					//find the ID for each author
+					String getNewAuthorID = "SELECT authorID FROM Author WHERE email ='" + author.getEmail()+ "' "; 
+					ResultSet authorResult = st.executeQuery(getNewAuthorID);
+					if (authorResult.next()) {
+						int authorID = authorResult.getInt("authorID");
+						author.setAuthorID(authorID);
+					}
+					authorResult.close();
 				}
-				authorResult.close();
 				//insert article's authors in database
 				String insertArticleAuthor = "INSERT INTO ArticleAuthor (articleID, authorID, isMainContact) VALUES ('" + article.getArticleID() + "', '" + author.getAuthorID() + "', '" + isMain + "')";
 				st.executeUpdate(insertArticleAuthor);
-
+				authorExists.close();
+				if ((isMain == 1) && (hasAccount == 1)) {
+					//already registered
+					System.out.println("already registered - name: " + author.getName() + ", surname: " + author.getSurname() + ", email: " + author.getEmail());
+					registered = true;
+				} else if ((isMain == 1) && (hasAccount == 0)) {
+					//call register author
+					System.out.println("needs registration - name: " + author.getName() + ", surname: " + author.getSurname() + ", email: " + author.getEmail());
+					registered = registerUser(author);
+				}
 			}
 
 			st.close();
@@ -179,6 +204,59 @@ public class SubmitArticleModel {
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
 		}
+		return registered;
+	}
+	
+	public Boolean registerUser(User author) {
+		boolean registered = false;
+		//generate a 10-size random string containing alphanumeric characters
+		String characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@";
+	    char[] text = new char[10];
+	    Random rnd = new Random();
+	    for (int i = 0; i < 10; i++) {
+	        text[i] = characters.charAt(rnd.nextInt(characters.length()));
+	    }
+	    String authorText = new String(text);
+	    System.out.println("pass: " + authorText);
+	    try {
+	    	//md5 operations
+	    	MessageDigest digest;
+			digest = MessageDigest.getInstance("MD5");
+	        digest.update(authorText.getBytes());
+	        byte byteData[] = digest.digest();
+	        //convert the byte to hex format
+	        StringBuffer sb = new StringBuffer();
+	        for (int i = 0; i < byteData.length; i++) {
+	        	sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+	        }
+	        System.out.println("MD5: " + sb.toString());
+	        String pass = sb.toString();
+			//insert author into authorReviewer table
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+	        String insertAuthorReviewer = "INSERT INTO AuthorReviewer (authorID, password) VALUES ('" + author.getAuthorID() + "', '" + pass + "')";
+			st.executeUpdate(insertAuthorReviewer);
+			//mark author as having an account
+			String updateQuery = "UPDATE Author SET hasAccount = 1 WHERE authorID = '" + author.getAuthorID() + "'";
+			st.executeUpdate(updateQuery);
+			
+			st.close();
+			conn.close();
+			registered = true;
+			
+			//send email with details
+			ContactModel contactModel = new ContactModel();
+			String messageText = "Dear " + author.getName() + " " + author.getSurname() + ", \n Thanks for submitting your article. You can login into the website to track the process of your artice and review others with the following details: \n Username: " + author.getEmail() + "\n Password: " + authorText;
+	    	  
+	    	//call the method sendRegistrationEmail from contactModel object
+			contactModel.sendRegistrationEmail(author.getEmail(), messageText);
+	        
+	        
+	    } catch (Exception e) {
+			// TODO Auto-generated catch block
+	    	System.out.println("Error " + e);
+		}
+		return registered;
 	}
 
 	//ArticleRevision - get the article revision from database (get article's path)

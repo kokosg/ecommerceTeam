@@ -1,3 +1,4 @@
+import java.security.MessageDigest;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -32,11 +33,23 @@ public class Login extends VelocityViewServlet {
 			template = getTemplate("/forms/profile.vm"); 
 		} else {
 			try {
-				ConnectionManager conn = new ConnectionManager();			
+				ConnectionManager conn = new ConnectionManager();	
+				
+				//md5 operations - change password to equivalent md5 format
+		    	MessageDigest digest;
+				digest = MessageDigest.getInstance("MD5");
+		        digest.update(pwd.getBytes());
+		        byte byteData[] = digest.digest();
+		        //convert the byte to hex format
+		        StringBuffer sb = new StringBuffer();
+		        for (int i = 0; i < byteData.length; i++) {
+		        	sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+		        }				
+				
 				//query Author and AuthorReviewer tables to retrieve data regarding the current user (given email and password)
 				String selectQuery = "SELECT Author.authorID, Author.name, Author.surname, Author.affiliations, Author.email, AuthorReviewer.password, AuthorReviewer.isEditor"
 						+ " from Author INNER JOIN AuthorReviewer ON Author.authorID = AuthorReviewer.authorID"
-						+ " where Author.email ='" + eml + "'and AuthorReviewer.password ='" + pwd + " ' ";
+						+ " where Author.email ='" + eml + "'and AuthorReviewer.password ='" + sb.toString() + " ' ";
 				Statement st = conn.getInstance().getConnection().createStatement();
 				ResultSet rs = st.executeQuery(selectQuery);
 	
