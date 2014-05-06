@@ -87,7 +87,7 @@ public class ContactModel {
 					MimeMessage message = new MimeMessage(session);
 					message.setFrom(new InternetAddress(editorEmail));// change accordingly
 					message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-					message.setSubject("Automatic Message - Java ecommarce");
+					message.setSubject("Automatic Message - Java ecommerce");
 					message.setText("Name: " + name + "\n" + "email:" + email + "\n" + "Title: " + title + "\n" + "Message: "+"\n" + messageText);
 
 					// send message
@@ -110,5 +110,43 @@ public class ContactModel {
 		return emailStatus;
 		
 	}
+	
+	public boolean sendRegistrationEmail(String email, String messageText) throws ClassNotFoundException, SQLException {
+		
+		boolean emailStatus = false;
+		
+		String to = email;// change accordingly
 
+		// Get the session object
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "465");
+
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("javaecom@gmail.com","teammaster10");// change accordingly
+			}
+		});
+
+		// compose message
+		try {
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("javaecom@gmail.com"));// change accordingly
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			message.setSubject("Automatic Message - Journal Registration");
+			message.setText("Message: "+"\n" + messageText);
+			// send message
+			Transport.send(message);
+				
+			emailStatus = true;
+		} catch (MessagingException e) {
+			emailStatus = false;
+			throw new RuntimeException(e);
+		}
+		System.out.println(emailStatus);
+		return emailStatus;
+	}
 }

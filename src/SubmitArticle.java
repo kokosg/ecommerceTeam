@@ -25,7 +25,7 @@ public class SubmitArticle extends VelocityViewServlet {
 	private final String UPLOAD_DIRECTORY = "F:/"; //change that to /tmp???
 	
 	public Template handleRequest( HttpServletRequest request, HttpServletResponse response, Context context ) { 
-		
+		Boolean registered = false;
 		context.put("apptitle", "E-com Journal - Submit an Article");
 		String flag = null, filePath = null;
 		Template template = null;
@@ -135,7 +135,7 @@ public class SubmitArticle extends VelocityViewServlet {
 				article = model.getArticleWithID(article);
 				model.insertArticleRevision(article, filePath);
 				//add authors to db
-				model.insertAuthors(article, articleAuthors);
+				registered = model.insertAuthors(article, articleAuthors);
 				//register main author
 				
 				
@@ -163,7 +163,13 @@ public class SubmitArticle extends VelocityViewServlet {
 		} else {
 			System.out.println("Data posted.");
 			try {
-				template = getTemplate("/forms/submitArticle.vm");
+				if (registered) {
+					context.put("successfully", "Submit article and registration completed! Check your email for login details.");
+					template = getTemplate("/forms/home.vm");
+				} else {
+					template = getTemplate("/forms/submitArticle.vm");
+				}
+				
 			} catch(Exception e ) {
 				System.out.println("Error " + e);
 			}
