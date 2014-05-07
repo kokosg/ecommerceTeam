@@ -198,7 +198,7 @@ public class ReviewForm {
 	}
 	
 	//check if it has reviews and needs to upload article revision
-	public Boolean haveReviews(int articleID) {
+	public ArrayList<Review> haveReviews(int articleID) {
 		Boolean haveReviews = false;
 		ArrayList<Review> allReviews= new ArrayList<Review>();
 		try {
@@ -209,8 +209,10 @@ public class ReviewForm {
 	        String queryReviews = "SELECT * FROM Review INNER JOIN Criticism ON Review.reviewID = Criticism.reviewID WHERE articleID = '" + articleID + "'";
 	        ResultSet rs = st.executeQuery(queryReviews);
 			while (rs.next()) {
-				Review rev = new Review(rs.getInt("Review.reviewID"), rs.getInt("Review.authorReviewerID"), rs.getInt("Review.articleID"), rs.getString("Review.judgement"), rs.getString("Review.expertise"), rs.getString("Review.summary"), rs.getInt("Review.criticismID"), rs.getString("Review.smallErrors"), rs.getString("Review.editorsComments"), rs.getBoolean("Review.isAccepted"), rs.getDate("Review.dateSubmitted")); 
-				System.out.println("found review ");
+				Review rev = new Review(rs.getInt("Review.reviewID"), rs.getInt("Review.authorReviewerID"), rs.getInt("Review.articleID"), rs.getString("Review.judgement"), rs.getString("Review.expertise"), rs.getString("Review.summary"), rs.getInt("Criticism.criticismID"), rs.getString("Review.smallErrors"), rs.getString("Review.editorsComments"), rs.getBoolean("Review.isAccepted"), rs.getDate("Review.dateSubmitted")); 
+				rev.setCriticism(rs.getString("Criticism.criticism"));
+				System.out.println("found review criticism ID: " + rev.getCriticismID() + " criticism text: " + rev.getCriticism());
+				allReviews.add(rev);
 			}
 			rs.close();
 			rs.close();
@@ -219,7 +221,7 @@ public class ReviewForm {
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
 		}
-		return haveReviews;
+		return allReviews;
 	}
 	
 }

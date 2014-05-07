@@ -28,14 +28,19 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 		context.put("apptitle", "Ecom Journal - My articles");
 		HttpSession session = request.getSession();
 		int authorID = (Integer) session.getAttribute("userID");
-		SubmitArticleModel model=new SubmitArticleModel();
-		ArrayList<Object> arrayResults = new ArrayList<Object>();
-		ArrayList<Article> articleResults = new ArrayList<Article>();
-		ArrayList<ArticleRevision> revisions = new ArrayList<ArticleRevision>();
+		int articleID = parse.Integer(request.getParameter("id"));
+		ReviewForm model=new ReviewForm();
+		
+		
+		
+		
+		ArrayList<Review> reviewsArray = new ArrayList<Review>();
+		//ArrayList<Article> articleResults = new ArrayList<Article>();
+		//ArrayList<ArticleRevision> revisions = new ArrayList<ArticleRevision>();
 		try {
-			arrayResults = model.getAuthorArticles(authorID);
-			articleResults = (ArrayList<Article>) arrayResults.get(0);
-			revisions = (ArrayList<ArticleRevision>) arrayResults.get(1);
+			reviewsArray = model.haveReviews(articleID);
+			//articleResults = (ArrayList<Article>) arrayResults.get(0);
+			//revisions = (ArrayList<ArticleRevision>) arrayResults.get(1);
 			
 			
 			System.out.println("test1: " + arrayResults.get(1));
