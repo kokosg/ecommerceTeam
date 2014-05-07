@@ -13,23 +13,52 @@
 	   	#if ($successfully) 
    		<div class="alert alert-success alert-dismissable">
 		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		  <strong>$successfully</strong>
+		  <strong>$successfully
 		</div>
    		#end
    		#if ($error) 
    		<div class="alert alert-danger alert-dismissable">
 		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		  <strong>$error</strong>
+		  <strong>$error
 		</div>
    		#end
-	
 		#if (!$session.user.email)
-			<h1>Hello, Guest!</h1>
+			<h3>Hello, Guest User!</h3>
 		#else
-			<h1>Hello, $session.user.name $session.user.surname!</h1>
+			<h4>Hello, $session.user.name $session.user.surname!</h4>
 		#end
-		<p>Example - ScienceDirect: is a leading full-text scientific database offering journal articles and book chapters from more than 2,500 journals and almost 20,000 books.</p>
-		<p> <a href="#" class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a> </p>
+</div>
+    <div style="font-family:verdana;padding:20px;border-radius:10px;border:10px solid #578fc1;">
+		<h2><div style="letter-spacing:12px;">Science Journal</div><h2>
+      <h4><p>A leading full-text scientific database offering journal,articles related to Science discoveries.</p></h4>
+  </div>
+<div class=>
+	<div class="col-lg-6">
+		<div class="bs-component">
+      <br>
+      <br>
+			<div class="well">
+        <h4><a href="subscribe">Subscribe</a> </h4>
+        <p>Alert me about new articles</p>
+      </div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="bs-component">
+      <br>
+      <br>
+			<div class="well">
+        <form action="download"  method="post">
+          <input type="hidden" id="downloadTitle" name="downloadTitle" value="Submission_GuideLines">
+          <form enctype="multipart/form-data">
+            <input type="submit" class="btn btn-primary" id ="download" value="Submission Guidelines" />
+          </form>
+        </form>
+        <p>Get the guidelines for submitting an article</p>
+			</div>
+		</div>
+      <br>
+      <br>
 	</div>
 #parse( "/commonElements/footer.vm" )
 </body>
