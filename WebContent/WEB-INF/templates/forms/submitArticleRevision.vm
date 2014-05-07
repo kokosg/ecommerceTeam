@@ -37,6 +37,10 @@
 				</div>
 				<a href="javascript:addAuthor()"><input class="btn btn-xs btn-success" value="ADD AUTHOR"/></a>
 				
+				#foreach($rev in $myArticles)
+					<div>article</div>
+				#end
+				
 				<legend>Article:</legend>
 				<p>Insert article(s) details</p>
 				<div id="articleFields"> 

@@ -28,7 +28,7 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 		context.put("apptitle", "Ecom Journal - My articles");
 		HttpSession session = request.getSession();
 		int authorID = (Integer) session.getAttribute("userID");
-		int articleID = parse.Integer(request.getParameter("id"));
+		int articleID = Integer.parseInt(request.getParameter("id"));
 		ReviewForm model=new ReviewForm();
 		
 		
@@ -39,18 +39,19 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 		//ArrayList<ArticleRevision> revisions = new ArrayList<ArticleRevision>();
 		try {
 			reviewsArray = model.haveReviews(articleID);
+			System.out.println("submitting article servlet");
 			//articleResults = (ArrayList<Article>) arrayResults.get(0);
 			//revisions = (ArrayList<ArticleRevision>) arrayResults.get(1);
 			
 			
-			System.out.println("test1: " + arrayResults.get(1));
-			System.out.println("test2: " + arrayResults.get(0));
+			//System.out.println("test1: " + arrayResults.get(1));
+			//System.out.println("test2: " + arrayResults.get(0));
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
 		}
 
-	    context.put("myArticles", articleResults);
-	    context.put("articleRevisions", revisions);
+	    context.put("myArticles", reviewsArray);
+	    //context.put("articleRevisions", revisions);
 		template = getTemplate("/forms/submitArticleRevision.vm");
 		return template;	
 	}

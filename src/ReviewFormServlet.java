@@ -1,4 +1,3 @@
-
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,35 +53,11 @@ public class ReviewFormServlet extends VelocityViewServlet {
 				int count=form.getReviewCount(authorID, formart);
 				if (count<2){
 					form.insertReviewForm(authorID, article.getArticleID(), judge, expertise, reviewSummary,comments,criticism, errors);
-					
-					String title = "Secrets email from Reviewer";
-								
-					//create EmailMessage object by passing values
-			    	EmailMessage emailMessage = new EmailMessage(session.getAttribute("Author.name").toString(), title, session.getAttribute("email").toString(), comments);
-
-			    	System.out.print("1 " +session.getAttribute("Author.name").toString() + title + session.getAttribute("email").toString() + comments);
-			    	
-					//create ContactModel object
-					ContactModel contactModel = new ContactModel();
-			    	
-					
-			    	//call the method sendEmail from contactModel object and passing values in order to trigger the email function
- 				    try {
-						contactModel.sendContactEmail(emailMessage.getName(), emailMessage.getTitle(), emailMessage.getEmail(), emailMessage.getMessage());
-						System.out.print("2 " + emailMessage.getName() + emailMessage.getTitle() + emailMessage.getEmail() + emailMessage.getMessage());
- 				    } catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			    	  
 				}
 				reviewart=form.selectReviewForm(authorID, article.getArticleID());
 
 			}
-		
+
 		if(request.getParameter("redirectAck")!=null){
 			if(request.getParameter("redirectAck").equalsIgnoreCase("Submit")){
 
@@ -110,7 +85,8 @@ public class ReviewFormServlet extends VelocityViewServlet {
 
 				//call the method sendEmail from contactModel object and passing values in order to trigger the email function
 				try {
-					emailStatus = contactModel.sendEmail(emailMessage.getName(), emailMessage.getEmail(), emailMessage.getTitle(), emailMessage.getMessage());				} catch (ClassNotFoundException e) {
+					emailStatus = contactModel.sendEmail(emailMessage.getName(), emailMessage.getEmail(), emailMessage.getTitle(), emailMessage.getMessage());
+				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (SQLException e) {
@@ -131,7 +107,7 @@ public class ReviewFormServlet extends VelocityViewServlet {
 				template = getTemplate("/pages/acknowledgementReview.vm");
 			}
 		}
-		
+
 		else{
 			template = getTemplate("/forms/reviewForm.vm");
 		}
