@@ -1,7 +1,6 @@
 package models;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,10 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
-
 import objects.Article;
 import objects.ArticleRevision;
-import objects.EmailMessage;
 import objects.Keyword;
 import objects.User;
 
