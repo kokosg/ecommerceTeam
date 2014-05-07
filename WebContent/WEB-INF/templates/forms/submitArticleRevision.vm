@@ -19,9 +19,10 @@
 		<div class="col-lg-7 col-md-10 col-md-push-3">
 			<!-- Form================================================== -->		
 			<div class="well bs-component">
-			<form action="submitArticleRevision" id="submitRevision" method="post" class="form-horizontal" enctype="multipart/form-data">
+			<form action="submitArticleRevision" method="post" class="form-horizontal" enctype="multipart/form-data">
 			<fieldset>
 				<input id="flag" name="flag" type="hidden" value = "1">
+				<input id="articleID" name="articleID" type="hidden" value = $articleID/>
 				<!-- Form Name -->
 				<legend>Submit a revision of the article</legend>
 				<legend>Criticism:</legend>
@@ -33,7 +34,6 @@
 					<div id="criticismFields">
 						<div>
 							<input id="myID" name="myResponse" type="hidden" value = $rev.criticismID/>
-							<input id="id" name="id" type="hidden" value = $id/>
 							<label class="col-lg-2 control-label" for="judgement">Judgement:</label><div class="col-lg-10"><input id="judgement" class="form-control" type="text" name="judgement" value=$rev.judgement disabled/></div>
 							<label class="col-lg-2 control-label" for="summary">Summary:</label><div class="col-lg-10"><textarea id="summary" class="form-control" type="text" name="summary" rows="6" disabled>$rev.summary</textarea></div>
 							<label class="col-lg-2 control-label" for="smallErrors">Small Errors:</label><div class="col-lg-10"><textarea id="smallErrors" class="form-control" type="text" name="smallErrors" rows="6" disabled>$rev.smallErrors</textarea></div>

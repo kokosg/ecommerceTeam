@@ -37,18 +37,18 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 		context.put("apptitle", "Ecom Journal - Articles' Reviews");
 		HttpSession session = request.getSession();
 		int authorID = (Integer) session.getAttribute("userID");
-		int articleID = Integer.parseInt(request.getParameter("id"));
-		context.put("id", articleID);
+		int articleID = 0;
+		
+
 		ReviewForm model=new ReviewForm();
 		SubmitArticleModel submitModel = new SubmitArticleModel();
 		
 		String flag = null, filePath = null;
 		response.setContentType("text/html");
 		Article article = new Article();
-		article.setArticleID(articleID);
 		System.out.println("before if");
 		
-		if(ServletFileUpload.isMultipartContent(request)){
+		if(ServletFileUpload.isMultipartContent(request)) {
 			System.out.println("inside");
 			try {
 				List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
@@ -62,6 +62,11 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 					if(item.isFormField()) {
 						name = item.getFieldName();
 						//retrieve the values of each field in the form from the request
+						if (name.equals("articleID")) {
+							articleID = Integer.parseInt(item.getString().replaceAll("\\D", "")); 
+							System.out.println("artID:" + articleID);
+							article.setArticleID(articleID);
+						}
 						if (name.equals("flag")) {
 							flag = item.getString(); 
 							System.out.println("flag:" + flag);
@@ -109,8 +114,11 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 			}
 		} else {
 			System.out.println("Not a multipart content form.");
+			articleID = Integer.parseInt(request.getParameter("id"));
+			article.setArticleID(articleID);
 		}
-		
+
+		context.put("articleID", articleID);
 		//if we haven't post any data then we have just to load the template
 		if (flag == null) {
 			System.out.println("No data posted.");

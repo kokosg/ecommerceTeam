@@ -20,6 +20,13 @@
 		  <strong>$error
 		</div>
    		#end
+   		
+		#if ($haveReviews) 
+   		<div class="alert alert-warning alert-dismissable">
+		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  <strong>$haveReviews</strong>
+		</div>
+		#end
 
 #if(!$session.user.name)
          <div class="container">
