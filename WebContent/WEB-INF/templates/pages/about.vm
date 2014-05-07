@@ -4,46 +4,26 @@
   #include( "/commonElements/head.html" )
   <TITLE>$apptitle</TITLE>
 </head>
-
-<body>
 #parse( "/commonElements/navbar.vm" )
+<body>
+  <div>
+    <br>
+    <br>
 <!-- Main jumbotron for a primary marketing message or call to action -->
-	<div class="jumbotron">
-	
-	<h2>About</h2>
-	
-	<h3>Journal: $</h3>
-	
-	<h3>Aims and Goals: $</h3>
-	
-	<h3></h3>
-
-	
-	<h2>FAQs</h2>
-	
+	<h3>About Journal</h3>
+  <p>Science Journal is home to almost one-quarter of the world's peer-reviewed full-text scientific and technical. Researchers,teachers, students and information professionals around the globe rely on Science Journal as a trusted source. ScienceDirect supports research and education with interactive elements in articles and offers tools so users can easily set alerts.</p>
+	<h3>FAQs</h3>
 	<h3>Submission guidelines:</h3>
-	.....
-	
-	<h3>documents styles:</h3>
-		
-	<h3>submussion formate expected:</h3>
-	
-	
-	</div>
-	
-	
-<div class="col-md-12">
-	<div class="col-lg-4">
-		<div class="bs-component">
-			<div class="well">Look, I'm in a well!</div>
-		</div>
-	</div>
-	<div class="col-lg-8">
-		<div class="bs-component">
-			<div class="well">Look, I'm in a small well!</div>
-		</div>
-	</div>
-#parse( "/commonElements/footer.vm" )
+  <form action="download"  method="post">
+    <input type="hidden" id="downloadTitle" name="downloadTitle" value="Submission_GuideLines">
+    <form enctype="multipart/form-data">
+      <input type="submit" class="btn btn-primary" id ="download" value="Submission Guidelines" />
+    </form>
+  </form>
+  <p>Download submission guidelines from here</p>
+  <br>
+	<br>
 </div>
+#parse( "/commonElements/footer.vm" )
 </body>
 </html>

@@ -13,9 +13,12 @@
 <body>
 #parse( "/commonElements/navbar.vm" )
 
-<div class="jumbotron">
+<div class="container">
+  <br>
 </div>
 <div class="bs-docs-section">
+  <br>
+  <br>
 	<div class="row">
 		<div class="col-lg-7 col-md-10 col-md-push-3">
 			<!-- Form================================================== -->		
@@ -64,6 +67,8 @@
 			</div>
 		</div>
 	</div>
+  <br>
+  <br>
 </div>
 
 #parse("/commonElements/footer.vm")

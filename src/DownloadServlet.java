@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.view.VelocityViewServlet;
+
 import models.UploadModel;
 
 public class DownloadServlet extends VelocityViewServlet {
@@ -24,14 +25,14 @@ public class DownloadServlet extends VelocityViewServlet {
 		TemplateTitle=request.getParameter("downloadTitle");
 
 		System.out.println("Template title :"+ TemplateTitle);
-		
+
 		ServletOutputStream outStream;
-		try {
+		try{
 			UploadModel up = new UploadModel();
 			String filePath = up.getFileName(TemplateTitle);
 			File file = new File(filePath);
 			outStream = response.getOutputStream();
-			
+
 			response.setContentType("text/html");
 			response.setContentLength((int) file.length());
 			String[] filePathSplit=filePath.split("/");
@@ -47,11 +48,10 @@ public class DownloadServlet extends VelocityViewServlet {
 
 			in.close();
 			outStream.close();
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return template;
-
 	}
 }

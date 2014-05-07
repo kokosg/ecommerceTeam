@@ -5,19 +5,20 @@
   <TITLE>$apptitle</TITLE>
 </head>
 
-<body>
 #parse( "/commonElements/navbar.vm" )
+<body>
+  <br>
 <!-- Main jumbotron for a primary marketing message or call to action -->
-	<div class="jumbotron">
-			</div>
-	
-	
-<div class="col-md-3">
-<div class="panel-group" id="accordion">
-	#foreach($volume in $Volumes) 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
+	<div class="container">
+    <br>
+    <br>
+    <br>
+    <div class="col-md-3">
+      <div class="panel-group" id="accordion">
+	      #foreach($volume in $Volumes) 
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#$volume.volumeNo">
           Volume: $volume.volumeNo
         </a>
@@ -63,19 +64,7 @@
 	</div>
 	#end
 </div>
-
-<div class="col-md-12">
-	<div class="col-lg-4">
-		<div class="bs-component">
-			<div class="well">Look, I'm in a well!</div>
-		</div>
-	</div>
-	<div class="col-lg-8">
-		<div class="bs-component">
-			<div class="well">Look, I'm in a small well!</div>
-		</div>
-	</div>
-#parse( "/commonElements/footer.vm" )
 </div>
 </body>
+#parse( "/commonElements/footer.vm" )
 </html>
