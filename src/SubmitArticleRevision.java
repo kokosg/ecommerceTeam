@@ -39,7 +39,6 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 		int authorID = (Integer) session.getAttribute("userID");
 		int articleID = 0;
 		
-
 		ReviewForm model=new ReviewForm();
 		SubmitArticleModel submitModel = new SubmitArticleModel();
 		

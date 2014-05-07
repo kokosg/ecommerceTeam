@@ -55,4 +55,40 @@ public class LoginModel {
 		}
 		return haveReviews;
 	}
+	
+	public Boolean retrieveArticlesReviews(int articleID) {
+		Boolean haveReviews = false;
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			 
+	        //retrieve all articles 
+	        String findArticle = "SELECT * FROM Article WHERE articleID = '" + articleID + "'";
+	        ResultSet rs = st.executeQuery(findArticle);
+	        ResultSet revRes = null;
+			while (rs.next()) {
+				int criticismCounter = 0;
+				boolean needsRevision = rs.getBoolean("needsRevision");
+				System.out.println("finding articles criticism");
+				//check if there are any reviews for my articles
+		        String queryReviews = "SELECT * FROM Review INNER JOIN Criticism ON Review.reviewID = Criticism.reviewID WHERE articleID = '" + articleID + "'";
+		        revRes = st.executeQuery(queryReviews);
+				while (revRes.next()) {
+					criticismCounter++;
+					System.out.println("found review " + criticismCounter);
+				}
+				if ((criticismCounter > 2) && (needsRevision)) {
+					haveReviews = true;
+					System.out.println("needs revision");
+				}
+			}
+			revRes.close();
+			rs.close();
+			st.close();
+			conn.close();
+		} catch(Exception e ) {
+			System.out.println("Error " + e);
+		}
+		return haveReviews;
+	}
 }

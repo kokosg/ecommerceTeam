@@ -44,6 +44,7 @@
 	      			#end
 	      			</td>
 	      			<td>
+	      			#set($haveReviews = $allArticles.get($article.articleID))
 	      			#if ($haveReviews)
 	      				Needs Revision!
 	      			#else
@@ -52,6 +53,7 @@
 	      			</td>	
 	      			<td> 
 	      			    <div class="col-lg-offset-2">
+	      			    	#set($haveReviews = $allArticles.get($article.articleID))
 	      			    	#if ($haveReviews)
 	      						<a href='submitArticleRevision?id=$article.articleID'><button class="btn btn-primary">Submit Revision</button></a>
 	      					#end

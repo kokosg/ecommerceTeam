@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,15 +33,30 @@ public class AuthorArticles extends VelocityViewServlet {
 		
 		ArrayList<Object> arrayResults = new ArrayList<Object>();
 		ArrayList<Article> articleResults = new ArrayList<Article>();
-		ArrayList<ArticleRevision> revisions = new ArrayList<ArticleRevision>();
-		
+		Hashtable allArticleReviews = new Hashtable();
+		//ArrayList<Integer> myArticle = new ArrayList<Integer>();
+		//ArrayList<Boolean> articleHasReviews = new ArrayList<Boolean>();
+		//ArrayList<ArticleRevision> revisions = new ArrayList<ArticleRevision>();
+		System.out.println("authorArticles");
 		try {
 			arrayResults = model.getAuthorArticles(authorID);
 			articleResults = (ArrayList<Article>) arrayResults.get(0);
-			revisions = (ArrayList<ArticleRevision>) arrayResults.get(1);
+			//revisions = (ArrayList<ArticleRevision>) arrayResults.get(1);
 	        //check if there are any reviews for my articles 
-	        haveReviews = loginModel.haveReviews(authorID);
-        	context.put("haveReviews", haveReviews);
+	        for (Article art : articleResults) {
+	        	haveReviews = loginModel.retrieveArticlesReviews(art.getArticleID());
+	        	allArticleReviews.put(art.getArticleID(), haveReviews);
+	        	//myArticle.add(art.getArticleID());
+	        	//articleHasReviews.add(haveReviews);
+	        	System.out.println(haveReviews);
+	        }
+			
+			
+			
+			haveReviews = loginModel.haveReviews(authorID);
+			context.put("allArticles", allArticleReviews);
+			//context.put("allArticles", myArticle);
+        	//context.put("hasReviews", articleHasReviews);
 			//System.out.println("test1: " + arrayResults.get(1));
 			//System.out.println("test2: " + arrayResults.get(0));
 		} catch(Exception e ) {
@@ -49,7 +65,7 @@ public class AuthorArticles extends VelocityViewServlet {
 		
 		
 	    context.put("myArticles", articleResults);
-	    context.put("articleRevisions", revisions);
+	    //context.put("articleRevisions", revisions);
 		template = getTemplate("/pages/myArticles.vm");
 		return template;	
 	}
