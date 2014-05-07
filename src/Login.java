@@ -1,12 +1,15 @@
 import java.security.MessageDigest;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import models.ConnectionManager;
+import models.LoginModel;
+import objects.Choices;
 import objects.User;
 
 import org.apache.velocity.Template;
@@ -24,7 +27,8 @@ public class Login extends VelocityViewServlet {
 		context.put("apptitle", "E-com Journal");
 		Template template=null;
 		response.setContentType("text/html");
-		
+		LoginModel model = new LoginModel();
+		Boolean haveReviews = false;
 		// get the value of a hidden field in a form to determine if we have posted data
 		String flag = request.getParameter("flag"); 
 		
@@ -54,7 +58,7 @@ public class Login extends VelocityViewServlet {
 				ResultSet rs = st.executeQuery(selectQuery);
 	
 				if (rs.next()) {
-					//get all forms' attribute values
+					//get all attribute values
 					int userID = rs.getInt("Author.authorID");
 					String userName = (String)rs.getObject("Author.name");
 			        String userSurname = (String)rs.getObject("Author.surname");
@@ -76,24 +80,24 @@ public class Login extends VelocityViewServlet {
 		        	   session.setAttribute("userID", userID);
 		        	   //add userRole to session
 		        	   if (isEditor == false) {
-		        		   session.setAttribute("userRole", "AuthorReviewer");    		
+		        		   session.setAttribute("userRole", "AuthorReviewer");
 		        	   } else {
 		        		   session.setAttribute("userRole", "Editor");		
-		        	   }
+		        	   } 
+			           //check if there are any reviews for my articles 
+			           haveReviews = model.haveReviews(user.getAuthorID());
+			           if (haveReviews) {
+			        	   context.put("haveReviews", "You have pending criticism on at least one of your articles, go to Actions - My Articles to access them!");
+			           }
 		           } 
 		           if (userEmail != null) {
 		        	   // This user already has a session; show the name and show the list of
 		        	   // items entered.
 		        	   System.out.println("already has a session" + userName + " " + userSurname + "!");
 		           }
-		           //context.put("session", (User)session.getAttribute("user"));
+		           System.out.println(haveReviews);
 				} else {
 					context.put("error", "Problem occurred on Login check your password or username/email!");
-					//msg = "<font size='8'color = red>Your login Failed</font>";
-					//request.setAttribute("message123", msg);
-					//response.getWriter().println("<font size='8'color = red>1" + msg);
-					//request.getRequestDispatcher("index.jsp").forward(request,response);
-					//System.out.println("error");
 				}
 				template = getTemplate("/forms/profile.vm"); 
 				//release resources
