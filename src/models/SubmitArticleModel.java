@@ -1,7 +1,6 @@
 package models;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,10 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
-
 import objects.Article;
 import objects.ArticleRevision;
-import objects.EmailMessage;
 import objects.Keyword;
 import objects.User;
 
@@ -301,10 +298,12 @@ public class SubmitArticleModel {
 			
 			//send email with details
 			ContactModel contactModel = new ContactModel();
-			String messageText = "Dear " + author.getName() + " " + author.getSurname() + ", \n Thanks for submitting your article. You can login into the website to track the process of your artice and review others with the following details: \n Username: " + author.getEmail() + "\n Password: " + authorText;
-	    	  
+			String name = author.getName() + " " + author.getSurname();
+			String messageText = "Thanks for submitting your article. You can login into the website to track the process of your artice and review others with the following details: \n Username: " + author.getEmail() + "\n Password: " + authorText;
+			String subject = "Automatic Message - Journal Registration";
+			
 	    	//call the method sendRegistrationEmail from contactModel object
-			contactModel.sendRegistrationEmail(author.getEmail(), messageText);
+			contactModel.sendEmail(name, author.getEmail(), subject, messageText);
 	        
 	        
 	    } catch (Exception e) {

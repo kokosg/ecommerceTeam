@@ -56,7 +56,7 @@ public class RecentReviews extends VelocityViewServlet {
 			  	  boolean emailStatus = false;
 			  	  
 		    	  //call the method sendEmail from contactModel object and passing values in order to trigger the email function
-				  emailStatus = contactModel.sendEmail(emailMessage.getName(), emailMessage.getTitle(), emailMessage.getEmail(), emailMessage.getMessage());
+				  emailStatus = contactModel.sendEmail(emailMessage.getName(), emailMessage.getEmail(), emailMessage.getTitle(), emailMessage.getMessage());
 		    	  
 				  //check if the emailStatus status is true to display the message and insert into the database the details of the email
 				  //or if is false to display an error message

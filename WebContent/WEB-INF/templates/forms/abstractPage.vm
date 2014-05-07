@@ -9,7 +9,15 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
 
-<a href="javascript: history.go(-1)">Back</a>
+	<a href="javascript: history.go(-1)"><button type="button" class="btn btn-primary">Back</button></a>
+	
+	<div align="right">
+		<form action="abstractPage?id=$article_ID" method="post" class="form-horizontal">
+			<input id="articleID" name="articleID" type="hidden" value = "$article_ID">
+			<input id="download" name="download" type="hidden" value = "1">
+			<button type="submit" class="btn btn-primary">Download</button>
+		</form>
+	</div>
 
 	  <h1>Title: <strong>$article.title</strong></h1>
 	  	

@@ -22,7 +22,7 @@ public class AbstractModel {
 	}
 
 	//get the article based on the ID and return an object with all the details of the article
-	public Article getArticle(int article_ID) throws SQLException {
+	public Article getArticle(String article_ID) throws SQLException {
 		String queryArticle = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article where articleID LIKE '%" + article_ID + "%'";
 		Article article = null ;
 		try {
@@ -50,7 +50,7 @@ public class AbstractModel {
 
 
 	//return an ArrayList of keywords objects based on the article_ID
-	public ArrayList<Keyword> getKeywords(int article_ID) throws SQLException {
+	public ArrayList<Keyword> getKeywords(String article_ID) throws SQLException {
 
 		ArrayList<Keyword> arrayResults = new ArrayList<Keyword>(); 
 		String queryKeywords = "select Keyword.keywordID, Keyword.text from Keyword INNER JOIN ArticleKeyword ON Keyword.keywordID = ArticleKeyword.keywordID INNER JOIN Article ON ArticleKeyword.articleID = Article.articleID where Article.articleID ='" + article_ID + "'";
@@ -80,7 +80,7 @@ public class AbstractModel {
 
 
 	//return an ArrayList of Author objects based on the article_ID
-	public ArrayList<User> getAuthor(int article_ID) throws SQLException {
+	public ArrayList<User> getAuthor(String article_ID) throws SQLException {
 
 		ArrayList<User> arrayResults = new ArrayList<User>(); 
 		String queryAuthor = "select Author.name, Author.surname, Author.email from Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID where Article.articleID = '" + article_ID + "'"; 
@@ -108,13 +108,10 @@ public class AbstractModel {
 
 	//return an ArrayList of Article objects where articles are not published yet
 	public ArrayList<Article> getUnpublishedArticle(int authorID) throws SQLException {
-		Article article;
 
 		ArrayList<Integer> intArtID = new ArrayList<Integer>();
 		ArrayList<Integer> intselectedAuthorID = new  ArrayList<Integer>();
 		ArrayList<Article> unpubArticle = new ArrayList<Article>();
-
-
 		String queryArticle = "select ArticleAuthor.articleID from ArticleAuthor where ArticleAuthor.authorID =" + authorID;
 		try {
 			ConnectionManager conn = new ConnectionManager();
@@ -136,18 +133,33 @@ public class AbstractModel {
 				}
 				rs1.close();
 			}
-			
+
 			for(int autID : intselectedAuthorID  ){
 				for(int arID :intArtID){
 					String q = "select Article.articleID, Article.title, Article.summary from Article,ArticleAuthor where Article.published= 0 and Article.articleID=ArticleAuthor.articleID and Article.articleID!="+arID+" and ArticleAuthor.authorID !="+autID+" GROUP BY ArticleAuthor.articleID";
 					ResultSet rs2 = st.executeQuery(q);
 					while (rs2.next()) {
+						int counter = 0;
 						String unpublishedTitle = (String) rs2.getObject("Article.title");
 						String unpublishedSummary = (String) rs2.getObject("Article.summary");
-						int  articeId=rs2.getInt("Article.articleID");
-						article = new Article( articeId,unpublishedTitle, unpublishedSummary);
-						System.out.println("unpub article select huye articleIDs:"+articeId);
-						unpubArticle.add(article);
+						int  articeIde=rs2.getInt("Article.articleID");
+						//article = new Article( articeId,unpublishedTitle, unpublishedSummary);
+						System.out.println("unpub article select huye articleIDs:"+articeIde);
+						if (unpubArticle != null) {
+							for (Article articl : unpubArticle) {
+							    if (articl.getArticleID() == (articeIde)) {
+							    	System.out.println("already in list");
+							    	counter ++;
+							    } else {
+							    	System.out.println("new article");
+							    }
+							}
+						}
+						if (counter == 0) {
+							Article article2 = new Article(articeIde, unpublishedTitle, unpublishedSummary);
+							unpubArticle.add(article2);
+						}
+						
 					}
 					rs2.close();
 					System.out.println(unpubArticle);

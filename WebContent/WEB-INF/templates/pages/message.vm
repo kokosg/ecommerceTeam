@@ -45,7 +45,6 @@
 						        <th>Answer</th>
 						        <th></th>
 						        <th></th>
-						        <th></th>
 						      </tr>
 						    </thead>
 							<tbody class="table-hover">
@@ -56,11 +55,16 @@
 								<td>$message.title</td>
 								<td>$message.message</td>
 								<td>
-								#if ($message.answer)
-									$message.answer
-								#else
-									No Message
-								#end
+								<form action="message" method="post" class="form-horizontal">
+									#if ($message.answer)
+										<textarea class="form-control" name="answer" cols="200" rows="3">$message.answer</textarea>
+									#else
+										No Message
+									#end
+									<input id="messageID" name="messageID" type="hidden" value = "$message.messageID">
+				         		    <input id="action" name="action" type="hidden" value = "reply">
+									<button type="submit" class="btn btn-primary">Reply</button>
+								</form>
 								</td>
 								<td>
 								<form action="message" method="post" class="form-horizontal">
@@ -73,13 +77,6 @@
 				         		    <input id="messageID" name="messageID" type="hidden" value = "$message.messageID">
 				         		    <input id="action" name="action" type="hidden" value = "remove">
 									<button type="submit" class="btn btn-primary">Remove</button>
-								</form>
-								</td>
-								<td>
-								<form action="message" method="post" class="form-horizontal">
-				         		    <input id="messageID" name="messageID" type="hidden" value = "$message.messageID">
-				         		    <input id="action" name="action" type="hidden" value = "replay">
-									<button type="submit" class="btn btn-primary">Reply</button>
 								</form>
 								</td>
 							</tr>

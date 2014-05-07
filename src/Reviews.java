@@ -28,7 +28,7 @@ public class Reviews extends VelocityViewServlet {
 			
 			if (article_ID != null){
 
-				//return getUsers from UserManagementModel and put them in contexts
+				//return getUsers from SystemManagementmModel and put them in contexts
 				context.put("Reviews", model.getReviews(article_ID));
 				context.put("Criticisms", model.getCriticisms());
 				context.put("Responses", model.getResponses());
