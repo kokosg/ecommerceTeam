@@ -84,7 +84,7 @@ public class BrowseModel {
 	
 	public ArrayList<BrowseObject> getEdition(String editionID) throws SQLException {
 		ArrayList<BrowseObject> arrayResults = new ArrayList<BrowseObject>(); 
-		  String query = "SELECT Edition.editionNo, Published.startPageNo, Published.datePublished, Article.articleID, Article.title, Article.summary, Article.pageNo, ArticleRevision.filePath FROM Edition INNER JOIN Published ON Edition.editionID = Published.editionID INNER JOIN Article ON Published.articleID = Article.articleID INNER JOIN ArticleRevision ON Article.articleID = ArticleRevision.articleID WHERE Edition.editionID ='" + editionID + "'";
+		  String query = "SELECT Edition.editionNo, Published.startPageNo, Published.datePublished, Article.articleID, Article.title, Article.published, Article.reviewed, Article.needsRevision, Article.summary, Article.pageNo, ArticleRevision.filePath FROM Edition INNER JOIN Published ON Edition.editionID = Published.editionID INNER JOIN Article ON Published.articleID = Article.articleID INNER JOIN ArticleRevision ON Article.articleID = ArticleRevision.articleID WHERE Edition.editionID ='" + editionID + "' AND Article.reviewed = 1";
 		try {
 		      ConnectionManager conn = new ConnectionManager();
 	    	  Statement st = conn.getInstance().getConnection().createStatement();
@@ -95,10 +95,13 @@ public class BrowseModel {
 			        Date datePublished = (Date)rs.getObject("Published.datePublished");
 					int articleID = rs.getInt("Article.articleID");
 			        String title = (String)rs.getObject("Article.title");
+			        int published = rs.getInt("Article.published");
+			        int reviewed = rs.getInt("Article.reviewed");
+			        int needsRevision = rs.getInt("Article.needsRevision");
 			        String summary = (String)rs.getObject("Article.summary");
 			        int pageNo = rs.getInt("Article.pageNo");
 			        String filePath = (String)rs.getObject("ArticleRevision.filePath");
-			        BrowseObject browseObject = new BrowseObject(editionNo, startPageNo, datePublished, articleID, title, summary, pageNo, filePath);
+			        BrowseObject browseObject = new BrowseObject(editionNo, startPageNo, datePublished, articleID, title, published, reviewed, needsRevision, summary, pageNo, filePath);
 			        arrayResults.add(browseObject);
 				}
 				rs.close();
