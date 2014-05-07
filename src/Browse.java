@@ -25,15 +25,18 @@ public Template handleRequest( HttpServletRequest request, HttpServletResponse r
       BrowseModel browseModel = new BrowseModel();
 
       //get the parameters from the form
-      String edition = request.getParameter("editionNo");
+      String editionID = request.getParameter("editionID");
 
       try {
 			
-		context.put("searchResults", browseModel.getBrowse());
+		context.put("searchResults", browseModel.getEdition());
+		context.put("Editions", browseModel.getEdition());
+		context.put("Volumes", browseModel.getVolume());
+
 		
          //if edition is not null call the method which is in the model browseModel by passing a value
-         if (edition != null) {
-     		context.put("editionResults", browseModel.getEdition(edition));
+         if (editionID != null) {
+     		context.put("editionResults", browseModel.getEdition(editionID));
          }
 
          template = getTemplate("/pages/browse.vm"); 

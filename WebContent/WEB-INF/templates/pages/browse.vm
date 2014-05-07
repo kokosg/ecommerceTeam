@@ -12,22 +12,26 @@
 			</div>
 	
 	
-	<div class="col-md-3">
-	<div class="panel-group" id="accordion">
- 		#foreach($article in $searchResults) 
+<div class="col-md-3">
+<div class="panel-group" id="accordion">
+	#foreach($volume in $Volumes) 
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#$article.volumeNo">
-          Volume: $article.volumeNo
+        <a data-toggle="collapse" data-parent="#accordion" href="#$volume.volumeNo">
+          Volume: $volume.volumeNo
         </a>
       </h4>
     </div>
-    <div id="$article.volumeNo" class="panel-collapse collapse in">
-      <div class="panel-body">
-		Edition: <a href='browse?editionNo=$article.editionNo'>$article.editionNo</a>
-      </div>
-    </div>
+    <div id="$volume.volumeNo" class="panel-collapse collapse in">
+    #foreach ($edition in $Editions)
+    	#if ($edition.volumeID == $volume.volumeID)
+	      <div class="panel-body">
+			Edition: <a href='browse?editionID=$edition.editionID'>$edition.editionNo</a>
+	      </div>
+		#end
+	#end
+	</div>
   </div>
   #end
 </div>

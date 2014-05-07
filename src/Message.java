@@ -28,21 +28,25 @@ public Template handleRequest( HttpServletRequest request, HttpServletResponse r
 		
   		String action = request.getParameter("action");
   		String messageID = request.getParameter("messageID");
+  		String answer = request.getParameter("answer");
+
 
 		if (messageID != null) {
 			
 			String alerMessage = null;
 	        boolean status = false;
 			
-	    	if (action.contains("replay")) {
-	    		System.out.print("replay");
+	    	if (action.contains("reply")) {
+	    		status = contactModel.setAnswer(messageID, answer);
+	    		alerMessage = "Answer has been updated";
+
 	    	} else if (action.contains("remove")) { 
 	    		status = contactModel.deleteMessage(messageID);
-	    		alerMessage = "Message has been deleted";
+	    		alerMessage = "Letter has been deleted";
 	    		
 	    	} else if (action.contains("accept")) {
 	    		status = contactModel.updateMessage(messageID);
-				alerMessage = "Message has been published";
+				alerMessage = "Letter has been published";
 	    	}
 	    	
 	    	if (status) {

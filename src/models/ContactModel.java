@@ -77,6 +77,23 @@ public class ContactModel {
 	}
 	
 	
+	public boolean setAnswer(String messageID, String answer) throws SQLException {
+		boolean status = false;
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String updateQuery = "UPDATE Message SET answer = '" + answer + "' WHERE messageID = '" + messageID + "'";
+			st.executeUpdate(updateQuery);
+			st.close();
+			conn.close();
+			status = true;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
+	
+	
 	public boolean updateMessage(String messageID) throws SQLException {
 		
 		boolean status = false;
