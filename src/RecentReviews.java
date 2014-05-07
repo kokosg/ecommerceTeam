@@ -63,7 +63,6 @@ public class RecentReviews extends VelocityViewServlet {
 		    	  if (emailStatus) {
 		    		  System.out.println("sssent");
 		  			context.put("successfully", "message was send");
-		  			//contactModel.insertEmail(emailMessage.getName(), emailMessage.getTitle(), emailMessage.getEmail(), emailMessage.getMessage());
 		    	  } else {
 		  			context.put("error", "message was not send");
 		    	  }
