@@ -65,7 +65,7 @@
 						</div>
 					</li>
 				#else
-					<li><a href="logout">Hello, $session.user.name $session.user.surname!</a></li>
+					<li><a href="#">Hello, $session.user.name $session.user.surname!</a></li>
 				#end
 				<li><button type="submit" class="btn"><a href="advanceSearch"> Search </a><i class="glyphicon glyphicon-cog"></i></button></li>
 			</ul>

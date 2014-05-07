@@ -52,7 +52,28 @@ public class ReviewFormServlet extends VelocityViewServlet {
 				ReviewForm form =new ReviewForm();
 				int count=form.getReviewCount(authorID, formart);
 				if (count<2){
+				
+			        User user = (User) session.getAttribute("user");
+					String fullname = user.getName() + " " + user.getSurname();
+                    String title = "Secret Message from Reviewer: " + fullname + " for ..." ;					
+			    	System.out.print("1 " + fullname + title + user.getEmail() + comments);
+
+					//create EmailMessage object by passing values
+			    	EmailMessage emailMessage = new EmailMessage(fullname, title, user.getEmail(), comments);
+
+					//create ContactModel object
+					ContactModel contactModel = new ContactModel();
+				    
 					form.insertReviewForm(authorID, article.getArticleID(), judge, expertise, reviewSummary,comments,criticism, errors);
+				
+					try {
+						contactModel.sendContactEmail(emailMessage.getName(), emailMessage.getTitle(), emailMessage.getEmail(), emailMessage.getMessage());
+					} catch (ClassNotFoundException | SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				 
+					
 				}
 				reviewart=form.selectReviewForm(authorID, article.getArticleID());
 
