@@ -16,12 +16,12 @@
    #if ($Articles)
 	<div class="row">
 		<div id="results_table">
-			<div class="col-lg-7 col-md-10 col-md-push-3">
+			<div class="col-lg-12">
 				<div class="row">
 					<div class="well bs-component">
 						<h2>List of Articles</h2>
 						<div class="row">
-							<div class="col-md-10">
+							<div class="col-md-12">
 								<table class="table table-hover table-responsive table-bordered table-condensed">
 									<thead>
 								      <tr>
@@ -40,7 +40,14 @@
 										<td>
 										#foreach($articleRevision in $ArticleRevisions) 
 											#if ($article.articleID == $articleRevision.articleID)
-												<div><small>RevisionNo: $articleRevision.articleRevisionID | date: $articleRevision.dateSubmitted | FilePath: $articleRevision.filePath</small></div>
+												<div><small>RevisionNo: $articleRevision.articleRevisionID | date: $articleRevision.dateSubmitted | FilePath: 
+											
+												<form action="systemManagement" method="post" class="form-horizontal">
+													<input id="articleRevisionID" name="articleRevisionID" type="hidden" value="$articleRevision.articleRevisionID">
+													<input id="articleID" name="articleID" type="hidden" value = "$article.articleID">
+													<input id="download" name="download" type="hidden" value = "1">
+													<button type="submit" class="btn btn-primary">Download</button>
+												</form>
 											#end
 										#end
 										</td>
