@@ -45,7 +45,7 @@ public class AuthorArticles extends VelocityViewServlet {
 			//System.out.println("test2: " + arrayResults.get(0));
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
-		}
+		} 
 		
 		
 	    context.put("myArticles", articleResults);

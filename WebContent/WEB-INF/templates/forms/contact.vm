@@ -4,20 +4,18 @@
   #include( "/commonElements/head.html" )
   <title>$apptitle</title>
 </head>
-
-<body>
 #parse( "/commonElements/navbar.vm" )
-
-<div class="jumbotron">
-</div>
-
+<body>
+<br>
+<br>
 #if ($status)
+<br>
 <div class="alert">
 $status
 </div>
 #end
-
 <div class="bs-docs-section">
+  <br>
 	<div class="row">
 		<div class="col-lg-7 col-md-10 col-md-push-3">
 			<div class="well bs-component">

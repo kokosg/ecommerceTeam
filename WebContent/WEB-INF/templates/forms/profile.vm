@@ -8,43 +8,36 @@
 <body>
 <div class="jumbotron"> 
 
+   		#if ($successfully) 
+   		<div class="alert alert-success alert-dismissable">
+		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  <strong>$successfully
+		</div>
+   		#end
+   		#if ($error) 
+   		<div class="alert alert-danger alert-dismissable">
+		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  <strong>$error
+		</div>
+   		#end
 
 #if(!$session.user.name)
          <div class="container">
            <h2 >Sorry you are not authenticated to access this part of website</h2>
          </div>
 #else
-   		#if ($successfully) 
-   		<div class="alert alert-success alert-dismissable">
-		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		  <strong>$successfully</strong>
-		</div>
-   		#end
-   		#if ($error) 
-   		<div class="alert alert-danger alert-dismissable">
-		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		  <strong>$error</strong>
-		</div>
-   		#end
-		#if ($haveReviews) 
-   		<div class="alert alert-warning alert-dismissable">
-		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		  <strong>$haveReviews</strong>
-		</div>
-   		#end
          <div class="container">
            <h3>Welcome to eCom-Journal</h3>
            <h3 >$session.user.name  $session.user.surname</h3>
           </div>
 </div>
-
 <div class="container">
                <!-- Example row of columns -->
                <div class="row">
                  <div class="col-md-4">
-                   <h2>Heading</h2>
-                   <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                   <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                   <h2>My Submission</h2>
+                   <p>View your submitted articles </p>
+                   <p><a class="btn btn-default" href="myArticles" role="button">View details &raquo;</a></p>
                  </div>
                  #if($session.userRole == "AuthorReviewer")
                  <div class="col-md-4">

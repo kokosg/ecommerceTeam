@@ -9,7 +9,7 @@
 <body>
 #if(!$session.user.name)
 <div class="jumbotron"> 
-
+ 
              <div class="container">
              
 <h2 >Sorry you are not authenticated to access this part of website</h2>

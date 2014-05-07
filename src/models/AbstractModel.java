@@ -303,7 +303,7 @@ public class AbstractModel {
 
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			String selectQuery ="SELECT Review.articleID FROM REVIEW WHERE isDownloaded =1 and authorReviewerID ='"+authorID +"'";
+			String selectQuery ="SELECT Review.articleID FROM Review WHERE isDownloaded =1 and authorReviewerID ='"+authorID +"'";
 			ResultSet rs= st.executeQuery(selectQuery);
 			while (rs.next()){
 				int r = (Integer) rs.getObject("articleID");

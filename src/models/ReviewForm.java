@@ -196,7 +196,7 @@ public class ReviewForm {
 		}
 		return reviewCount;	
 	}
-	
+	 
 	//check if it has reviews and needs to upload article revision
 	public ArrayList<Review> haveReviews(int articleID) {
 		Boolean haveReviews = false;

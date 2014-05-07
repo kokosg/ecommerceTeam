@@ -15,7 +15,7 @@ public class ArticleRevision {
 	private int articleID;
 	private String filePath;
 	private Date dateSubmitted;
-	
+	 
 	
 	/**
 	 * 

@@ -15,7 +15,7 @@
 <div class="jumbotron">
 </div>
 <div class="bs-docs-section">
-	<div class="row">
+	<div class="row"> 
 		<div class="col-lg-7 col-md-10 col-md-push-3">
 			<!-- Form================================================== -->		
 			<div class="well bs-component">
@@ -28,7 +28,7 @@
 				<p>Insert response to each criticism.</p>
 				<!-- Text input-->
 				#set($counter = 1)
-				#foreach($rev in $myReviews)
+				#foreach($rev in $myReviews) 
 					<div>Review: $counter</div>
 					<div id="criticismFields">
 						<div>
@@ -50,7 +50,7 @@
 					<label class="control-label" for="articlePath">Upload File:</label> 
 					<input type="file" name="file" size="30" required/>					
 				</div>
-								
+						 		
 				<!-- Button -->
 				<div class="control-group">
 					<label class="control-label" for="submitRevision"></label>

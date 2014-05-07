@@ -58,7 +58,7 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 				
 				String name = null;
 				for(FileItem item : items) {
-					//check if the item posted is a form field
+					//check if the item posted is a form field 
 					if(item.isFormField()) {
 						name = item.getFieldName();
 						//retrieve the values of each field in the form from the request
@@ -135,6 +135,6 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 				System.out.println("Error " + e);
 			}
 			return template;
-		}
+		} 
 	}
 }

@@ -36,7 +36,7 @@ public class Login extends VelocityViewServlet {
 		if (flag == null) {
 			template = getTemplate("/forms/profile.vm"); 
 		} else {
-			try {
+			try { 
 				ConnectionManager conn = new ConnectionManager();	
 				
 				//md5 operations - change password to equivalent md5 format

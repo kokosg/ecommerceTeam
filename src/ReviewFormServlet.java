@@ -1,4 +1,3 @@
-
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +57,7 @@ public class ReviewFormServlet extends VelocityViewServlet {
 				reviewart=form.selectReviewForm(authorID, article.getArticleID());
 
 			}
-		
+
 		if(request.getParameter("redirectAck")!=null){
 			if(request.getParameter("redirectAck").equalsIgnoreCase("Submit")){
 
@@ -67,7 +66,6 @@ public class ReviewFormServlet extends VelocityViewServlet {
 				String name = user.getName();
 				String title = "Review Submission";
 				String email = user.getEmail();
-				//String email = "renuka391@gmail.com";
 				StringBuilder sb = new StringBuilder();
 				sb.append("Your review has been submitted successfully.");
 				sb.append("\n");
@@ -87,7 +85,7 @@ public class ReviewFormServlet extends VelocityViewServlet {
 
 				//call the method sendEmail from contactModel object and passing values in order to trigger the email function
 				try {
-					emailStatus = contactModel.sendEmail(emailMessage.getName(), emailMessage.getTitle(), emailMessage.getEmail(), emailMessage.getMessage());
+					emailStatus = contactModel.sendEmail(emailMessage.getName(), emailMessage.getEmail(), emailMessage.getTitle(), emailMessage.getMessage());
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -109,7 +107,7 @@ public class ReviewFormServlet extends VelocityViewServlet {
 				template = getTemplate("/pages/acknowledgementReview.vm");
 			}
 		}
-		
+
 		else{
 			template = getTemplate("/forms/reviewForm.vm");
 		}

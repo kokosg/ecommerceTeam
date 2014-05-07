@@ -24,7 +24,7 @@ public class LoginModel {
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			
+			 
 	        //retrieve all articles 
 	        String findArticles = "SELECT * FROM ArticleAuthor INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID WHERE authorID = '" + authorID + " AND isMainContact = 1 '";
 	        ResultSet rs = st.executeQuery(findArticles);

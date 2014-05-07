@@ -446,7 +446,7 @@ public class SubmitArticleModel {
 				} else {
 					System.out.println("no file found");
 					//	insertQuery = "UPDATE Template SET filePath ='"+path+"' WHERE title='"+title+"'";
-				}
+				} 
 
 				st.close();
 				conn.close();
