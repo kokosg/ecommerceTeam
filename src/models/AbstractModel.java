@@ -22,7 +22,7 @@ public class AbstractModel {
 	}
 
 	//get the article based on the ID and return an object with all the details of the article
-	public Article getArticle(int article_ID) throws SQLException {
+	public Article getArticle(String article_ID) throws SQLException {
 		String queryArticle = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article where articleID LIKE '%" + article_ID + "%'";
 		Article article = null ;
 		try {
@@ -50,7 +50,7 @@ public class AbstractModel {
 
 
 	//return an ArrayList of keywords objects based on the article_ID
-	public ArrayList<Keyword> getKeywords(int article_ID) throws SQLException {
+	public ArrayList<Keyword> getKeywords(String article_ID) throws SQLException {
 
 		ArrayList<Keyword> arrayResults = new ArrayList<Keyword>(); 
 		String queryKeywords = "select Keyword.keywordID, Keyword.text from Keyword INNER JOIN ArticleKeyword ON Keyword.keywordID = ArticleKeyword.keywordID INNER JOIN Article ON ArticleKeyword.articleID = Article.articleID where Article.articleID ='" + article_ID + "'";
@@ -80,7 +80,7 @@ public class AbstractModel {
 
 
 	//return an ArrayList of Author objects based on the article_ID
-	public ArrayList<User> getAuthor(int article_ID) throws SQLException {
+	public ArrayList<User> getAuthor(String article_ID) throws SQLException {
 
 		ArrayList<User> arrayResults = new ArrayList<User>(); 
 		String queryAuthor = "select Author.name, Author.surname, Author.email from Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID where Article.articleID = '" + article_ID + "'"; 
