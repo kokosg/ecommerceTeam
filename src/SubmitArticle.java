@@ -136,10 +136,6 @@ public class SubmitArticle extends VelocityViewServlet {
 				model.insertArticleRevision(article, filePath);
 				//add authors to db
 				registered = model.insertAuthors(article, articleAuthors);
-				//register main author
-				
-				
-				////////////////////////////////
 				
 			} catch (Exception e) {
 				context.put("message", "Form exception " + e);

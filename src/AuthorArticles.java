@@ -41,8 +41,8 @@ public class AuthorArticles extends VelocityViewServlet {
 	        //check if there are any reviews for my articles 
 	        haveReviews = loginModel.haveReviews(authorID);
         	context.put("haveReviews", haveReviews);
-			System.out.println("test1: " + arrayResults.get(1));
-			System.out.println("test2: " + arrayResults.get(0));
+			//System.out.println("test1: " + arrayResults.get(1));
+			//System.out.println("test2: " + arrayResults.get(0));
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
 		}
