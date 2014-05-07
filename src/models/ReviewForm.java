@@ -65,6 +65,11 @@ public class ReviewForm {
 
 			result.close();
 
+			
+			String insertQuery4 = "UPDATE Article SET needsRevision = 1 where articleID = '"+articleID+"'";
+			st.executeUpdate(insertQuery4);
+			
+			
 			st.close();
 			conn.close();
 		} catch (ClassNotFoundException e) {
@@ -182,11 +187,42 @@ public class ReviewForm {
 				reviewCount =(Integer) result.getObject("reviewCount");
 				System.out.println("reviewCount$$$$$$$$" +reviewCount);
 			}
+			result.close();
+			st.close();
+			conn.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
 		return reviewCount;	
 	}
+	
+	//check if it has reviews and needs to upload article revision
+	public ArrayList<Review> haveReviews(int articleID) {
+		Boolean haveReviews = false;
+		ArrayList<Review> allReviews= new ArrayList<Review>();
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			
+			//get any reviews for my articles
+	        String queryReviews = "SELECT * FROM Review INNER JOIN Criticism ON Review.reviewID = Criticism.reviewID WHERE articleID = '" + articleID + "'";
+	        ResultSet rs = st.executeQuery(queryReviews);
+			while (rs.next()) {
+				Review rev = new Review(rs.getInt("Review.reviewID"), rs.getInt("Review.authorReviewerID"), rs.getInt("Review.articleID"), rs.getString("Review.judgement"), rs.getString("Review.expertise"), rs.getString("Review.summary"), rs.getInt("Criticism.criticismID"), rs.getString("Review.smallErrors"), rs.getString("Review.editorsComments"), rs.getBoolean("Review.isAccepted"), rs.getDate("Review.dateSubmitted")); 
+				rev.setCriticism(rs.getString("Criticism.criticism"));
+				System.out.println("found review criticism ID: " + rev.getCriticismID() + " criticism text: " + rev.getCriticism());
+				allReviews.add(rev);
+			}
+			rs.close();
+			rs.close();
+			st.close();
+			conn.close();
+		} catch(Exception e ) {
+			System.out.println("Error " + e);
+		}
+		return allReviews;
+	}
+	
 }
 

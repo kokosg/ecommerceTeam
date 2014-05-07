@@ -13,13 +13,13 @@
 	   	#if ($successfully) 
    		<div class="alert alert-success alert-dismissable">
 		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		  <strong>$successfully
+		  <strong>$successfully</strong>
 		</div>
    		#end
    		#if ($error) 
    		<div class="alert alert-danger alert-dismissable">
 		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		  <strong>$error
+		  <strong>$error</strong>
 		</div>
    		#end
 	
@@ -30,16 +30,6 @@
 		#end
 		<p>Example - ScienceDirect: is a leading full-text scientific database offering journal articles and book chapters from more than 2,500 journals and almost 20,000 books.</p>
 		<p> <a href="#" class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a> </p>
-	</div>
-	<div class="col-lg-4">
-		<div class="bs-component">
-			<div class="well">Look, I'm in a well!</div>
-		</div>
-	</div>
-	<div class="col-lg-8">
-		<div class="bs-component">
-			<div class="well">Look, I'm in a small well!</div>
-		</div>
 	</div>
 #parse( "/commonElements/footer.vm" )
 </body>

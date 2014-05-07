@@ -27,29 +27,37 @@
       			<th>Title</th>
       			<th>Summary</th>
     			<th>Page No</th>
-    			<th>Status</th>
     			<th>Revisions</th>
+    			<th>Status</th>
     			<th>Actions</th>
     		</tr>
   				
   			#foreach($article in $myArticles)
   				<tr>
-   			 	</br>
-      			<td>$article.title</td>
-    			<td>$article.summary</td>
-      			<td>$article.pageNo</td>
-      			<td>status here</td>
-      			<td>
-      			#foreach($rev in $articleRevisions)
-      				<div>$rev.filePath</div>
-      			#end
-      			</td>
-      				<td> 
-      				    <div class="col-lg-10 col-lg-offset-2">
-							<a href='submitArticleRevision?id=$article.articleID'><button class="btn btn-primary">Submit Revision</button></a>
+	   			 	</br>
+	      			<td>$article.title</td>
+	    			<td>$article.summary</td>
+	      			<td>$article.pageNo</td>
+	      			<td>
+	      			#foreach($rev in $articleRevisions)
+	      				<div>$rev.filePath</div>
+	      			#end
+	      			</td>
+	      			<td>
+	      			#if ($haveReviews)
+	      				Needs Revision!
+	      			#else
+	      				status here
+	      			#end
+	      			</td>	
+	      			<td> 
+	      			    <div class="col-lg-offset-2">
+	      			    	#if ($haveReviews)
+	      						<a href='submitArticleRevision?id=$article.articleID'><button class="btn btn-primary">Submit Revision</button></a>
+	      					#end
 							<a href='reviews?id=$article.articleID'><button class="btn btn-primary">Reviews</button></a>
 						</div>
-      				</td>
+	      			</td>
    	    		</tr>
    	    	#end
 	</table>
