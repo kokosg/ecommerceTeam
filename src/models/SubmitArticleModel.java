@@ -346,6 +346,33 @@ public class SubmitArticleModel {
 		}
 		return filepath;
 	}
+	
+	//ArticleRevision - get the article revision from database (get article's path)
+	public String getDownloadPath(String articleID, String articleRevisionID) {
+		String filepath = null;
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String selectQuery;
+
+	        selectQuery = "Select ArticleRevision.filePath from ArticleRevision where articleID= '"+articleID +"' AND articleRevisionID = '"+ articleRevisionID +"'";
+
+			ResultSet artResult = st.executeQuery(selectQuery);
+			if (artResult.next()) {
+				filepath = (String) artResult.getObject("filePath");
+			}
+			artResult.close();
+			st.close();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return filepath;
+	}
 
 	//ArticleRevision - get the article revision from database (get article's recent revision date)
 	public Date getArticleRevisionDate(String articleID) {

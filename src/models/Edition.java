@@ -35,9 +35,9 @@ public class Edition {
 				int volumeID = rs.getInt("volumeID");
 				int editionNo = rs.getInt("editionNo");
 				String title = (String) rs.getObject("title");
-				boolean current = (boolean) rs.getObject("current");
+				boolean current = (Boolean) rs.getObject("current");
 				Date dateAdded = (Date) rs.getObject("dateAdded");
-				boolean published = (boolean) rs.getObject("published");
+				boolean published = (Boolean) rs.getObject("published");
 				edition = new EditionObject(editionID, volumeID, editionNo, title, current, dateAdded, published);
 			}
 			rs.close();

@@ -75,16 +75,6 @@
 	</div>
 </div>
 
-	<div class="col-lg-4">
-		<div class="bs-component">
-			<div class="well">Look, I'm in a well!</div>
-		</div>
-	</div>
-	<div class="col-lg-8">
-		<div class="bs-component">
-			<div class="well">Look, I'm in a small well!</div>
-		</div>
-	</div>
 #parse( "/commonElements/footer.vm" )
 </body>
 </html>

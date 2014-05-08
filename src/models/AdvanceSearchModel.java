@@ -26,7 +26,8 @@ public class AdvanceSearchModel {
 	public Article getArticleObject(String queryName) throws SQLException{
 
 		Article article = new Article();
-		String query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID where Author.name ='" + queryName + "'"; 
+		String query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID where Author.name ='" + queryName + "' AND published = 1"; 
+		System.out.print(query);
 		try {
 		      ConnectionManager conn = new ConnectionManager();
 	    	  Statement st = conn.getInstance().getConnection().createStatement();
@@ -59,12 +60,12 @@ public class AdvanceSearchModel {
 		
 		if (categoryType.equals("article")) {
 		
-			query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article where title LIKE '%" + queryName + "%'";
+			query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article where title LIKE '%" + queryName + "%' AND published = 1";
 		
 
 		} else if (categoryType.equals("keywords")) {
 		
-			query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Keyword INNER JOIN ArticleKeyword ON Keyword.keywordID = ArticleKeyword.keywordID INNER JOIN Article ON ArticleKeyword.articleID = Article.articleID where Keyword.text ='" + queryName + "'";
+			query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Keyword INNER JOIN ArticleKeyword ON Keyword.keywordID = ArticleKeyword.keywordID INNER JOIN Article ON ArticleKeyword.articleID = Article.articleID where Keyword.text ='" + queryName + "' AND published = 1";
 
 		}
 		
@@ -103,7 +104,7 @@ public class AdvanceSearchModel {
 		
     	ArrayList<Article> arrayResults = new ArrayList<Article>(); 
 		
-		String query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article INNER JOIN ArticleRevision ON Article.articleID = ArticleRevision.articleID WHERE ArticleRevision.dateSubmitted BETWEEN '" + datepickerFrom + "' AND '" + datepickerTo + "'";
+		String query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article INNER JOIN ArticleRevision ON Article.articleID = ArticleRevision.articleID WHERE ArticleRevision.dateSubmitted BETWEEN '" + datepickerFrom + "' AND '" + datepickerTo + "' AND published = 1";
 
 		try {
 			

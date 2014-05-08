@@ -59,7 +59,7 @@ public class SystemManagementmModel {
 	
 	public ArrayList<ArticleRevision> getArticleRevision() throws SQLException {
 		ArrayList<ArticleRevision> arrayResults = new ArrayList<ArticleRevision>();
-		String queryAuthor = "select ArticleRevision.articleRevisionID, ArticleRevision.articleID, ArticleRevision.filePath, ArticleRevision.dateSubmitted from ArticleRevision";
+		String queryAuthor = "select ArticleRevision.articleRevisionID, ArticleRevision.articleID, ArticleRevision.filePath, ArticleRevision.dateSubmitted from ArticleRevision where dateSubmitted BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW()";
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
@@ -118,7 +118,7 @@ public class SystemManagementmModel {
 	
 	public ArrayList<Review> getAllReviews() throws SQLException {
 		ArrayList<Review> arrayResults = new ArrayList<Review>();
-		String queryAuthor = "select Review.reviewID, Review.authorReviewerID, Review.articleID, Review.judgement, Review.expertise, Review.summary, Review.criticismID, Review.smallErrors, Review.editorComments, Review.isAccepted, Review.dateSubmitted from Review ";
+		String queryAuthor = "select Review.reviewID, Review.authorReviewerID, Review.articleID, Review.judgement, Review.expertise, Review.summary, Review.criticismID, Review.smallErrors, Review.editorComments, Review.isAccepted, Review.dateSubmitted from Review where dateSubmitted BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW()";
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();

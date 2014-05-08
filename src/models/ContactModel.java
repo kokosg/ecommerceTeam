@@ -47,7 +47,7 @@ public class ContactModel {
 				String email = (String) rs.getObject("email");
 				String message = (String) rs.getObject("message");
 				String answer = (String) rs.getObject("answer");
-				boolean published = (boolean) rs.getObject("published");
+				boolean published = (Boolean) rs.getObject("published");
 
 				
 				MessageObject messageObject = new MessageObject(messageID, name, title, email, message, answer, published);
@@ -226,6 +226,48 @@ public class ContactModel {
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			message.setSubject(subject);
 			message.setText("Dear " + name + " \n" + messageText);
+			// send message
+			Transport.send(message);
+				
+			emailStatus = true;
+		} catch (MessagingException e) {
+			emailStatus = false;
+			throw new RuntimeException(e);
+		}
+		System.out.println(emailStatus);
+		return emailStatus;
+	}
+public boolean sendEmail( ArrayList<String> email, String subject, String messageText) throws ClassNotFoundException, SQLException {
+		
+		boolean emailStatus = false;
+		
+		final String websiteEmail = "javaecom@gmail.com";
+		final String password = "teammaster10";
+		//String to = email;
+		
+		// Get the session object
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "465");
+
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(websiteEmail, password);
+			}
+		});
+
+		// compose message
+		try {
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(websiteEmail));
+			for(String to: email){
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			}
+			message.setSubject(subject);
+			message.setText("Dear " + "Reviewer" + " \n" + messageText);
 			// send message
 			Transport.send(message);
 				

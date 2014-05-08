@@ -23,15 +23,15 @@ public class Article {
 	private boolean isDownloaded;
 	private Date datereviewSubmitted;
 	private int reviewCount;
-	
-	
+	private boolean responsAvailable;
+
 	/**
 	 * 
 	 */
 	public Article() {
 	}
 
-	
+
 	/**
 	 * 
 	 */
@@ -48,16 +48,17 @@ public class Article {
 		this.articleID = articleId;
 		this.title = title;
 		this.summary = summary;
-		
+
 	}
-	
-	public Article(int articleID,String title,String summary,boolean chosen) {
+
+	public Article(int articleID,String title,String summary,boolean chosen,boolean responsAvailable) {
 		this.articleID = articleID;
 		this.title = title;
 		this.summary = summary;
 		this.chosen=chosen;
-		
-		
+		this.responsAvailable = responsAvailable;
+
+
 	}
 	/**
 	 * @return the articleID
@@ -146,7 +147,7 @@ public class Article {
 
 	public void setSelected(boolean selected) {
 		this.selected = selected;
-		
+
 	}
 	public boolean isSelected(){
 		return selected;
@@ -192,5 +193,13 @@ public class Article {
 	public void setReviewCount(int reviewCount) {
 		this.reviewCount = reviewCount;
 	}
-	
+	public boolean isResponsAvailable() {
+		return responsAvailable;
+	}
+
+
+	public void setResponsAvailable(boolean responsAvailable) {
+		this.responsAvailable = responsAvailable;
+	}
+
 }

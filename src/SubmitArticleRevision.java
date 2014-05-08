@@ -1,23 +1,14 @@
-
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Enumeration;
+import java.io.File;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import models.AbstractModel;
 import models.ReviewForm;
+import objects.Review;
 import models.SubmitArticleModel;
 import objects.Article;
-import objects.ArticleRevision;
-import objects.Keyword;
-import objects.Review;
-import objects.User;
 import objects.CriticismResponse;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -36,8 +27,9 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 		Template template=null;
 		context.put("apptitle", "Ecom Journal - Articles' Reviews");
 		HttpSession session = request.getSession();
-		int authorID = (Integer) session.getAttribute("userID");
-		int articleID = 0;
+
+		if ((session.getAttribute("userID"))!=null){
+			int articleID = Integer.parseInt(request.getParameter("id"));
 		
 		ReviewForm model=new ReviewForm();
 		SubmitArticleModel submitModel = new SubmitArticleModel();
@@ -131,7 +123,6 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 			} catch(Exception e ) {
 				System.out.println("Error " + e);
 			}
-			return template;
 		//if we have posted data from a form do the following
 		} else {
 			System.out.println("Data posted.");
@@ -141,7 +132,11 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 			} catch(Exception e ) {
 				System.out.println("Error " + e);
 			}
-			return template;
+			
 		} 
+		}else{
+			template = getTemplate("/forms/home.vm");
+		}
+		return template;
 	}
 }
