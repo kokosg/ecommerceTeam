@@ -101,11 +101,7 @@ public class SubmitArticle extends VelocityViewServlet {
 							System.out.println("abstract:" + articleAbstract);
 							article.setSummary(articleAbstract);
 						}
-						
-						//send email to emailSubscriberModel
-					      EmailSubscriberModel emailSubscriberModel = new EmailSubscriberModel();
-					      emailSubscriberModel.sendEmailSubscriber();
-						
+										
 					//else it is a file
 					} else {
 						try {
