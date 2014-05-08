@@ -44,7 +44,11 @@ label.error {
                     <div class="col-md-9">
                       <form id="Response-form" action="responseFromAuthor" method="post" class="form-horizontal">
 							          <input type="hidden" id="reviewArt" name="reviewArt" value="$articleID"/>
+                        #if($rejectCount<2)
                         <input type="submit" id="Accept" name="submit"  value="Accept" class="btn btn-success "/>
+                        #else
+                         <input type="submit" id="Accept" name="submit"  value="Accept" class="btn btn-success " disabled/>
+                        #end
                         <p>If accepting you may revise your judgement.
 						            <br>
 				              </form>
@@ -57,8 +61,13 @@ label.error {
                       <label> Explain inadequacy for the revision</label>
                       <textarea name="rejectedResponse" rows="10" cols="100" ></textarea>
 							        <input type="hidden" id="reviewArt" name="reviewArt" value="$articleID"/>
+                      $isResponseAccepted ISSSSS
                       <br>
+                      #if(($rejectCount>=2)&&($isResponseAccepted==1))
+                      <input type="submit"  id="Reject" name="submit"  value="Reject" class="btn btn-danger" disabled />
+                      #else
                       <input type="submit"  id="Reject" name="submit"  value="Reject" class="btn btn-danger" />
+                      #end
 	                </form>  
          			   </div>
          		   </div>   
