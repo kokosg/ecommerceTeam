@@ -48,6 +48,7 @@
 							<li><a href="recentReviews">Reject Reviews</a></li>
 							<li><a href="systemManagement">All Articles</a></li>
 							<li><a href="userManagement">User Management</a></li>
+							<li><a href="publishableArticles">Publish articles</a></li>
 						#end
 						<li class="divider"></li>
 						<li><a href="logout">Logout</a></li>

@@ -1,20 +1,15 @@
 <HTML>
 <head>
-  <meta charset="ISO-8859-1">
-  #include( "/commonElements/head.html" )
-  <TITLE>$apptitle</TITLE>
+ <meta charset="ISO-8859-1">
+ #include( "/commonElements/head.html" )
+ <TITLE>$apptitle</TITLE>
 </head>
 
-<body>
 #parse( "/commonElements/navbar.vm" )
-<!-- Main jumbotron for a primary marketing message or call to action -->
+<body>
+#if (($session.userRole == "AuthorReviewer") || ($session.userRole == "Editor"))
 
-<div class="jumbotron"></div>
-	
-<div class="col-md-12">
-#if($userRole == "Editor")
-   
-	<div class="container">
+<div class="container">
     <div class="page-header">
       <br/>
       <h2>My Articles</h2>
@@ -35,28 +30,29 @@
 	    			<td>$article.summary</td>
 	      			<td>$article.pageNo</td>
 	      			<td>
-						$article.articleID
+
 	      			</td>	
 	      			<td> 
 	      			    <div class="col-lg-offset-2">
-	      					<a href='submitArticleRevision?id=$article.articleID'><button class="btn btn-primary">Publish Article</button></a>
-							<a href='reviews?id=$article.articleID'><button class="btn btn-primary">Reviews</button></a>
+	      					<a href='publishArticle?id=$article.articleID'><button class="btn btn-primary">Publish Article</button></a>
 						</div>
 	      			</td>
    	    		</tr>
 	
 			#end
-	
-	
-	
-	
-	
-	#else
-		<h2 >Sorry you are not authenticated to access this part of website</h2>
-	#end
-	</div>
 </div>
+	  
+#else
 
-#parse( "/commonElements/footer.vm" )
+	<div class="jumbotron"> 
+ 	 <div class="container">
+      <h2 >Sorry you are not authenticated to access this part of website</h2>
+	 </div>
+	</div>
+
+#end
+
 </body>
+</br>
+#parse( "/commonElements/footer.vm" )
 </html>

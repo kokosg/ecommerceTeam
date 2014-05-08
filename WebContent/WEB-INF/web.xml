@@ -337,4 +337,14 @@
     <servlet-name>ResponseAuthorServlet</servlet-name>
     <url-pattern>/responseFromAuthor</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>PublishArticle</display-name>
+    <servlet-name>PublishArticle</servlet-name>
+    <servlet-class>PublishArticle</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PublishArticle</servlet-name>
+    <url-pattern>/publishArticle</url-pattern>
+  </servlet-mapping>
 </web-app>

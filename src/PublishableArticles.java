@@ -45,7 +45,7 @@ public class PublishableArticles extends VelocityViewServlet {
 					System.out.println("already published");
 				}
 				System.out.println("inside articles loop");
-				Boolean articleHasMoreReviews = false, authorHasMoreReviews = false, twoChampions = false, oneChampionOneWeak = false; 
+				Boolean articleHasMoreReviews = false, authorHasMoreReviews = false; 
 				//get reviews for each article
 				articlesReviews = model.retrieveArticlesReviewsAndCriticism(art.getArticleID());
 				int reviewCount = 0;
