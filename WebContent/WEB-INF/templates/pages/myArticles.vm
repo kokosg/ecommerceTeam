@@ -57,7 +57,7 @@
 	</table>
 	</div>
 	  
-#end
+#else
 
 	<div class="jumbotron"> 
  	 <div class="container">
