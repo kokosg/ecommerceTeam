@@ -60,7 +60,7 @@ public class AdvanceSearchModel {
 		
 		if (categoryType.equals("article")) {
 		
-			query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article where title LIKE '%" + queryName + "%'";
+			query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article where title LIKE '%" + queryName + "%' AND published = 1";
 		
 
 		} else if (categoryType.equals("keywords")) {
