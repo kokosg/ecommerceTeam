@@ -18,56 +18,52 @@ label.error {
 </style>
 #if(!$session.user.name)
 <div class="jumbotron"> 
-
-             <div class="container">
+<div class="container">
              
 <h2 >Sorry you are not authenticated to access this part of website</h2>
 </div>
 </div>
 #else
 <div class="container">
+    
     <div class="page-header">
-      <br/>
-            <h1>Response from Author</h1>
-
-        </div> 
+    <br>
+      <h1>Response from Author</h1>
+     </div> 
+</div>
               
             <div class="row">
-              <div class="col-md-10">
+              <div class="col-md-9">
 					        <label><h4>Response from Author</h4></label>
-							    <div>
                     <textarea name="responseText" rows="10" cols="100" readonly>$responseText</textarea>
-                  </div>
                   <br>
      			     </div>
      		     </div>
+             
                   <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                       <form id="Response-form" action="responseFromAuthor" method="post" class="form-horizontal">
 							          <input type="hidden" id="reviewArt" name="reviewArt" value="$articleID"/>
-                        <input type="submit" id="Accept" name="submit"  value="Accept" class="btn btn-success onclick="buttondisable(this)"/>
+                        <input type="submit" id="Accept" name="submit"  value="Accept" class="btn btn-success "/>
                         <p>If accepting you may revise your judgement.
 						            <br>
 				              </form>
                     </div>
                   </div>
+                  
                 <div class="row">
-                 <div class="col-md-10">
+                 <div class="col-md-9">
                   <form id="Response-form" action="responseFromAuthor" method="post" class="form-horizontal">
-					          <div>
                       <label> Explain inadequacy for the revision</label>
                       <textarea name="rejectedResponse" rows="10" cols="100" ></textarea>
-                    </div>
-							      <input type="hidden" id="reviewArt" name="reviewArt" value="$articleID"/>
-                    <input type="submit"  id="Reject" name="submit"  value="Reject" class="btn btn-danger" onclick="buttondisable(this)/>
+							        <input type="hidden" id="reviewArt" name="reviewArt" value="$articleID"/>
+                      <br>
+                      <input type="submit"  id="Reject" name="submit"  value="Reject" class="btn btn-danger" />
 	                </form>  
          			   </div>
-         		   </div>     
-  <br>
-  <br>    
-</div>
-
+         		   </div>   
 #end
-</body>
+
 #parse("/commonElements/footer.vm")
+</body>
 </html>

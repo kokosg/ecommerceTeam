@@ -389,8 +389,18 @@ public class AbstractModel {
 
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			String updateQuery ="Update Response SET  rejectedResponse='"+rejectResponse+"' where criticismID=( select criticismID from Review where reviewID=( select reviewID from Review where authorReviewerID="+authorID+" and articleID= "+articleID+" ))";
+			
+			String selectQuery="Select rejectCount from Response where criticismID=( select criticismID from Review where reviewID=( select reviewID from Review where authorReviewerID="+authorID+" and articleID= "+articleID+" ))";
+			ResultSet rs = st.executeQuery(selectQuery);
+			int count=0;
+			if(rs.next()){
+			 count = (int) rs.getObject("rejectCount");
+			}
+			rs.close();
+			String updateQuery ="Update Response SET  rejectedResponse='"+rejectResponse+"' ,rejectCount='"+(count+1)+"' where criticismID=( select criticismID from Review where reviewID=( select reviewID from Review where authorReviewerID="+authorID+" and articleID= "+articleID+" ))";
 			st.executeUpdate(updateQuery);
+			st.close();
+			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
