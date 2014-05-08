@@ -43,8 +43,10 @@ public class EditVolume extends VelocityViewServlet {
 
 			if (volumeID != null) {
 				
+				String journalID = request.getParameter("journalID");
+				
 				//update the status and create the volume details by passing the parameters from the form
-				status = model.createVolume(volumeID, currentYear, currentDate.format(newDate));
+				status = model.createVolume(volumeID, journalID, currentYear, currentDate.format(newDate));
 
 				if (status) {
 					context.put("successfully", "Edition has been created successfully");

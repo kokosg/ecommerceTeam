@@ -16,8 +16,8 @@
     </div> 
            <table class="table table-hover">
     		<tr>
-      			<a href='abstractPage?id=$article.articleID'>$article.title</a>
-      			<th>Summary</th>
+				<th>Title</th>
+	   			<th>Summary</th>
     			<th>Number of PAges</th>
     			<th>Actions</th>
     		</tr>
@@ -25,7 +25,7 @@
   			#foreach($article in $myArticles)
   				<tr>
 	   			 	</br>
-	      			<td>$article.title</td>
+	      			<td><a href='abstractPage?id=$article.articleID'>$article.title</a></td>
 	    			<td>$article.summary</td>
 	      			<td>$article.pageNo</td>
 	      			<td> 
@@ -47,6 +47,7 @@
 	</div>
 
 #end
+</div>
 </div>
 </body>
 #parse( "/commonElements/footer.vm" )

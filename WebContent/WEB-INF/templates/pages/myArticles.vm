@@ -19,7 +19,6 @@
       			<th>Title</th>
       			<th>Summary</th>
     			<th>Page No</th>
-    			<th>Revisions</th>
     			<th>Status</th>
     			<th>Actions</th>
     		</tr>
@@ -27,14 +26,9 @@
   			#foreach($article in $myArticles)
   				<tr>
 	   			 	</br>
-	      			<td>$article.title</td>
+	      			<td><a href='abstractPage?id=$article.articleID'>$article.title</a></td>
 	    			<td>$article.summary</td>
 	      			<td>$article.pageNo</td>
-	      			<td>
-	      			#foreach($rev in $articleRevisions)
-	      				<div>$rev.filePath</div>
-	      			#end
-	      			</td>
 	      			<td>
 	      			#set($haveReviews = $allArticles.get($article.articleID))
 	      			#if ($haveReviews)

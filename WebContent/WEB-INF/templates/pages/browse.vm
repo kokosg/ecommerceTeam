@@ -28,7 +28,8 @@
     #foreach ($edition in $Editions)
     	#if ($edition.volumeID == $volume.volumeID)
 	      <div class="panel-body">
-			Edition: <a href='browse?editionID=$edition.editionID'>$edition.editionNo</a>
+			<a href='browse?editionID=$edition.editionID'><div>Edition: $edition.editionNo</div>
+   			<div><i><small>$edition.title</small></i></div></a>
 	      </div>
 		#end
 	#end
