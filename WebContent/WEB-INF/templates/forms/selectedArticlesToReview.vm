@@ -92,16 +92,26 @@
                 
                </form>
               </div>
-           	
-              
+              <div>
+              #if($article.isResponsAvailable())
+             <div class="col-md-4">
+             	<form action="responseFromAuthor" method="post" class="form-horizontal">
+                   <h5>Response from Author is Available</h5>
+                   <input type="hidden" id="artID" name="artID" value="$article.getArticleID()"/>
+                 	<input type="submit" class="btn btn-default" value="View Response"/>
+                  </form>
+                 </div>
+              #end
+            </div>
           <hr width=100% align=left>
           <br><br>
         #end
-        
-        </div>
+
+</div>
 </div>
 #end
 </body>
-</br>
+
 #parse( "/commonElements/footer.vm" )
+</br>
 </html>

@@ -147,19 +147,19 @@ public class AbstractModel {
 						System.out.println("unpub article select huye articleIDs:"+articeIde);
 						if (unpubArticle != null) {
 							for (Article articl : unpubArticle) {
-							    if (articl.getArticleID() == (articeIde)) {
-							    	System.out.println("already in list");
-							    	counter ++;
-							    } else {
-							    	System.out.println("new article");
-							    }
+								if (articl.getArticleID() == (articeIde)) {
+									System.out.println("already in list");
+									counter ++;
+								} else {
+									System.out.println("new article");
+								}
 							}
 						}
 						if (counter == 0) {
 							Article article2 = new Article(articeIde, unpublishedTitle, unpublishedSummary);
 							unpubArticle.add(article2);
 						}
-						
+
 					}
 					rs2.close();
 					System.out.println(unpubArticle);
@@ -256,15 +256,18 @@ public class AbstractModel {
 
 		//ArrayList<String> selectedArcticleID = new ArrayList<String>();
 		ArrayList<Article> resultID=new ArrayList<Article>();
+		boolean responseAvailable=false;
 		ConnectionManager conn;
 		try {
 			String aTitle; 
 			String aSummary;
 			int aID;
+
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			String selectQuery ="Select Article.articleID,Article.title,Article.summary from Article,Choice where Choice.authorReviewerID = '"+ authorID +"' and  Article.articleID =Choice.articleID";
+			String selectQuery ="Select Article.articleID,Article.title,Article.summary from Article,Choice where Choice.authorReviewerID = '"+ authorID +"' and Article.articleID =Choice.articleID";
 			ResultSet rs = st.executeQuery(selectQuery);
+
 			while (rs.next()) {
 				aTitle= (String) rs.getObject("Article.title");
 				System.out.println("aTitle "+aTitle);
@@ -272,16 +275,29 @@ public class AbstractModel {
 				System.out.println("aSummary "+aSummary);
 				aID = (int) rs.getInt("Article.articleID");
 				System.out.println("aID "+aID);
-				Article title = new Article(aID,aTitle,aSummary,true);
+				String selectQuery2 = "Select responseText from Response where criticismID=(select criticismID from Review where articleID= "+aID+" and authorReviewerId=(select authorReviewerID from AuthorReviewer where authorId="+authorID+"))";
+				ResultSet rs1 = st.executeQuery(selectQuery2);
+				if(rs1.next()){
+					String rt = (String) rs1.getObject("responseText");
+					System.out.println("RESPONSE"+rt);
+					if(rt != null){
+						responseAvailable = true;
+					}
+				}
+				rs1.close();
+				Article title = new Article(aID,aTitle,aSummary,true,responseAvailable);
 				resultID.add(title);
 			}
+			st.close();
+			rs.close();
+			conn.close();
+
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return resultID;
 
 	}
-
 	public void deleteChoice(int authorID, int articleID){
 
 		ConnectionManager conn;
@@ -316,4 +332,67 @@ public class AbstractModel {
 
 	}
 
+	public String getResponse(String aID){
+		ConnectionManager conn;
+		String responseText="";
+		try {
+
+			conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String selectQuery2 = "Select * from Response where criticismID=(select criticismID from Review where articleID="+aID+" and authorReviewerId=(select authorReviewerID from AuthorReviewer where authorId=(select authorID from ArticleAuthor where isMainContact=1 and articleID="+aID+")))";
+			ResultSet rs1 = st.executeQuery(selectQuery2);
+			if(rs1.next()){
+				responseText = (String) rs1.getObject("responseText");
+				System.out.println("RESPONSE"+responseText);
+				
+			}
+			rs1.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return responseText;
+	}
+	
+	public void setCriticismIsAcceptedbyReviwer(String articleID,int authorID){
+		
+		ConnectionManager conn=null;
+		try {
+
+			conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String updateQuery ="Update Criticism SET  isAccepted=1 where reviewID=(select reviewID from Review where authorReviewerID="+authorID+" and articleID="+articleID+")";
+			st.executeUpdate(updateQuery);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	public void updateReviewCount(String articleID, int authorID) {
+		ConnectionManager conn=null;
+		try {
+
+			conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String updateQuery ="Update Review SET  reviewCount=0 where authorReviewerID="+authorID+" and articleID="+articleID;
+			st.executeUpdate(updateQuery);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void rejectedRevision(String articleID, int authorID,String rejectResponse){
+		ConnectionManager conn=null;
+		try {
+
+			conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String updateQuery ="Update Response SET  rejectedResponse="+rejectResponse+" where criticismID= (select criticismID from Review where reviewID= (select reviewID from Review where authorReviewerID="+authorID+" and articleID= "+articleID+" ))";
+			st.executeUpdate(updateQuery);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 }
