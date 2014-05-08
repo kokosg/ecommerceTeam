@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,11 +31,8 @@ public class PublishableArticles extends VelocityViewServlet {
 		ArrayList<Review> articlesReviews = new ArrayList<Review>();
 		ArrayList<Review> authorReviewsList = new ArrayList<Review>();
 		SystemManagementmModel model = new SystemManagementmModel();
-
 		
-		
-		try {
-				
+		try {				
 			allArticles = model.getArticle();
 			//context.put("ArticleRevisions", model.getArticleRevision());
 			for (Article art: allArticles) {
@@ -100,25 +98,25 @@ public class PublishableArticles extends VelocityViewServlet {
 							}
 						}
 						if ((champions > 1) && (detractors == 0)) {
-							//vale mesa
+							//pass
 							System.out.println("pass");
 							publishableArticles.add(art);
 						} else if ((detractors > 1) && (champions == 0)) {
-							//min valis reject
+							//reject
 							System.out.println("reject");
 						} else if ((champions > 0) && (favourables > 0)) {
-							//vale mesa
+							//pass
 							System.out.println("pass");
 							publishableArticles.add(art);
 						} else if ((detractors > 0) && (indifferents > 0)) {
-							//mn valis reject
+							//reject
 							System.out.println("reject");
 						} else if ((champions > 0) && (detractors > 0)) {
 							//may be published interesting
 							System.out.println("pass but interesting");
 							publishableArticles.add(art);
 						} else {
-							//rejected???
+							//rejected??
 							System.out.println("reject");
 						}
 											

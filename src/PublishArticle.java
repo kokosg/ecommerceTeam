@@ -10,7 +10,7 @@ import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.view.VelocityViewServlet;
 
 /**
- * Servlet implementation class PublishableArticles
+ * Servlet implementation class PublishArticles
  */
 public class PublishArticle extends VelocityViewServlet {
 	private static final long serialVersionUID = 1L;
@@ -22,7 +22,7 @@ public class PublishArticle extends VelocityViewServlet {
 		response.setContentType("text/html");
 		Edition model = new Edition();
 		SystemManagementmModel sysModel = new SystemManagementmModel();
-		//get the parameters from the form
+
 	    String articleID = request.getParameter("id");
 	    
 		try {
