@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.EmailSubscriberModel;
 import models.SubscriptionModel;
 import objects.Keyword;
 import objects.Subscriber;
@@ -79,6 +80,10 @@ public class Subscribe extends VelocityViewServlet {
 					//insert new data into SubKeyword table
 					if (keywords != null) {
 						model.insertSubKeyword(subs, keywords);
+						
+					  //send email to emailSubscriberModel
+				      EmailSubscriberModel emailSubscriberModel = new EmailSubscriberModel();
+				      emailSubscriberModel.sendEmailSubscriber();
 					}
 					template = getTemplate("/forms/home.vm"); 
 				}

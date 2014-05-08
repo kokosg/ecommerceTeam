@@ -31,7 +31,10 @@ public class AuthorArticles extends VelocityViewServlet {
 		Boolean haveReviews = false;
 		context.put("apptitle", "Ecom Journal - My articles");
 		HttpSession session = request.getSession();
-		int authorID = (Integer) session.getAttribute("userID");
+		int authorID = 0;
+		if (session.getAttribute("user") != null){
+			authorID = (Integer) session.getAttribute("userID");
+		} 
 		SubmitArticleModel model=new SubmitArticleModel();
 		LoginModel loginModel = new LoginModel();
 		

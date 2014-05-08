@@ -308,6 +308,7 @@ public class AbstractModel {
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String selectQuery ="DELETE FROM Choice WHERE Choice.articleID = "+articleID+" and "+"Choice.authorReviewerID="+authorID;
 			st.executeUpdate(selectQuery);
+			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -326,6 +327,7 @@ public class AbstractModel {
 				int r = (Integer) rs.getObject("articleID");
 				downloadedReview.add(r);
 			}
+			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -348,6 +350,7 @@ public class AbstractModel {
 
 			}
 			rs1.close();
+			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -363,6 +366,7 @@ public class AbstractModel {
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String updateQuery ="Update Criticism SET  isAccepted=1 where reviewID=(select reviewID from Review where authorReviewerID="+authorID+" and articleID="+articleID+")";
 			st.executeUpdate(updateQuery);
+			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -378,6 +382,7 @@ public class AbstractModel {
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String updateQuery ="Update Review SET  reviewCount=0 where authorReviewerID="+authorID+" and articleID="+articleID;
 			st.executeUpdate(updateQuery);
+			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}

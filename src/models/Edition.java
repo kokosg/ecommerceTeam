@@ -24,7 +24,7 @@ public class Edition {
 	}
 	
 	public EditionObject getEdition() throws SQLException {
-		String queryAuthor = "SELECT editionID, volumeID, editionNo, title, current, dateAdded, published FROM Edition ORDER BY EditionID DESC LIMIT 1;";
+		String queryAuthor = "SELECT editionID, volumeID, editionNo, title, current, dateAdded, published FROM Edition ORDER BY EditionID DESC LIMIT 1";
 		EditionObject edition = new EditionObject();
 		try {
 			ConnectionManager conn = new ConnectionManager();

@@ -28,39 +28,37 @@
 		</div>
 		#end
 
-#if(!$session.user.name)
-         <div class="container">
-           <h2 >Sorry you are not authenticated to access this part of website</h2>
-         </div>
-#else
-         <div class="container">
+		#if (($session.userRole == "AuthorReviewer") || ($session.userRole == "Editor"))
+       	<div class="container">
            <h3>Welcome to eCom-Journal</h3>
            <h3 >$session.user.name  $session.user.surname</h3>
           </div>
-</div>
-<div class="container">
-               <!-- Example row of columns -->
-               <div class="row">
-                 <div class="col-md-4">
-                   <h2>My Submission</h2>
-                   <p>View your submitted articles </p>
-                   <p><a class="btn btn-default" href="myArticles" role="button">View details &raquo;</a></p>
-                 </div>
-                 #if($session.userRole == "AuthorReviewer")
-                 <div class="col-md-4">
-                   <h2>Your Reviewed Articles</h2>
-                   <p>See your reviewed articles.</p>
-                   <p><a class="btn btn-default" href="selected" role="button">View details &raquo;</a></p>
-                </div>
-                #end
-                 <div class="col-md-4">
-                   <h2>Instructions for Article Review</h2>
-                   <p>Learn how to peer review pending articles and describing the qualities of the articles and how to complete the review form.</p>
-                   <p><a class="btn btn-default" href="upload" role="button">View details &raquo;</a></p>
-                 </div>
-       </div>
+		<div class="container">
+       <!-- Example row of columns -->
+       <div class="row">
+         <div class="col-md-4">
+           <h2>My Submission</h2>
+           <p>View your submitted articles </p>
+           <p><a class="btn btn-default" href="myArticles" role="button">View details &raquo;</a></p>
+         </div>
+         #if($session.userRole == "AuthorReviewer")
+         <div class="col-md-4">
+           <h2>Your Reviewed Articles</h2>
+           <p>See your reviewed articles.</p>
+           <p><a class="btn btn-default" href="selected" role="button">View details &raquo;</a></p>
+        </div>
+        #end
+         <div class="col-md-4">
+           <h2>Instructions for Article Review</h2>
+           <p>Learn how to peer review pending articles and describing the qualities of the articles and how to complete the review form.</p>
+           <p><a class="btn btn-default" href="upload" role="button">View details &raquo;</a></p>
+         </div>
      </div>
-#end
+	#else
+     <div class="container">
+       <h2 >Sorry you are not authenticated to access this part of website</h2>
+     </div>
+	#end
 
 #parse("/commonElements/footer.vm")
 </body>

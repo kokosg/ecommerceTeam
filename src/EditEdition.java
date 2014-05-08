@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.Edition;
+import models.VolumeModel;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
@@ -25,6 +26,7 @@ public class EditEdition extends VelocityViewServlet {
 
 		//create model object
 		Edition model = new Edition();
+		VolumeModel VolumeModel = new VolumeModel();
 		
 		DateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
 		Date newDate = new Date();
@@ -56,6 +58,7 @@ public class EditEdition extends VelocityViewServlet {
 				
 			}
 				//return Edition from Edition Model and put them in contexts
+				context.put("Volume", VolumeModel.getVolume());
 				context.put("Edition", model.getEdition());
 				context.put("currentDate", currentDate.format(newDate));
 
