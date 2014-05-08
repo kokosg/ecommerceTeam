@@ -196,11 +196,7 @@ public class ReviewForm {
 		}
 		return reviewCount;	
 	}
-<<<<<<< HEAD
-
-=======
-	 
->>>>>>> b0d0d7f097c578c1488e04fb38f5132942aa4cae
+	
 	//check if it has reviews and needs to upload article revision
 	public ArrayList<Review> haveReviews(int articleID) {
 		Boolean haveReviews = false;
@@ -208,11 +204,6 @@ public class ReviewForm {
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-<<<<<<< HEAD
-
-=======
-			System.out.println("inside model");
->>>>>>> b0d0d7f097c578c1488e04fb38f5132942aa4cae
 			//get any reviews for my articles
 			String queryReviews = "SELECT * FROM Review INNER JOIN Criticism ON Review.reviewID = Criticism.reviewID WHERE articleID = '" + articleID + "'";
 			ResultSet rs = st.executeQuery(queryReviews);

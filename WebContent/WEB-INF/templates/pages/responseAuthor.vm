@@ -29,11 +29,8 @@ label.error {
     <div class="page-header">
       <br/>
             <h1>Response from Author</h1>
-<<<<<<< HEAD
-    </div> 
-=======
+
         </div> 
->>>>>>> 23c5559b5ab61c3d0d7568dac5e73d2eef19b027
               
             <div class="row">
               <div class="col-md-10">
@@ -46,7 +43,6 @@ label.error {
      		     </div>
                   <div class="row">
                     <div class="col-md-10">
-<<<<<<< HEAD
                       <form id="Response-form" action="responseFromAuthor" method="post" class="form-horizontal">
 							          <input type="hidden" id="reviewArt" name="reviewArt" value="$articleID"/>
                         <input type="submit" id="Accept" name="submit"  value="Accept" class="btn btn-success onclick="buttondisable(this)"/>
@@ -70,30 +66,7 @@ label.error {
   <br>
   <br>    
 </div>
-=======
-                  <form id="Response-form" action="responseFromAuthor" method="post" class="form-horizontal">
-							      <input type="hidden" id="reviewArt" name="reviewArt" value="$articleID"/>
-                    <input type="submit" id="Accept" name="submit"  value="Accept" class="btn btn-success onclick="buttondisable(this)"/>
-                  <p>If accepting you may revise your judgement.
-						      <br>
-				         </form>
-                 
-                  <form id="Response-form" action="responseFromAuthor" method="post" class="form-horizontal">
-					        <div>
-                    <label> Explain inadequacy for the revision</label>
-                    <textarea name="rejectedResponse" rows="10" cols="100" ></textarea>
-                    </div>
-							      <input type="hidden" id="reviewArt" name="reviewArt" value="$articleID"/>
-                    <input type="submit"  id="Reject" name="submit"  value="Reject" class="btn btn-danger" onclick="buttondisable(this)/>
-						        
-				         </form>  
-         			     </div>
-         		     </div>     
-  <br>
-  <br>    
-</div>
-</div>
->>>>>>> 23c5559b5ab61c3d0d7568dac5e73d2eef19b027
+
 #end
 </body>
 #parse("/commonElements/footer.vm")
