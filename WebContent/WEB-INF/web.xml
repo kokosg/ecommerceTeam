@@ -317,4 +317,14 @@
     <servlet-name>SubmitArticleRevision</servlet-name>
     <url-pattern>/submitArticleRevision</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ResponseAuthorServlet</display-name>
+    <servlet-name>ResponseAuthorServlet</servlet-name>
+    <servlet-class>ResponseAuthorServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResponseAuthorServlet</servlet-name>
+    <url-pattern>/responseFromAuthor</url-pattern>
+  </servlet-mapping>
 </web-app>

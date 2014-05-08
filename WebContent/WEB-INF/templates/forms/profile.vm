@@ -48,8 +48,8 @@
                  </div>
                  #if($session.userRole == "AuthorReviewer")
                  <div class="col-md-4">
-                   <h2>Unpublished Articles</h2>
-                   <p>View Unpublished Articles</p>
+                   <h2>Your Reviewed Articles</h2>
+                   <p>See your reviewed articles.</p>
                    <p><a class="btn btn-default" href="selected" role="button">View details &raquo;</a></p>
                 </div>
                 #end
