@@ -267,7 +267,7 @@ public class AbstractModel {
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String selectQuery ="Select Article.articleID,Article.title,Article.summary from Article,Choice where Choice.authorReviewerID = '"+ authorID +"' and Article.articleID =Choice.articleID";
 			ResultSet rs = st.executeQuery(selectQuery);
-
+//			ResultSet rs1=null;
 			while (rs.next()) {
 				aTitle= (String) rs.getObject("Article.title");
 				System.out.println("aTitle "+aTitle);
@@ -275,19 +275,20 @@ public class AbstractModel {
 				System.out.println("aSummary "+aSummary);
 				aID = (int) rs.getInt("Article.articleID");
 				System.out.println("aID "+aID);
-				String selectQuery2 = "Select responseText from Response where criticismID=(select criticismID from Review where articleID= "+aID+" and authorReviewerId=(select authorReviewerID from AuthorReviewer where authorId="+authorID+"))";
-				ResultSet rs1 = st.executeQuery(selectQuery2);
-				if(rs1.next()){
-					String rt = (String) rs1.getObject("responseText");
-					System.out.println("RESPONSE"+rt);
-					if(rt != null){
-						responseAvailable = true;
-					}
-				}
-				rs1.close();
+//				String selectQuery2 = "Select responseText from Response where criticismID=(select criticismID from Review where articleID= "+aID+" and authorReviewerId=(select authorReviewerID from AuthorReviewer where authorId="+authorID+"))";
+//				rs1= st.executeQuery(selectQuery2);
+//				if(rs1.next()){
+//					String rt = (String) rs1.getObject("responseText");
+//					System.out.println("RESPONSE"+rt);
+//					if(rt != null){
+//						responseAvailable = true;
+//					}
+//				}
+				
 				Article title = new Article(aID,aTitle,aSummary,true,responseAvailable);
 				resultID.add(title);
 			}
+//			rs1.close();
 			st.close();
 			rs.close();
 			conn.close();
@@ -394,7 +395,7 @@ public class AbstractModel {
 			ResultSet rs = st.executeQuery(selectQuery);
 			int count=0;
 			if(rs.next()){
-				count = (int) rs.getObject("rejectCount");
+				count = (Integer) rs.getObject("rejectCount");
 			}
 			rs.close();
 			if(count<2){
@@ -416,7 +417,7 @@ public class AbstractModel {
 			String selectQuery="Select isAccepted from Criticism where criticismID=(select criticismID from Review where reviewID=(select reviewID from Review where authorReviewerID="+authorID+" and articleID= "+articleID+" ))";
 			ResultSet rs = st.executeQuery(selectQuery);
 			if(rs.next()){
-				accpeted = (boolean) rs.getObject("isAccepted");
+				accpeted = (Boolean) rs.getObject("isAccepted");
 				System.out.println("ACCCCCCCCCCCC"+accpeted);
 			}
 			st.close();
@@ -438,7 +439,7 @@ public class AbstractModel {
 			String selectQuery="Select rejectCount from Response where criticismID=(select criticismID from Review where authorReviewerID="+authorID+" and articleID="+articleID+")";
 			ResultSet rs = st.executeQuery(selectQuery);
 			if(rs.next()){
-				count = (int) rs.getObject("rejectCount");
+				count = (Integer) rs.getObject("rejectCount");
 			}
 			rs.close();
 			st.close();

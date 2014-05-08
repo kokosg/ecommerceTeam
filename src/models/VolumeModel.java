@@ -34,7 +34,7 @@ public class VolumeModel {
 				int journalID = rs.getInt("journalID");
 				int volumeNo = rs.getInt("volumeNo");
 				Date date1 = (Date) rs.getObject("date");
-				boolean current = (boolean) rs.getObject("current");
+				boolean current = (Boolean) rs.getObject("current");
 				volume = new VolumeObject(volumeID, journalID, volumeNo, date1, current);
 			}
 			rs.close();

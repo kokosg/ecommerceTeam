@@ -21,11 +21,12 @@ public class SelectedArticlesForReview extends VelocityViewServlet {
 
 	public Template handleRequest( HttpServletRequest request, HttpServletResponse response, Context context ) {
 		Template template=null;
+		context.put("apptitle", "E-Com Journal");
 		HttpSession session = request.getSession();
+		if(session.getAttribute("userID")!=null){
 		int authorID =(Integer) session.getAttribute("userID");
 		AbstractModel absModel=new AbstractModel();
 		ReviewForm form = new ReviewForm();
-
 		ArrayList<Integer> downloadedReview = absModel.getDownloaded(authorID);
 		//context.put("downloadedReview", downloadedReview);
 		//System.out.println("Downloaded ^^^^^^^^ "+downloadedReview);
@@ -49,8 +50,8 @@ public class SelectedArticlesForReview extends VelocityViewServlet {
 		if(checkTitle.isEmpty()){
 			context.put("message", "You haven't selected any articles to Review. Go to unpublished articles to select articles to review.");
 		}
-
 		context.put("artCkeckId", checkTitle);
+		}
 		template = getTemplate("/forms/selectedArticlesToReview.vm");
 		return template;
 	}
