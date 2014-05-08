@@ -31,7 +31,7 @@ public class SystemManagementmModel {
 	
 	public ArrayList<Article> getArticle() throws SQLException {
 		ArrayList<Article> arrayResults = new ArrayList<Article>();
-		String queryAuthor = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article";
+		String queryAuthor = "select * from Article";
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
@@ -85,7 +85,7 @@ public class SystemManagementmModel {
 	
 	public ArrayList<Review> getReviews(String articleI_D) throws SQLException {
 		ArrayList<Review> arrayResults = new ArrayList<Review>();
-		String queryAuthor = "select Review.reviewID, Review.authorReviewerID, Review.articleID, Review.judgement, Review.expertise, Review.summary, Review.criticismID, Review.smallErrors, Review.editorComments, Review.isAccepted, Review.dateSubmitted from Review WHERE Review.articleID = '" + articleI_D + "'";
+		String queryAuthor = "select * from Review WHERE Review.articleID = '" + articleI_D + "'";
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
@@ -245,6 +245,80 @@ public class SystemManagementmModel {
 		
 		return deleteStatus;
 	
+	}
+	
+	
+	public ArrayList<Review> retrieveArticlesReviewsAndCriticism(int articleID) {
+		ArrayList<Review> arrayResults = new ArrayList<Review>();
+		String queryReviews = "SELECT * FROM Review INNER JOIN Criticism ON Review.reviewID = Criticism.reviewID WHERE articleID = '" + articleID + "'";
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			ResultSet rs = st.executeQuery(queryReviews);
+			while (rs.next()) {
+				int reviewID = rs.getInt("Review.reviewID");
+				int authorReviewerID = rs.getInt("Review.authorReviewerID");
+				String judgement = (String) rs.getObject("Review.judgement");
+				String expertise = (String) rs.getObject("Review.expertise");
+				String summary = (String) rs.getObject("Review.summary");
+				int criticismID = rs.getInt("Criticism.criticismID");
+				String smallErrors = (String) rs.getObject("Review.smallErrors");
+				String editorComments = (String) rs.getObject("Review.editorComments");
+				boolean isAccepted =(boolean) rs.getObject("Review.isAccepted");
+				Date dateSubmitted = (Date) rs.getObject("Review.dateSubmitted");
+				
+				Review review = new Review(reviewID, authorReviewerID, articleID, judgement, expertise, summary, criticismID, smallErrors, editorComments, isAccepted, dateSubmitted);
+				review.setCriticism((String)rs.getObject("Criticism.criticism"));
+				arrayResults.add(review);
+			}
+			rs.close();
+			st.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return arrayResults;
+	}
+	
+	public ArrayList<Review> getAuthorReviews(int articleID) {
+		ArrayList<Review> arrayResults = new ArrayList<Review>();
+		String queryArticleAuthor = "SELECT * FROM ArticleAuthor INNER JOIN Author ON ArticleAuthor.authorID = Author.authorID INNER JOIN AuthorReviewer ON AuthorReviewer.authorID = Author.authorID WHERE articleID = '"+ articleID + "' AND isMainContact = 1";
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			Statement st2 = conn.getInstance().getConnection().createStatement();
+			ResultSet rs = st.executeQuery(queryArticleAuthor);
+
+			while (rs.next()) {
+				int authorReviewerID = rs.getInt("ArticleAuthor.authorID");
+				//System.out.println("authorREviewerid: " + authorReviewerID);
+				String queryReviews = "SELECT * FROM Review INNER JOIN Criticism ON Review.reviewID = Criticism.reviewID WHERE authorReviewerID = " + authorReviewerID;
+				ResultSet rev = st2.executeQuery(queryReviews);				
+				while (rev.next()) {
+					int reviewID = rev.getInt("Review.reviewID");
+					String judgement = (String) rev.getObject("Review.judgement");
+					String expertise = (String) rev.getObject("Review.expertise");
+					String summary = (String) rev.getObject("Review.summary");
+					int criticismID = rev.getInt("Criticism.criticismID");
+					String smallErrors = (String) rev.getObject("Review.smallErrors");
+					String editorComments = (String) rev.getObject("Review.editorComments");
+					boolean isAccepted =(boolean) rev.getObject("Review.isAccepted");
+					Date dateSubmitted = (Date) rev.getObject("Review.dateSubmitted");
+					
+					Review review = new Review(reviewID, authorReviewerID, articleID, judgement, expertise, summary, criticismID, smallErrors, editorComments, isAccepted, dateSubmitted);
+					review.setCriticism((String)rev.getObject("Criticism.criticism"));
+					arrayResults.add(review);
+				}
+				rev.close();
+			}
+			rs.close();
+			st.close();
+			st2.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return arrayResults;
 	}
 	
 }

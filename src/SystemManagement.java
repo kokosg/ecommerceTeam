@@ -24,7 +24,6 @@ public class SystemManagement extends VelocityViewServlet {
 
 		
 		try {
-
 				//return getUsers from UserManagementModel and put them in contexts
 				context.put("Articles", model.getArticle());
 				context.put("ArticleRevisions", model.getArticleRevision());

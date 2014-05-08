@@ -1,0 +1,62 @@
+<HTML>
+<head>
+  <meta charset="ISO-8859-1">
+  #include( "/commonElements/head.html" )
+  <TITLE>$apptitle</TITLE>
+</head>
+
+<body>
+#parse( "/commonElements/navbar.vm" )
+<!-- Main jumbotron for a primary marketing message or call to action -->
+
+<div class="jumbotron"></div>
+	
+<div class="col-md-12">
+#if($userRole == "Editor")
+   
+	<div class="container">
+    <div class="page-header">
+      <br/>
+      <h2>My Articles</h2>
+    </div> 
+           <table class="table table-hover">
+    		<tr>
+      			<th>Title</th>
+      			<th>Summary</th>
+    			<th>Page No</th>
+    			<th>Status</th>
+    			<th>Actions</th>
+    		</tr>
+  				
+  			#foreach($article in $myArticles)
+  				<tr>
+	   			 	</br>
+	      			<td>$article.title</td>
+	    			<td>$article.summary</td>
+	      			<td>$article.pageNo</td>
+	      			<td>
+						$article.articleID
+	      			</td>	
+	      			<td> 
+	      			    <div class="col-lg-offset-2">
+	      					<a href='submitArticleRevision?id=$article.articleID'><button class="btn btn-primary">Publish Article</button></a>
+							<a href='reviews?id=$article.articleID'><button class="btn btn-primary">Reviews</button></a>
+						</div>
+	      			</td>
+   	    		</tr>
+	
+			#end
+	
+	
+	
+	
+	
+	#else
+		<h2 >Sorry you are not authenticated to access this part of website</h2>
+	#end
+	</div>
+</div>
+
+#parse( "/commonElements/footer.vm" )
+</body>
+</html>
