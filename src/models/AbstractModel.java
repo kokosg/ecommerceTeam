@@ -389,7 +389,11 @@ public class AbstractModel {
 
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
+<<<<<<< HEAD
 			String updateQuery ="Update Response SET  rejectedResponse='"+rejectResponse+"' where criticismID=( select criticismID from Review where reviewID=( select reviewID from Review where authorReviewerID="+authorID+" and articleID= "+articleID+" ))";
+=======
+			String updateQuery ="Update Response SET  rejectedResponse="+rejectResponse+" where criticismID= (select criticismID from Review where reviewID= (select reviewID from Review where authorReviewerID="+authorID+" and articleID= "+articleID+" ))";
+>>>>>>> 23c5559b5ab61c3d0d7568dac5e73d2eef19b027
 			st.executeUpdate(updateQuery);
 		}catch(Exception e){
 			e.printStackTrace();

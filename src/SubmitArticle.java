@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import models.SubmitArticleModel;
 import objects.Article;
 import objects.Keyword;
+import objects.MailReminder;
 import objects.User;
+import objects.Utility;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -22,7 +24,7 @@ import org.apache.velocity.tools.view.VelocityViewServlet;
  */
 public class SubmitArticle extends VelocityViewServlet {
 	private static final long serialVersionUID = 1L;
-	private final String UPLOAD_DIRECTORY = "F:/"; //change that to /tmp???
+	private final String UPLOAD_DIRECTORY = "/Users/shreebha/Downloads/apache-tomcat-6.0.39/webapps/data"; //change that to /tmp???
 	
 	public Template handleRequest( HttpServletRequest request, HttpServletResponse response, Context context ) { 
 		Boolean registered = false;
@@ -30,7 +32,7 @@ public class SubmitArticle extends VelocityViewServlet {
 		String flag = null, filePath = null;
 		Template template = null;
 		response.setContentType("text/html");
-		
+		ArrayList<String> authorEmails = new ArrayList<String>();
 		System.out.println("before if");
 		if(ServletFileUpload.isMultipartContent(request)){
 			System.out.println("inside");
@@ -40,7 +42,7 @@ public class SubmitArticle extends VelocityViewServlet {
 				ArrayList<User> articleAuthors = new ArrayList<User>();
 				ArrayList<String> authorNames = new ArrayList<String>();
 				ArrayList<String> authorSurnames = new ArrayList<String>();
-				ArrayList<String> authorEmails = new ArrayList<String>();
+				//ArrayList<String> authorEmails = new ArrayList<String>();
 				ArrayList<String> authorAffiliations = new ArrayList<String>();
 				
 				SubmitArticleModel model = new SubmitArticleModel(); 
@@ -160,8 +162,11 @@ public class SubmitArticle extends VelocityViewServlet {
 			System.out.println("Data posted.");
 			try {
 				if (registered) {
+					MailReminder mail = new MailReminder(authorEmails);
+					Utility.getMailReminderList().add(mail);
 					context.put("successfully", "Submit article and registration completed! Check your email for login details.");
 					template = getTemplate("/forms/home.vm");
+					
 				} else {
 					template = getTemplate("/forms/submitArticle.vm");
 				}
