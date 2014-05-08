@@ -14,7 +14,7 @@ function addKeyword(){
 }
 
 function removeKeyword(){
-	$('#articleKeywords').closest('div').remove(); 
+	$('#removeKeyword').closest('div').remove(); 
 	counter--;
 }
 
