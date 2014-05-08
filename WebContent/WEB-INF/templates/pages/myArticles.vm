@@ -7,16 +7,8 @@
 
 #parse( "/commonElements/navbar.vm" )
 <body>
-#if(!$session.user.name)
-<div class="jumbotron"> 
+#if (($session.userRole == "AuthorReviewer") || ($session.userRole == "Editor"))
 
-             <div class="container">
-             
-<h2 >Sorry you are not authenticated to access this part of website</h2>
-</div>
-</div>
-
-#else
 <div class="container">
     <div class="page-header">
       <br/>
@@ -44,6 +36,7 @@
 	      			#end
 	      			</td>
 	      			<td>
+	      			#set($haveReviews = $allArticles.get($article.articleID))
 	      			#if ($haveReviews)
 	      				Needs Revision!
 	      			#else
@@ -52,6 +45,7 @@
 	      			</td>	
 	      			<td> 
 	      			    <div class="col-lg-offset-2">
+	      			    	#set($haveReviews = $allArticles.get($article.articleID))
 	      			    	#if ($haveReviews)
 	      						<a href='submitArticleRevision?id=$article.articleID'><button class="btn btn-primary">Submit Revision</button></a>
 	      					#end
@@ -61,9 +55,18 @@
    	    		</tr>
    	    	#end
 	</table>
-	   </div>
+	</div>
 	  
+#else
+
+	<div class="jumbotron"> 
+ 	 <div class="container">
+      <h2 >Sorry you are not authenticated to access this part of website</h2>
+	 </div>
+	</div>
+
 #end
+
 </body>
 </br>
 #parse( "/commonElements/footer.vm" )

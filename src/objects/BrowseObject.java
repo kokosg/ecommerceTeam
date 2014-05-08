@@ -18,9 +18,11 @@ public class BrowseObject {
 	 private Date datePublished;
 	 private int articleID;
 	 private String title;
+	 private int published;
+	 private int reviewed;
+	 private int needsRevision;
 	 private String summary;
 	 private int pageNo;
-	 private String filePath;
 	
 	/**
 	 * 
@@ -47,24 +49,66 @@ public class BrowseObject {
 	 * @param datePublished
 	 * @param articleID
 	 * @param title
+	 * @param published;
+	 * @param reviewed;
+	 * @param needsRevision;
 	 * @param summary
 	 * @param pageNo
-	 * @param filePath
 	 */
-	public BrowseObject(int editionNo, int startPageNo, Date datePublished, int articleID, String title, String summary, int pageNo, String filePath) {
+	public BrowseObject(int editionNo, int startPageNo, Date datePublished, int articleID, String title, int published, int reviewed, int needsRevision, String summary, int pageNo) {
 		this.editionNo = editionNo;
 		this.startPageNo = startPageNo;
 		this.datePublished = datePublished;
 		this.articleID = articleID;
 		this.title = title;
+		this.published = published;
+		this.reviewed = reviewed;
+		this.needsRevision = needsRevision;
 		this.summary = summary;
 		this.pageNo = pageNo;
-		this.filePath = filePath;
 	}
 
+	/**
+	 * @return the published
+	 */
+	public int getPublished() {
+		return published;
+	}
 
+	/**
+	 * @param published the published to set
+	 */
+	public void setPublished(int published) {
+		this.published = published;
+	}
 
+	/**
+	 * @return the reviewed
+	 */
+	public int getReviewed() {
+		return reviewed;
+	}
 
+	/**
+	 * @param reviewed the reviewed to set
+	 */
+	public void setReviewed(int reviewed) {
+		this.reviewed = reviewed;
+	}
+
+	/**
+	 * @return the needsRevision
+	 */
+	public int getNeedsRevision() {
+		return needsRevision;
+	}
+
+	/**
+	 * @param needsRevision the needsRevision to set
+	 */
+	public void setNeedsRevision(int needsRevision) {
+		this.needsRevision = needsRevision;
+	}
 
 	/**
 	 * @return the volumeID
@@ -190,20 +234,6 @@ public class BrowseObject {
 	 */
 	public void setPageNo(int pageNo) {
 		this.pageNo = pageNo;
-	}
-
-	/**
-	 * @return the filePath
-	 */
-	public String getFilePath() {
-		return filePath;
-	}
-
-	/**
-	 * @param filePath the filePath to set
-	 */
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
 	}
 
 }

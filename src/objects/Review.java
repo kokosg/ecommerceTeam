@@ -24,7 +24,7 @@ public class Review {
 	private Date dateSubmitted;
 	private boolean isDownloaded;
 	private String criticism;
-	
+	 
 	/**
 	 * 
 	 */

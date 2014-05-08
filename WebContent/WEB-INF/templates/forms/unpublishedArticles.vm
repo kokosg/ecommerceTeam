@@ -11,16 +11,8 @@
 
 #parse( "/commonElements/navbar.vm" )
 <body>
-#if(!$session.user.name)
-<div class="jumbotron"> 
 
-             <div class="container">
-             
-<h2 >Sorry you are not authenticated to access this part of website</h2>
-</div>
-</div>
-
-#else
+#if (($session.userRole == "AuthorReviewer") || ($session.userRole == "Editor"))
 
 <div class="container">
 
@@ -62,7 +54,16 @@
               <input type="submit" id="submitselected" class="btn btn-default" value="Select"/>
           </form>
        </div>
-</div>
+	</div>
+
+#else
+
+	<div class="jumbotron"> 
+     <div class="container">
+      <h2 >Sorry you are not authenticated to access this part of website</h2>
+	 </div>
+	</div>
+
 #end
 
 </body>

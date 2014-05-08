@@ -10,14 +10,7 @@
 <script src="assets/js/refresh.js" type="text/javascript"></script>
 <script src="assets/js/checkbox.js" type="text/javascript"> </script>
 
-#if(!$session.user.name)
-<div class="jumbotron"> 
-  <div class="container">          
-    <h2 >Sorry you are not authenticated to access this part of website</h2>
-  </div>
-</div>
-
-#else
+#if (($session.userRole == "AuthorReviewer") || ($session.userRole == "Editor"))
 
 <div class="container">
 
@@ -106,10 +99,27 @@
           <hr width=100% align=left>
           <br><br>
         #end
+<<<<<<< HEAD
 
 </div>
 </div>
 #end
+=======
+        
+        </div>
+	</div>
+
+	#else
+	
+	<div class="jumbotron"> 
+	  <div class="container">          
+	    <h2 >Sorry you are not authenticated to access this part of website</h2>
+	  </div>
+	</div>
+	
+	#end
+
+>>>>>>> b0d0d7f097c578c1488e04fb38f5132942aa4cae
 </body>
 
 #parse( "/commonElements/footer.vm" )

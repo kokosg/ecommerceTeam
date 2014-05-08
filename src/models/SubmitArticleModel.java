@@ -8,8 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+
 import objects.Article;
 import objects.ArticleRevision;
+import objects.CriticismResponse;
 import objects.Keyword;
 import objects.User;
 
@@ -29,7 +31,7 @@ public class SubmitArticleModel {
 		ArrayList<Object> arrayResults = new ArrayList<Object>();
 		ArrayList<Article> articleResults = new ArrayList<Article>();
 		ArrayList<ArticleRevision> filepathResults = new ArrayList<ArticleRevision>();
-		String findArticles = "SELECT * FROM Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID INNER JOIN ArticleRevision ON ArticleRevision.articleID = Article.articleID WHERE Author.authorID = 11";
+		String findArticles = "SELECT * FROM Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID INNER JOIN ArticleRevision ON ArticleRevision.articleID = Article.articleID WHERE Author.authorID = '" + authorID + "'";
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
@@ -64,7 +66,6 @@ public class SubmitArticleModel {
 				
 				ArticleRevision revision = new ArticleRevision(articleRevisionID, articleID, filePath, sqlDate);
 				filepathResults.add(revision);
-				System.out.println("assoi");
 			}
 			
 			arrayResults.add(articleResults);
@@ -345,6 +346,33 @@ public class SubmitArticleModel {
 		}
 		return filepath;
 	}
+	
+	//ArticleRevision - get the article revision from database (get article's path)
+	public String getDownloadPath(String articleID, String articleRevisionID) {
+		String filepath = null;
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String selectQuery;
+
+	        selectQuery = "Select ArticleRevision.filePath from ArticleRevision where articleID= '"+articleID +"' AND articleRevisionID = '"+ articleRevisionID +"'";
+
+			ResultSet artResult = st.executeQuery(selectQuery);
+			if (artResult.next()) {
+				filepath = (String) artResult.getObject("filePath");
+			}
+			artResult.close();
+			st.close();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return filepath;
+	}
 
 	//ArticleRevision - get the article revision from database (get article's recent revision date)
 	public Date getArticleRevisionDate(String articleID) {
@@ -407,8 +435,56 @@ public class SubmitArticleModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 	}
 
+	//Response - insert into response table
+	public void insertIntoResponses(ArrayList<CriticismResponse> myResponses){
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			for (CriticismResponse res : myResponses) {
+				int criticismID = res.getCriticismID(); 
+				String responseText = res.getResponseText(); 
+				System.out.println("inserting criticism " + criticismID + " " +responseText);
+				String insertQuery ="INSERT INTO Response (criticismID, responseText) VALUES ('" + criticismID + "', '" + responseText + "')";
+				st.executeUpdate(insertQuery);
+			} 
+			st.close();
+			conn.close();
+		} catch(Exception e ) {
+			System.out.println("Error " + e);
+		}
+	}
+	//ArticleRevision - insert new article revision in database (insert article's path)
+		public void insertArticleRevisionAndUpdateArticle(Article article, String path) {
+			try {
+				ConnectionManager conn = new ConnectionManager();
+				Statement st = conn.getInstance().getConnection().createStatement();
+				String insertQuery;
+				//String titleExists= getFileName(title);
+				if (path != null) {
+					System.out.println("INSERT article revision and update article");
+					Date now = new Date();
+					Date subDate = new java.sql.Date(now.getTime());
+					insertQuery = "INSERT INTO ArticleRevision (articleID, filePath, dateSubmitted) VALUES ('" + article.getArticleID() + "', '" + path + "', '" + subDate +"')";
+					st.executeUpdate(insertQuery);
+					String updateQuery = "UPDATE Article SET needsRevision = 0 WHERE articleID = '" + article.getArticleID() + "'";
+					st.executeUpdate(updateQuery);
+				} else {
+					System.out.println("no file found");
+					//	insertQuery = "UPDATE Template SET filePath ='"+path+"' WHERE title='"+title+"'";
+				} 
+
+				st.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
 }
+

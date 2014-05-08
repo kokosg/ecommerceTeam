@@ -10,19 +10,20 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 
 <div class="jumbotron">
+</div>
 	
 <div class="col-md-12">
 #if($userRole == "Editor")
    #if ($Articles)
 	<div class="row">
 		<div id="results_table">
-			<div class="col-lg-7 col-md-10 col-md-push-3">
+			<div class="col-lg-12">
 				<div class="row">
-					<div class="well bs-component">
+					<div>
 						<h2>List of Articles</h2>
 						<div class="row">
-							<div class="col-md-10">
-								<table class="table table-hover table-responsive table-bordered table-condensed">
+							<div class="col-md-12">
+								<table class="table table-hover">
 									<thead>
 								      <tr>
 								        <th>Article</th>
@@ -31,7 +32,7 @@
 								        <th></th>
 								      </tr>
 								    </thead>
-									<tbody class="table-hover">
+									<tbody>
 									#foreach($article in $Articles) 
 									<tr>
 										<td><a href='abstractPage?id=$article.articleID'>$article.title</a></td>
@@ -40,7 +41,14 @@
 										<td>
 										#foreach($articleRevision in $ArticleRevisions) 
 											#if ($article.articleID == $articleRevision.articleID)
-												<div><small>RevisionNo: $articleRevision.articleRevisionID | date: $articleRevision.dateSubmitted | FilePath: $articleRevision.filePath</small></div>
+												<div><small>RevisionNo: $articleRevision.articleRevisionID | date: $articleRevision.dateSubmitted | FilePath: 
+											
+												<form action="systemManagement" method="post" class="form-horizontal">
+													<input id="articleRevisionID" name="articleRevisionID" type="hidden" value="$articleRevision.articleRevisionID">
+													<input id="articleID" name="articleID" type="hidden" value = "$article.articleID">
+													<input id="download" name="download" type="hidden" value = "1">
+													<button type="submit" class="btn btn-primary">Download</button>
+												</form>
 											#end
 										#end
 										</td>
@@ -57,16 +65,13 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-   #end
-
-		
+		  </div>
+	    </div>
+       #end
 		
 	#else
 		<h2 >Sorry you are not authenticated to access this part of website</h2>
 	#end
-	</div>
 </div>
 
 #parse( "/commonElements/footer.vm" )

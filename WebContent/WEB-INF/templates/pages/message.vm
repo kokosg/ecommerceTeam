@@ -10,7 +10,8 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 
 <div class="jumbotron">
-	
+</div>
+
 <div class="col-md-12">
 #if($userRole == "Editor")
 		
@@ -31,11 +32,11 @@
 	   
 	   <div class="row">
 		<div class="row">
-		   <div class="well bs-component">
+		   <div>
 			 <h1>List of Choices</h1>
 				<div class="row">
 					<div class="col-md-12">
-						<table class="table table-hover table-responsive table-bordered table-condensed">
+						<table class="table table-hover">
 							<thead>
 						      <tr>
 						        <th>Name</th>
@@ -59,7 +60,7 @@
 									#if ($message.answer)
 										<textarea class="form-control" name="answer" cols="200" rows="3">$message.answer</textarea>
 									#else
-										No Message
+										<textarea class="form-control" name="answer" cols="200" rows="3">No Message</textarea>
 									#end
 									<input id="messageID" name="messageID" type="hidden" value = "$message.messageID">
 				         		    <input id="action" name="action" type="hidden" value = "reply">
@@ -94,19 +95,8 @@
 		<h2 >Sorry you are not authenticated to access this part of website</h2>
 
 	#end
-	</div>
 </div>
 
-	<div class="col-lg-4">
-		<div class="bs-component">
-			<div class="well">Look, I'm in a well!</div>
-		</div>
-	</div>
-	<div class="col-lg-8">
-		<div class="bs-component">
-			<div class="well">Look, I'm in a small well!</div>
-		</div>
-	</div>
 #parse( "/commonElements/footer.vm" )
 </body>
 </html>

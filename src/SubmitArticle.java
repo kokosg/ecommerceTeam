@@ -36,7 +36,7 @@ public class SubmitArticle extends VelocityViewServlet {
 		System.out.println("before if");
 		if(ServletFileUpload.isMultipartContent(request)){
 			System.out.println("inside");
-			try {
+			try { 
 				List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
 				ArrayList<Keyword> articleKeywords = new ArrayList<Keyword>();
 				ArrayList<User> articleAuthors = new ArrayList<User>();
@@ -138,10 +138,6 @@ public class SubmitArticle extends VelocityViewServlet {
 				model.insertArticleRevision(article, filePath);
 				//add authors to db
 				registered = model.insertAuthors(article, articleAuthors);
-				//register main author
-				
-				
-				////////////////////////////////
 				
 			} catch (Exception e) {
 				context.put("message", "Form exception " + e);

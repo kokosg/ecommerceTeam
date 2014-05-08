@@ -40,6 +40,45 @@ public class ReviewFormServlet extends VelocityViewServlet {
 					LOOP=false;
 					System.out.println("I am in LOOP");
 
+<<<<<<< HEAD
+=======
+			}
+			else{	
+				System.out.println("outside LOOP");
+				int formart=article.getArticleID();
+				System.out.println("formart :"+formart);
+				String judge =request.getParameter("judge");
+				String expertise =request.getParameter("level");
+				String reviewSummary =request.getParameter("summary");
+				String criticism =request.getParameter("criticism");
+				String errors =request.getParameter("errors");
+				String comments=request.getParameter("comments");
+				ReviewForm form =new ReviewForm();
+				int count=form.getReviewCount(authorID, formart);
+				if (count<2){
+				
+			        User user = (User) session.getAttribute("user");
+					String fullname = user.getName() + " " + user.getSurname();
+                    String title = "Secret Message from Reviewer: " + fullname + " for ..." ;					
+			    	System.out.print("1 " + fullname + title + user.getEmail() + comments);
+
+					//create EmailMessage object by passing values
+			    	EmailMessage emailMessage = new EmailMessage(fullname, title, user.getEmail(), comments);
+
+					//create ContactModel object
+					ContactModel contactModel = new ContactModel();
+				    
+					form.insertReviewForm(authorID, article.getArticleID(), judge, expertise, reviewSummary,comments,criticism, errors);
+				
+					try {
+						contactModel.sendContactEmail(emailMessage.getName(), emailMessage.getTitle(), emailMessage.getEmail(), emailMessage.getMessage());
+					} catch (ClassNotFoundException | SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				 
+					
+>>>>>>> b0d0d7f097c578c1488e04fb38f5132942aa4cae
 				}
 				else{	
 					System.out.println("outside LOOP");

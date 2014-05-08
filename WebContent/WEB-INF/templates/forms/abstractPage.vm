@@ -9,29 +9,33 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
 
-	<a href="javascript: history.go(-1)"><button type="button" class="btn btn-primary">Back</button></a>
-	
-	<div align="right">
-		<form action="abstractPage?id=$article_ID" method="post" class="form-horizontal">
-			<input id="articleID" name="articleID" type="hidden" value = "$article_ID">
-			<input id="download" name="download" type="hidden" value = "1">
-			<button type="submit" class="btn btn-primary">Download</button>
-		</form>
-	</div>
+	#if ($article_ID)
+		<a href="javascript: history.go(-1)"><button type="button" class="btn btn-primary">Back</button></a>
 
-	  <h1>Title: <strong>$article.title</strong></h1>
-	  	
-	#foreach($author in $authors) 
-	  <div>Authors: <strong>$author.name $author.surname $author.email</div>
-	#end
+		<div align="right">
+			<form action="abstractPage?id=$article_ID" method="post" class="form-horizontal">
+				<input id="articleID" name="articleID" type="hidden" value = "$article_ID">
+				<input id="download" name="download" type="hidden" value = "1">
+				<button type="submit" class="btn btn-primary">Download</button>
+			</form>
+		</div>
 	
-	Keyword:
-	#foreach($keyword in $keywords) 
-	  $keyword.text,
+		  <h1>Title: <strong>$article.title</strong></h1>
+		  	
+		#foreach($author in $authors) 
+		  <div>Authors: <strong>$author.name $author.surname $author.email</div>
+		#end
+		
+		Keyword:
+		#foreach($keyword in $keywords) 
+		  $keyword.text,
+		#end
+		
+		<div>Pages: <strong>$article.pageNo</strong></div>
+		<p>Summary: $article.summary </p>
+	#else
+	<h2>Something is wrong....check your link</h2>
 	#end
-	
-	<div>Pages: <strong>$article.pageNo</strong></div>
-	<p>Summary: $article.summary </p>
 	
 </div>
 	

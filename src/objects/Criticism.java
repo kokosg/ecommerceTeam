@@ -11,7 +11,7 @@ public class Criticism {
 	public Criticism() {
 		// TODO Auto-generated constructor stub
 	}
-
+ 
 	/**
 	 * @param criticismID
 	 * @param criticism
