@@ -8,39 +8,36 @@
 				<span class="icon-bar"></span>
 			</button>
 			#if ($session.user.email)
-				#if ($session.userRole == "AuthorReviewer"||$session.userRole == "Editor")
-			    <a class="navbar-brand" href="login">eCom Journal</a>
-        #end
-      #else
-      <a class="navbar-brand" href="home">eCom Journal</a>
-      #end
-			
+				#if (($session.userRole == "AuthorReviewer") || ($session.userRole == "Editor"))
+			    	<a class="navbar-brand" href="login">eCom Journal</a>
+        		#end
+     		 #else
+		     	<a class="navbar-brand" href="home">eCom Journal</a>
+		     #end
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="browse">Browse</a></li>
 				#if ($session.user.email)
-					#if ($session.userRole == "AuthorReviewer"||$session.userRole == "Editor")
-				    <li><a href="journal">Journal</a></li>
-          #end
-        #end
+					#if (($session.userRole == "AuthorReviewer") || ($session.userRole == "Editor"))
+					    <li><a href="journal">Journal</a></li>
+		            #end
+		        #end
 				<li><a href="about">About/FAQs</a></li>
 				<li><a href="contact">Contact Us</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Actions <b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<!-- ADD READER	ACTIONS HERE-->
 					<li class="dropdown-header">Reader</li>
 					<li><a href="subscribe">Subscribe</a></li>
 					<li><a href="submit">Submit Article</a></li>
 					#if ($session.user.email)
-						#if ($session.userRole == "AuthorReviewer")
-						<!-- ADD AUTHOR-REVIEWER ACTIONS HERE-->
+						#if (($session.userRole == "AuthorReviewer") || ($session.userRole == "Editor"))
 							<li class="divider"></li>
 							<li class="dropdown-header">Author - Reviewer</li>
 							<li><a href="myArticles">My Articles</a></li>
 							<li><a href="status">Reviewed Article Status</a></li>
-						#elseif ($session.userRole == "Editor")
-							<!-- ADD EDITOR ACTIONS HERE-->
+						#end
+						#if ($session.userRole == "Editor")
 							<li class="divider"></li>
 							<li class="dropdown-header">Editor</li>
 							<li><a href="journal">Manage Journal</a></li>

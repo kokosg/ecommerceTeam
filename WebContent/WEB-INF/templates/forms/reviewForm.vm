@@ -16,15 +16,8 @@ label.error {
        font-size:16px;
 }
 </style>
-#if(!$session.user.name)
-<div class="jumbotron"> 
+#if (($session.userRole == "AuthorReviewer") || ($session.userRole == "Editor"))
 
-             <div class="container">
-             
-<h2 >Sorry you are not authenticated to access this part of website</h2>
-</div>
-</div>
-#else
 <div class="container">
     <div class="page-header">
       <br/>
@@ -72,7 +65,16 @@ label.error {
 				 </form>
 			 </div>
 		</div>
-#end
+
+	#else
+	
+		<div class="jumbotron"> 
+			<div class="container">
+				<h2 >Sorry you are not authenticated to access this part of website</h2>
+			</div>
+		</div>
+	#end
+
 </body>
 #parse("/commonElements/footer.vm")
 </html>

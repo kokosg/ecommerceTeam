@@ -62,14 +62,14 @@
 		</div>
 	   #end
 
-	#else
+	#elseif ($session.userRole == "AuthorReviewer")
 
 		<div class="bs-docs-section">
 			<div class="row">
 				<div class="col-lg-7 col-md-10 col-md-push-3">
 					<div class="well bs-component">
 							<fieldset>
-								<legend>Edit Journal</legend>
+								<legend>Journal</legend>
 								<div class="form-group">
 									<label for="title" class="col-lg-2 control-label">title:</label>
 									<div class="col-lg-10">
@@ -79,7 +79,7 @@
 								<div class="form-group">
 									<label for="aimsGoals" class="col-lg-2 control-label">aimsGoals:</label>
 									<div class="col-lg-10">
-										<textarea type="text" class="form-control" name="aimsGoals" rows="10" id="aimsGoals" disabled>value="$searchResults.aimsGoals"</textarea>
+										<textarea type="text" class="form-control" name="aimsGoals" rows="10" id="aimsGoals" disabled>$searchResults.aimsGoals</textarea>
 									</div>
 								</div>
 							</fieldset>

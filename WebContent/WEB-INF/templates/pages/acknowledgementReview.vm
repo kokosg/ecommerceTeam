@@ -7,22 +7,14 @@
 
 #parse( "/commonElements/navbar.vm" )
 <body>
-#if(!$session.user.name)
-<div class="jumbotron"> 
+#if (($session.userRole == "AuthorReviewer") || ($session.userRole == "Editor"))
 
-             <div class="container">
-             
-<h2 >Sorry you are not authenticated to access this part of website</h2>
-</div>
-</div>
-
-#else
-<div class="container">
-    <div class="page-header">
-      <br/>
-            <h1>Acknowledgement of your Submitted Review </h1>
+	<div class="container">
+    	<div class="page-header">
+      	<br/>
+        <h1>Acknowledgement of your Submitted Review </h1>
         </div> 
-              <div>
+          <div>
             <div class="row">
               <div class="col-md-10">
 				<form id="Review-form"action="acknowledge" method="post" class="form-horizontal">
@@ -38,7 +30,6 @@
 					    <br>
 					 	<label><h4>3. Summary of the content and novel contribution of the article </h4></label>
 								<p>$reviewart.getSummary()</p>
-							
 						<br>
 					 	<label><h4>4. Criticism </h4></label>
 								<p>$reviewart.getCriticism()</p>							
@@ -46,21 +37,26 @@
 						<label><h4>5. Secret Comments( **comments will be visible only to the editor) </h4></label>
 								<p>$reviewart.getEditorsComments()</p>
 						<br>
-						
 					 	<label><h4>6. List of other errors.(example: typographical or grammatical mistakes) </h4></label>
-									<p>$reviewart.getSmallErrors()</p>
+						<p>$reviewart.getSmallErrors()</p>
 						<br>
 						<br>
-							<input type="submit"  name="OK" id ="OK" value="OK" />
-              
+						<input type="submit"  name="OK" id ="OK" value="OK" />
 						<br>
 				 </form>
 			 </div>
 		</div>
 
+	#end
+	
+		<div class="jumbotron"> 
+		 <div class="container">
+		  <h2 >Sorry you are not authenticated to access this part of website</h2>
+		 </div>
+		</div>
+	
+	#end
 
-
-#end
 </body>
 </br>
 #parse( "/commonElements/footer.vm" )
