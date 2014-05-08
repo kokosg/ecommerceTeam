@@ -1,14 +1,10 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Edition;
 import models.SystemManagementmModel;
-import objects.Article;
-import objects.Review;
-
+import objects.EditionObject;
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.view.VelocityViewServlet;
@@ -24,12 +20,18 @@ public class PublishArticle extends VelocityViewServlet {
 		context.put("apptitle", "E-com Journal - Publish Articles");
 		Template template = null;
 		response.setContentType("text/html");
-		
-
+		Edition model = new Edition();
+		SystemManagementmModel sysModel = new SystemManagementmModel();
+		//get the parameters from the form
+	    String articleID = request.getParameter("id");
+	    
 		try {
-
-			
-			//context.put("myArticles", publishableArticles);
+			EditionObject edition = model.getEdition();
+			int editionID = edition.getEditionID();
+			Date now = new Date();
+			Date subDate = new java.sql.Date(now.getTime());
+			sysModel.publishArticle(Integer.parseInt(articleID.replaceAll("\\D", "")), editionID, subDate);
+			context.put("successfully", "Article published");
 			template = getTemplate("/forms/home.vm");
 		} catch (Exception e) {
 			System.out.println("Error " + e);

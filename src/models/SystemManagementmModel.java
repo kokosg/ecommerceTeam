@@ -321,4 +321,30 @@ public class SystemManagementmModel {
 		return arrayResults;
 	}
 	
+	
+	
+	//ArticleRevision - insert new article revision in database (insert article's path)
+	public void publishArticle(int articleID, int editionID, java.util.Date date) {
+		try {
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String insertQuery;
+			System.out.println("publishing article");
+			insertQuery = "INSERT INTO Published (articleID, editionID, startPageNo, datePublished) VALUES ('" + articleID + "', '" + editionID + "', 0 , '" + date +"')";
+			st.executeUpdate(insertQuery);
+			st.close();
+			
+			Statement st2 = conn.getInstance().getConnection().createStatement();
+			String updateQuery = "UPDATE Article SET published =  1 WHERE articleID = " + articleID;
+			st2.executeUpdate(updateQuery);
+			st2.close();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

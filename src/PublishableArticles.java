@@ -38,98 +38,96 @@ public class PublishableArticles extends VelocityViewServlet {
 			allArticles = model.getArticle();
 			//context.put("ArticleRevisions", model.getArticleRevision());
 			for (Article art: allArticles) {
+				System.out.println("inside articles loop");
 				if (art.isPublished() == false) {
 					//move methods here
+					Boolean articleHasMoreReviews = false, authorHasMoreReviews = false; 
+					//get reviews for each article
+					articlesReviews = model.retrieveArticlesReviewsAndCriticism(art.getArticleID());
+					int reviewCount = 0;
+					Set<Integer> uniqueReviewID = new HashSet<Integer>();
+					for (Review rev: articlesReviews) {
+						//System.out.println("revID: "+rev.getReviewID() + " judg: "+rev.getJudgement() + " critID: "+rev.getCriticismID() + " crit: "+rev.getCriticism());
+						
+						if (uniqueReviewID.add(rev.getReviewID())) {
+							reviewCount++;
+							//System.out.println("rev count: "+reviewCount);
+						}
+					}
+					if (reviewCount > 2) {
+						//System.out.println("articles' reviews are more than 2");
+						articleHasMoreReviews = true;
+					} else {
+						//System.out.println("articles' reviews are less than 3");
+					}
 					
+					int authorReviews = 0;
+					authorReviewsList = model.getAuthorReviews(art.getArticleID());
+					Set<Integer> uniqueReviewerID = new HashSet<Integer>();
+					for (Review rev: authorReviewsList) {
+						if (uniqueReviewerID.add(rev.getReviewID())) {
+							authorReviews++;
+							//System.out.println("author's rev count: "+ authorReviews);
+						}
+					}
+					if (authorReviews > 2) {
+						System.out.println("authors' reviews are more than 2");
+						authorHasMoreReviews = true;
+					} else {
+						System.out.println("authors' reviews are less than 3");
+					}
+					
+					if (articleHasMoreReviews && authorHasMoreReviews){
+						System.out.println("good proceed");
+						
+						//get reviews for each article
+						articlesReviews = model.retrieveArticlesReviewsAndCriticism(art.getArticleID());
+						int champions = 0, detractors = 0, favourables = 0, indifferents = 0;
+						Set<Integer> uniqueRevID = new HashSet<Integer>();
+						for (Review rev: articlesReviews) {
+							System.out.println("revID: "+rev.getReviewID() + " judg: "+rev.getJudgement() + " critID: "+rev.getCriticismID() + " crit: "+rev.getCriticism());
+							if (uniqueRevID.add(rev.getReviewID())) {
+								System.out.println("judgement =========== " + rev.getJudgement());
+								if (rev.getJudgement().equals("Champion")) {
+									champions ++;
+								} else if (rev.getJudgement().equals("detractor")) {
+									detractors ++;
+								} else if (rev.getJudgement().equals("favourable")) {
+									favourables ++;
+								} else if (rev.getJudgement().equals("indifferent")) {
+									indifferents ++;
+								}
+							}
+						}
+						if ((champions > 1) && (detractors == 0)) {
+							//vale mesa
+							System.out.println("pass");
+							publishableArticles.add(art);
+						} else if ((detractors > 1) && (champions == 0)) {
+							//min valis reject
+							System.out.println("reject");
+						} else if ((champions > 0) && (favourables > 0)) {
+							//vale mesa
+							System.out.println("pass");
+							publishableArticles.add(art);
+						} else if ((detractors > 0) && (indifferents > 0)) {
+							//mn valis reject
+							System.out.println("reject");
+						} else if ((champions > 0) && (detractors > 0)) {
+							//may be published interesting
+							System.out.println("pass but interesting");
+							publishableArticles.add(art);
+						} else {
+							//rejected???
+							System.out.println("reject");
+						}
+											
+					} else {
+						System.out.println("not good");
+					}
 				} else {
 					System.out.println("already published");
 				}
-				System.out.println("inside articles loop");
-				Boolean articleHasMoreReviews = false, authorHasMoreReviews = false; 
-				//get reviews for each article
-				articlesReviews = model.retrieveArticlesReviewsAndCriticism(art.getArticleID());
-				int reviewCount = 0;
-				Set<Integer> uniqueReviewID = new HashSet<Integer>();
-				for (Review rev: articlesReviews) {
-					//System.out.println("revID: "+rev.getReviewID() + " judg: "+rev.getJudgement() + " critID: "+rev.getCriticismID() + " crit: "+rev.getCriticism());
-					
-					if (uniqueReviewID.add(rev.getReviewID())) {
-						reviewCount++;
-						//System.out.println("rev count: "+reviewCount);
-					}
-				}
-				if (reviewCount > 2) {
-					//System.out.println("articles' reviews are more than 2");
-					articleHasMoreReviews = true;
-				} else {
-					//System.out.println("articles' reviews are less than 3");
-				}
-				
-				int authorReviews = 0;
-				authorReviewsList = model.getAuthorReviews(art.getArticleID());
-				Set<Integer> uniqueReviewerID = new HashSet<Integer>();
-				for (Review rev: authorReviewsList) {
-					if (uniqueReviewerID.add(rev.getReviewID())) {
-						authorReviews++;
-						//System.out.println("author's rev count: "+ authorReviews);
-					}
-				}
-				if (authorReviews > 2) {
-					System.out.println("authors' reviews are more than 2");
-					authorHasMoreReviews = true;
-				} else {
-					System.out.println("authors' reviews are less than 3");
-				}
-				
-				if (articleHasMoreReviews && authorHasMoreReviews){
-					System.out.println("good proceed");
-					
-					//get reviews for each article
-					articlesReviews = model.retrieveArticlesReviewsAndCriticism(art.getArticleID());
-					int champions = 0, detractors = 0, favourables = 0, indifferents = 0;
-					Set<Integer> uniqueRevID = new HashSet<Integer>();
-					for (Review rev: articlesReviews) {
-						System.out.println("revID: "+rev.getReviewID() + " judg: "+rev.getJudgement() + " critID: "+rev.getCriticismID() + " crit: "+rev.getCriticism());
-						if (uniqueRevID.add(rev.getReviewID())) {
-							System.out.println("judgement =========== " + rev.getJudgement());
-							if (rev.getJudgement().equals("Champion")) {
-								champions ++;
-							} else if (rev.getJudgement().equals("detractor")) {
-								detractors ++;
-							} else if (rev.getJudgement().equals("favourable")) {
-								favourables ++;
-							} else if (rev.getJudgement().equals("indifferent")) {
-								indifferents ++;
-							}
-						}
-					}
-					if ((champions > 1) && (detractors == 0)) {
-						//vale mesa
-						System.out.println("pass");
-						publishableArticles.add(art);
-					} else if ((detractors > 1) && (champions == 0)) {
-						//min valis reject
-						System.out.println("reject");
-					} else if ((champions > 0) && (favourables > 0)) {
-						//vale mesa
-						System.out.println("pass");
-						publishableArticles.add(art);
-					} else if ((detractors > 0) && (indifferents > 0)) {
-						//mn valis reject
-						System.out.println("reject");
-					} else if ((champions > 0) && (detractors > 0)) {
-						//may be published interesting
-						System.out.println("pass but interesting");
-						publishableArticles.add(art);
-					} else {
-						//rejected???
-						System.out.println("reject");
-					}
-										
-				} else {
-					System.out.println("not good");
-				}
-				
 			}
 			
 			context.put("myArticles", publishableArticles);
