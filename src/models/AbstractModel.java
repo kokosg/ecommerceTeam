@@ -344,7 +344,7 @@ public class AbstractModel {
 			if(rs1.next()){
 				responseText = (String) rs1.getObject("responseText");
 				System.out.println("RESPONSE"+responseText);
-				
+
 			}
 			rs1.close();
 		}catch(Exception e){
@@ -352,9 +352,9 @@ public class AbstractModel {
 		}
 		return responseText;
 	}
-	
+
 	public void setCriticismIsAcceptedbyReviwer(String articleID,int authorID){
-		
+
 		ConnectionManager conn=null;
 		try {
 
@@ -365,8 +365,8 @@ public class AbstractModel {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		
+
+
 	}
 
 	public void updateReviewCount(String articleID, int authorID) {
@@ -380,29 +380,74 @@ public class AbstractModel {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void rejectedRevision(String articleID, int authorID,String rejectResponse){
 		ConnectionManager conn=null;
 		try {
 
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			
+
 			String selectQuery="Select rejectCount from Response where criticismID=( select criticismID from Review where reviewID=( select reviewID from Review where authorReviewerID="+authorID+" and articleID= "+articleID+" ))";
 			ResultSet rs = st.executeQuery(selectQuery);
 			int count=0;
 			if(rs.next()){
-			 count = (int) rs.getObject("rejectCount");
+				count = (int) rs.getObject("rejectCount");
 			}
 			rs.close();
-			String updateQuery ="Update Response SET  rejectedResponse='"+rejectResponse+"' ,rejectCount='"+(count+1)+"' where criticismID=( select criticismID from Review where reviewID=( select reviewID from Review where authorReviewerID="+authorID+" and articleID= "+articleID+" ))";
-			st.executeUpdate(updateQuery);
+			if(count<2){
+				String updateQuery ="Update Response SET  rejectedResponse='"+rejectResponse+"' ,rejectCount='"+(count+1)+"' where criticismID=( select criticismID from Review where reviewID=( select reviewID from Review where authorReviewerID="+authorID+" and articleID= "+articleID+" ))";
+				st.executeUpdate(updateQuery);
+			}
 			st.close();
 			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
+
+	public boolean isResponseAccepted(String articleID, int authorID){
+		boolean accpeted = false;
+		try{
+			ConnectionManager conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String selectQuery="Select isAccepted from Criticism where criticismID=(select criticismID from Review where reviewID=(select reviewID from Review where authorReviewerID="+authorID+" and articleID= "+articleID+" ))";
+			ResultSet rs = st.executeQuery(selectQuery);
+			if(rs.next()){
+				accpeted = (boolean) rs.getObject("isAccepted");
+				System.out.println("ACCCCCCCCCCCC"+accpeted);
+			}
+			st.close();
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return accpeted;
+	}
+	
+	public int getResponseRejectCount(String articleID, int authorID){
+		ConnectionManager conn=null;
+		int count=0;
+		try {
+
+			conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+
+			String selectQuery="Select rejectCount from Response where criticismID=(select criticismID from Review where authorReviewerID="+authorID+" and articleID="+articleID+")";
+			ResultSet rs = st.executeQuery(selectQuery);
+			if(rs.next()){
+				count = (int) rs.getObject("rejectCount");
+			}
+			rs.close();
+			st.close();
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	
 }
