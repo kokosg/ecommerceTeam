@@ -11,7 +11,15 @@
 <script src="assets/js/Success.js" type="text/javascript"></script>
   <div class="container">
     <div class="page-header">
+      
       <br/>
+
+      #if ($message)
+      <div class="alert alert-success alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong>$message
+      </div>
+      #end
             <h1>Instructions for Article Review Process</h1>
         </div> 
              	<div class="col-md-10">
@@ -78,33 +86,42 @@
              </div>
            </div>
            
+                   
                <!-- Example row of columns -->
                <div class="row">
                  #if($userRole == "Editor")
-                 <div class="col-md-6">
-					         <h5>File Upload:</h5>
-					         Select a file to upload:
+                 <div class="col-md-4">
 					         <br>
                    <form action="upload"  method="post" enctype="multipart/form-data"> 
-                       <input type="hidden" id="uploadTitle" name="uploadTitle" value="Article_Review"> 
+             					<div class="radio">
+             						<label><h4>Choose the template you want to upload.</h4></label><br>
+             							<input type="radio" name="uploadTitle"  value="Article_Review">Instructions for Review process.<br>
+             							<input type="radio" name="uploadTitle"  value="Submission_Guidelines">Guidelines for submitting an article.<br>
+             							<input type="radio" name="uploadTitle"  value="Style_template">Default style template for Articles<br>
+             					 </div>
 					             <input type="file" name="file" size="50" />
+                       <br>
                        <input type="submit"  id ="upload" value="Upload File" />
 					           </form>
 				         </div>
                  #end
 				
-				         <div class="col-md-6">
-					         <h5>Download the Instructions from here:</h5>
+				         <div class="col-md-4">
+					         <h5>Download the Instructions for Peer Review:</h5>
                    <form action="download"  method="post">
-                     <input type="hidden" id="downloadTitle" name="downloadTitle" value="Article_Review">
+            					<div class="radio">
+            						<label><h4>Choose the template you want to download.</h4></label><br>
+            							<input type="radio" name="downloadTitle"  value="Article_Review">Instructions for Review process.<br>
+            							<input type="radio" name="downloadTitle"  value="Submission_Guidelines">Guidelines for submitting an article.<br>
+            							<input type="radio" name="downloadTitle"  value="Style_template">Default style template for Articles<br>
+            					 </div>
                      <form enctype="multipart/form-data">
 					             <input type="submit"  id ="download" value="Download File" />
 					           </form>
                    </form>
 				         </div>
-			         </div>
+               </div>
       </div>
-
 #else
 
 	<div class="jumbotron"> 

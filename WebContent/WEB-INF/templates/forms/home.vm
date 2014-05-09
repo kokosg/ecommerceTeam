@@ -51,7 +51,7 @@
         <form action="download"  method="post">
           <input type="hidden" id="downloadTitle" name="downloadTitle" value="Submission_GuideLines">
           <form enctype="multipart/form-data">
-            <input type="submit" class="btn btn-primary" id ="download" value="Submission Guidelines" />
+            <input type="submit" class="btn btn-primary" id ="download" value="Submission_Guidelines" />
           </form>
         </form>
         <p>Get the guidelines for submitting an article</p>

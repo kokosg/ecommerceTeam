@@ -341,7 +341,6 @@ public class AbstractModel {
 		ConnectionManager conn;
 		String responseText="";
 		try {
-
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String selectQuery2 = "Select * from Response where criticismID=(select criticismID from Review where articleID="+aID+" and authorReviewerId=(select authorReviewerID from AuthorReviewer where authorId=(select authorID from ArticleAuthor where isMainContact=1 and articleID="+aID+")))";
