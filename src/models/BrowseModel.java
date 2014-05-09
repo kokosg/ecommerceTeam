@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import objects.BrowseObject;
 import objects.EditionObject;
+import objects.MessageObject;
 import objects.VolumeObject;
 
 /**
@@ -38,7 +39,7 @@ public class BrowseModel {
 					int journalID = rs.getInt("journalID");
 			        int volumeNo = rs.getInt("volumeNo");
 			        Date date = (Date)rs.getObject("date");
-			        Boolean datePublished = (Boolean)rs.getObject("current");
+			        Boolean datePublished = (boolean)rs.getObject("current");
 
 			        VolumeObject volumeObject = new VolumeObject(volumeID, journalID, volumeNo, date, datePublished);
 			        arrayResults.add(volumeObject);
@@ -65,9 +66,9 @@ public class BrowseModel {
 					int volumeID = rs.getInt("volumeID");
 					int editionNo = rs.getInt("editionNo");
 			        String title = (String)rs.getObject("title");
-			        Boolean current = (Boolean)rs.getObject("current");
+			        Boolean current = (boolean)rs.getObject("current");
 					Date dateAdded = (Date)rs.getObject("dateAdded");
-					Boolean published = (Boolean)rs.getObject("published");
+					Boolean published = (boolean)rs.getObject("published");
 
 			        EditionObject editionObject = new EditionObject(editionID, volumeID, editionNo, title, current, dateAdded, published);
 			        arrayResults.add(editionObject);
@@ -113,4 +114,28 @@ public class BrowseModel {
 		return arrayResults;
 	}
 
+	public ArrayList<MessageObject> getMessages(String editionID) throws SQLException {
+		ArrayList<MessageObject> arrayResults = new ArrayList<MessageObject>(); 
+		  String query = "SELECT DISTINCT Message.title, Message.message, Message.answer FROM Edition INNER JOIN Published ON Edition.editionID = Published.editionID INNER JOIN Message ON Message.editionID = Edition.editionID  WHERE Edition.editionID = '" + editionID + "' AND Edition.published = 1 AND Message.published = 1";
+		try {
+		      ConnectionManager conn = new ConnectionManager();
+	    	  Statement st = conn.getInstance().getConnection().createStatement();
+	    	  ResultSet rs = st.executeQuery(query);
+				while (rs.next()) {
+			        String title = (String)rs.getObject("Message.title");
+			        String message = (String)rs.getObject("Message.message");
+			        String answer = (String)rs.getObject("Message.answer");
+			        MessageObject messageObject = new MessageObject(title, message, answer);
+			        arrayResults.add(messageObject);
+				}
+				rs.close();
+				st.close();
+				conn.close();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return arrayResults;
+	}
+	
 }
