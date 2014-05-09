@@ -43,7 +43,7 @@
 						#if ($session.userRole == "Editor")
 							<li class="divider"></li>
 							<li class="dropdown-header">Editor</li>
-							<li><a href="message"Letters</a></li>
+							<li><a href="message">Readers' Letters</a></li>
 							<li><a href="journal">Manage Journal</a></li>
 							<li><a href="editVolume">Manage Volume</a></li>
 							<li><a href="editEdition">Manage Edition</a></li>
