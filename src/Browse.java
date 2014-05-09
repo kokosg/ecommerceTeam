@@ -32,11 +32,11 @@ public Template handleRequest( HttpServletRequest request, HttpServletResponse r
 		context.put("searchResults", browseModel.getEdition());
 		context.put("Editions", browseModel.getEdition());
 		context.put("Volumes", browseModel.getVolume());
-
 		
          //if edition is not null call the method which is in the model browseModel by passing a value
          if (editionID != null) {
      		context.put("editionResults", browseModel.getEdition(editionID));
+    		context.put("Letters", browseModel.getMessages(editionID));
          }
 
          template = getTemplate("/pages/browse.vm"); 

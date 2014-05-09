@@ -17,6 +17,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import objects.EmailSubscriber;
 import objects.MessageObject;
 
 /**
@@ -63,7 +64,7 @@ public class ContactModel {
 	}
 	
 	public void insertEmail(String name, String title, String email, String message) throws SQLException {
-		String insertQuery = "INSERT INTO Message (name, title, email, message) VALUE ('" + name + "', '" + title + "', '" + email + "', '" + message + "')";
+		String insertQuery = "INSERT INTO Message (name, editionID, title, email, message) VALUE ('" + name + "', 0,'" + title + "', '" + email + "', '" + message + "')";
 		try {
 	      ConnectionManager conn = new ConnectionManager();
     	  Statement st = conn.getInstance().getConnection().createStatement();
@@ -82,7 +83,22 @@ public class ContactModel {
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			String updateQuery = "UPDATE Message SET answer = '" + answer + "' WHERE messageID = '" + messageID + "'";
+			
+			//////////////
+			
+			String queryEdition = "select editionID from Edition ORDER BY editionID DESC LIMIT 1";
+			ResultSet rs = st.executeQuery(queryEdition);
+			
+			int editionID = 0;
+			while (rs.next()) {
+				
+				editionID = rs.getInt("editionID");
+			}
+			
+
+			//////////////
+			
+			String updateQuery = "UPDATE Message SET answer = '" + answer + "', published = 1, editionID = '" + editionID + "' WHERE messageID = '" + messageID + "'";
 			st.executeUpdate(updateQuery);
 			st.close();
 			conn.close();

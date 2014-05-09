@@ -33,7 +33,7 @@
 	   <div class="row">
 		<div class="row">
 		   <div>
-			 <h1>List of Choices</h1>
+			 <h1>List of Letters</h1>
 				<div class="row">
 					<div class="col-md-12">
 						<table class="table table-hover">
@@ -64,7 +64,7 @@
 									#end
 									<input id="messageID" name="messageID" type="hidden" value = "$message.messageID">
 				         		    <input id="action" name="action" type="hidden" value = "reply">
-									<button type="submit" class="btn btn-primary">Reply</button>
+									<button type="submit" class="btn btn-primary">Reply and Accept</button>
 								</form>
 								</td>
 								<td>

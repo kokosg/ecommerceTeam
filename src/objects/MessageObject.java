@@ -35,6 +35,17 @@ public class MessageObject {
 	}
 
 	/**
+	 * @param title
+	 * @param message
+	 * @param answer
+	 */
+	public MessageObject(String title, String message, String answer) {
+		this.title = title;
+		this.message = message;
+		this.answer = answer;
+	}
+	
+	/**
 	 * @return the messageID
 	 */
 	public int getMessageID() {
