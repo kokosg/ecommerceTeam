@@ -31,7 +31,7 @@ public class PublishArticle extends VelocityViewServlet {
 			Date now = new Date();
 			Date subDate = new java.sql.Date(now.getTime());
 			sysModel.publishArticle(Integer.parseInt(articleID.replaceAll("\\D", "")), editionID, subDate);
-			context.put("successfully", "Article published");
+			context.put("successfully", "Article published succesfully");
 			template = getTemplate("/forms/home.vm");
 		} catch (Exception e) {
 			System.out.println("Error " + e);

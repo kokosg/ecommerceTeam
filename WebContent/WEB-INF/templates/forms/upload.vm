@@ -27,10 +27,10 @@
                  <div id="collapse1" class="panel-collapse collapse ">
                    <div class="panel-body">
                      Read the summary of Unpublished Articles.
-             		     Select atleast three pending articles from the list of "Unpublished articles".
+             		 Select at least three pending articles from the list of "Unpublished articles".
                      From your chosen articles you can download the full preview of unpublished article.
                      You will have a week to submit your review.
-                     You must review atleast 3 unpublished articles.
+                     You must review at least 3 unpublished articles.
                    </div>
                  </div>
                </div>
@@ -94,7 +94,7 @@
                  #end
 				
 				         <div class="col-md-6">
-					         <h5>Download the Instructions from here</h5>
+					         <h5>Download the Instructions from here:</h5>
                    <form action="download"  method="post">
                      <input type="hidden" id="downloadTitle" name="downloadTitle" value="Article_Review">
                      <form enctype="multipart/form-data">

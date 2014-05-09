@@ -24,7 +24,7 @@ public class LoginModel {
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			 
+			Statement st2 = conn.getInstance().getConnection().createStatement();
 	        //retrieve all articles 
 	        String findArticles = "SELECT * FROM ArticleAuthor INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID WHERE authorID = '" + authorID + " AND isMainContact = 1 '";
 	        ResultSet rs = st.executeQuery(findArticles);
@@ -36,7 +36,7 @@ public class LoginModel {
 				System.out.println("going over articles");
 				//check if there are any reviews for my articles
 		        String queryReviews = "SELECT * FROM Review INNER JOIN Criticism ON Review.reviewID = Criticism.reviewID WHERE articleID = '" + articleID + "'";
-		        revRes = st.executeQuery(queryReviews);
+		        revRes = st2.executeQuery(queryReviews);
 				while (revRes.next()) {
 					criticismCounter++;
 					System.out.println("found review " + criticismCounter);
@@ -48,6 +48,7 @@ public class LoginModel {
 			}
 			revRes.close();
 			rs.close();
+			st2.close();
 			st.close();
 			conn.close();
 		} catch(Exception e ) {
@@ -61,7 +62,7 @@ public class LoginModel {
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			 
+			Statement st2 = conn.getInstance().getConnection().createStatement();
 	        //retrieve all articles 
 	        String findArticle = "SELECT * FROM Article WHERE articleID = '" + articleID + "'";
 	        ResultSet rs = st.executeQuery(findArticle);
@@ -72,7 +73,7 @@ public class LoginModel {
 				System.out.println("finding articles criticism");
 				//check if there are any reviews for my articles
 		        String queryReviews = "SELECT * FROM Review INNER JOIN Criticism ON Review.reviewID = Criticism.reviewID WHERE articleID = '" + articleID + "'";
-		        revRes = st.executeQuery(queryReviews);
+		        revRes = st2.executeQuery(queryReviews);
 				while (revRes.next()) {
 					criticismCounter++;
 					System.out.println("found review " + criticismCounter);
@@ -85,6 +86,7 @@ public class LoginModel {
 			revRes.close();
 			rs.close();
 			st.close();
+			st2.close();
 			conn.close();
 		} catch(Exception e ) {
 			System.out.println("Error " + e);

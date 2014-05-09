@@ -11,9 +11,15 @@
     <br>
 <!-- Main jumbotron for a primary marketing message or call to action -->
 	<h3>About Journal</h3>
-  <p>Science Journal is home to almost one-quarter of the world's peer-reviewed full-text scientific and technical. Researchers,teachers, students and information professionals around the globe rely on Science Journal as a trusted source. ScienceDirect supports research and education with interactive elements in articles and offers tools so users can easily set alerts.</p>
+  <p>Science and engineering journals are moving increasingly from a paper-based format to an electronic format. Covering the costs of publishing an electronic journal is problematic: either, the publishers charge high subscription fees to academic institutions and restrict access to the journal (bad for the dissemination of scientific results); or they grant open access to all readers, but charge the authors a hefty fee for having their articles published (promoting vanity publishing by those who can afford it).</p>
 	<h3>FAQs</h3>
-	<h3>Submission guidelines:</h3>
+	<h4>What's this journal about?</h4>
+	<p> This Journal is a new kind of co-operative business model for an open access, online journal, which effectively pays for itself. The journal is free to readers, to foster the dissemination of results, but prospective authors have to bear the administrative burden of running the journal in a different way. </p>
+	<h4>What's the role of authors in this new model?</h2>
+	<p>When an author is ready to submit an article for publication, he (or she) must then also undertake to peer-review other articles submitted by other authors. Every author is effectively also a reviewer. </p>
+	<h4>How articles get published?</h4>
+	<p>Articles may only proceed to publication if (a) they have been judged of an acceptable quality by peer reviewers; and (b) if the article's authors have also completed their peer-reviews of other work, as payment in kind to cover the journal's operating costs. Editors must oversee the reviewing process, to make sure this is done to an acceptable quality. Editors have the final say before they publish accepted papers online.</p>
+	<h4>Submission guidelines:</h4>
   <form action="download"  method="post">
     <input type="hidden" id="downloadTitle" name="downloadTitle" value="Submission_GuideLines">
     <form enctype="multipart/form-data">

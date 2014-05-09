@@ -59,6 +59,9 @@ function removeAuthor(){
 				<input id="flag" name="flag" type="hidden" value = "1">
 				<!-- Form Name -->
 				<legend>Submit an Article</legend>
+				<p>
+				Complete the form below by adding the details of the main contact first and next click on ADD AUTHOR to more. Next fill in the articles' details (keywords works the same as author, write the keyword and click ADD to add them to the form-limit to 10 keywords). Finally upload the articls' file and click submit. You can download submission guidelines from About/FAQs page.  
+				</p>
 				<legend>Author(s):</legend>
 				<p>Insert author(s) details, starting with the main author first.</p>
 				<!-- Text input-->

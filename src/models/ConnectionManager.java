@@ -9,14 +9,14 @@ public class ConnectionManager {
 
 	public static ConnectionManager instance = null ;
 
-//	private final String USERNAME = "team104";
-//	private final String PASSWORD = "4073dc3d";
-//	private final String CONN_STRING = "jdbc:mysql://stusql.dcs.shef.ac.uk/"; //added jdbc:mysql://
-//	String dbName="team104";
-	private final String USERNAME = "root";
-	private final String PASSWORD = "root";
-	private final String CONN_STRING = "jdbc:mysql://localhost:8889/";
+	private final String USERNAME = "team104";
+	private final String PASSWORD = "4073dc3d";
+	private final String CONN_STRING = "jdbc:mysql://stusql.dcs.shef.ac.uk/"; //added jdbc:mysql://
 	String dbName="team104";
+//	private final String USERNAME = "root";
+//	private final String PASSWORD = "root";
+//	private final String CONN_STRING = "jdbc:mysql://localhost:8889/";
+//	String dbName="team104";
 
 	private Connection conn = null;
 

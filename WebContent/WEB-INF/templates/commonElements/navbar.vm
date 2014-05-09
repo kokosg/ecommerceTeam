@@ -38,8 +38,6 @@
 							<li><a href="status">Reviewed Article Status</a></li>
 							<li><a href="articles">Unpublished Articles</a></li>
 							<li><a href="selected">Selected Articles</a></li>
-							<li><a href="upload">Upload</a></li>
-							<li><a href="download">Download</a></li>
 							<li><a href="responseFromAuthor">Author Response</a></li>
 						#end
 						#if ($session.userRole == "Editor")
@@ -49,6 +47,7 @@
 							<li><a href="journal">Manage Journal</a></li>
 							<li><a href="editVolume">Manage Volume</a></li>
 							<li><a href="editEdition">Manage Edition</a></li>
+							<li><a href="upload">Upload Template</a></li>
 							<li><a href="reviewerManagement">Reviewers Choices</a></li>
 							<li><a href="recentReviews">Reject Reviews</a></li>
 							<li><a href="systemManagement">All Articles</a></li>

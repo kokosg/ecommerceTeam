@@ -70,6 +70,7 @@ public class Subscribe extends VelocityViewServlet {
 					model.updateSubscriber(subs);
 					//update keywords data in SubKeyword table
 					model.updateSubKeyword(subs, keywords);
+					context.put("successfully", "You have been subscribed to the Journal");
 					template = getTemplate("/forms/home.vm"); 
 				} else {
 					//insert new data into Subscriber table		
@@ -85,6 +86,7 @@ public class Subscribe extends VelocityViewServlet {
 				      EmailSubscriberModel emailSubscriberModel = new EmailSubscriberModel();
 				      emailSubscriberModel.sendEmailSubscriber();
 					}
+					context.put("successfully", "You have been subscribed to the Journal");
 					template = getTemplate("/forms/home.vm"); 
 				}
 			} catch(Exception e ) {
