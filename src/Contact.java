@@ -51,11 +51,9 @@ public class Contact extends VelocityViewServlet {
 			  //create EmailMessage object by passing values
 	    	  EmailMessage emailMessage = new EmailMessage(name, title, email, messageText);
 	    	  
-	    	  String subject = "Subscribe email";
-	    	  
 	    	  //call the method sendEmail from contactModel object and passing values in order to trigger the email function
-			  emailStatus = contactModel.sendEmail(emailMessage.getName(), emailMessage.getEmail(), subject, emailMessage.getMessage());
-	    	  
+	    	  emailStatus = contactModel.sendContactEmail(emailMessage.getName(), emailMessage.getTitle(), emailMessage.getEmail(), emailMessage.getMessage());
+
 			  //check if the emailStatus status is true to display the message and insert into the database the details of the email
 			  //or if is false to display an error message
 	    	  if (emailStatus) {
