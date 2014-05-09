@@ -1,11 +1,7 @@
 
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import models.LoginModel;
 import models.SubmitArticleModel;
 import objects.Article;
-import objects.ArticleRevision;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
@@ -59,40 +54,6 @@ public class AuthorArticles extends VelocityViewServlet {
 	        	//articleHasReviews.add(haveReviews);
 	        	System.out.println(haveReviews);
 	        }
-			
-	      //get the parameters from the form
-			String articleID = request.getParameter("articleID");
-			String download = request.getParameter("download");
-			String articleRevisionID = request.getParameter("articleRevisionID");
-			
-			if (download != null) {
-				
-			System.out.print("empika " + download);
-
-			ServletOutputStream outStream;
-			int length = 0;
-
-			String filePath = sam.getDownloadPath(articleID, articleRevisionID);
-			System.out.println("filePAth: "+filePath);
-			File file = new File(filePath);
-			outStream = response.getOutputStream();
-
-			response.setContentType("text/html");
-			response.setContentLength((int) file.length());
-			String[] filePathSplit=filePath.split("/");
-			response.setHeader("Content-Disposition", "attachment; filename=\""
-					+ filePathSplit[filePathSplit.length-1] + "\"");
-
-			byte[] byteBuffer = new byte[BUFSIZE];
-			DataInputStream in = new DataInputStream(new FileInputStream(file));
-
-			while ((in != null) && ((length = in.read(byteBuffer)) != -1)) {
-				outStream.write(byteBuffer, 0, length);
-			}
-
-			in.close();
-			outStream.close();
-			}
 			
 			haveReviews = loginModel.haveReviews(authorID);
 			context.put("allArticles", allArticleReviews);

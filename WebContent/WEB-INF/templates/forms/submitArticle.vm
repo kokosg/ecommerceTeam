@@ -54,6 +54,14 @@ function removeAuthor(){
 		<div class="col-lg-7 col-md-10 col-md-push-3">
 			<!-- Form================================================== -->		
 			<div class="well bs-component">
+								         <h5>Download the Instructions from here:</h5>
+            <form action="download"  method="post">
+            	<input type="hidden" id="downloadTitle" name="downloadTitle" value="Submission_Guidelines">
+            		<form enctype="multipart/form-data">
+						<input type="submit"  id ="download" value="Download File" />
+					</form>
+            </form>
+            
 			<form action="submit" id="submit" method="post" class="form-horizontal" enctype="multipart/form-data">
 			<fieldset>
 				<input id="flag" name="flag" type="hidden" value = "1">

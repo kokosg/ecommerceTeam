@@ -20,7 +20,7 @@ public class UploadServlet extends VelocityViewServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String UPLOAD_DIRECTORY = "/Users/renuka/Downloads/apache-tomcat-6.0.39/webapps/data/";
+	private final String UPLOAD_DIRECTORY = "H:/";
 	// private String filePath;
 
 	@Override
