@@ -25,15 +25,17 @@
 						<table class="table table-hover">
 							<thead>
 						      <tr>
-						        <th>Review Title</th>
 						        <th>Judgment</th>
+						        <th>Expertise</th>
 						        <th>Summary</th>
+								<th>Small Errors</th>
+								<th>Criticism and Response</th>
 						      </tr>
 						    </thead>
 							<tbody class="table-hover">
 							#foreach($review in $Reviews) 
 							<tr>
-								<td>$review.judgment</td>
+								<td>$review.judgement</td>
 								<td>$review.expertise</td>
 								<td>$review.summary</td>
 								<td>$review.smallErrors</td>
