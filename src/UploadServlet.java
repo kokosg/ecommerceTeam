@@ -68,10 +68,6 @@ public class UploadServlet extends VelocityViewServlet {
 						System.out.println("File Upload Failed due to ");
 					}          
 				}
-				else{
-					context.put("message",
-							"Sorry this Servlet only handles file upload request");
-				}
 	
 			}
 			template = getTemplate("/forms/upload.vm"); 

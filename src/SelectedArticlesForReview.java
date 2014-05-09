@@ -44,7 +44,7 @@ public class SelectedArticlesForReview extends VelocityViewServlet {
 					result.setReviewCount(form.getReviewCount(authorID, reviewDwnld));
 				}
 			}
-			System.out.println("Title :"+ result.getTitle() +" Summary: "+result.getSummary()+ " Chosen  :" + result.isChosen()+"Revision:"+result.isResponsAvailable() );
+			System.out.println("Title :"+ result.getTitle() +" Summary: "+result.getSummary()+ " Chosen  :" + result.isChosen()+"\nResponse Avalable:"+result.isResponsAvailable() );
 		}
 
 		if(checkTitle.isEmpty()){

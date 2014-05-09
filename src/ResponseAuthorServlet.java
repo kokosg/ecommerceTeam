@@ -56,6 +56,7 @@ public class ResponseAuthorServlet extends VelocityViewServlet {
 		
 		
 		context.put("articleID",articleID);
+		System.out.println("RESPONSE TEXT ========> "+responseText);
 		context.put("responseText",responseText);
 		}
 		template = getTemplate("/pages/responseAuthor.vm");

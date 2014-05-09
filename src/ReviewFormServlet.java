@@ -36,11 +36,15 @@ public class ReviewFormServlet extends VelocityViewServlet {
 				System.out.println("I am author reviewer");
 				if(LOOP){
 					String articleID= request.getParameter("reviewArt");
-					article.setArticleID(Integer.parseInt(articleID));
-					LOOP=false;
-					System.out.println("I am in LOOP");
+					if(articleID==null){
+						template = getTemplate("/forms/home.vm");
+					}else{
+						article.setArticleID(Integer.parseInt(articleID));
+						LOOP=false;
+						System.out.println("I am in LOOP");
+					}
 
-			}
+				}
 				else{	
 					System.out.println("outside LOOP");
 					int formart=article.getArticleID();

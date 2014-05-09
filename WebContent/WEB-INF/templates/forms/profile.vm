@@ -42,18 +42,29 @@
            <p>View your submitted articles </p>
            <p><a class="btn btn-default" href="myArticles" role="button">View details &raquo;</a></p>
          </div>
-         #if($session.userRole == "AuthorReviewer")
+         #if($session.userRole == "AuthorReviewer"||$session.userRole == "Editor")
          <div class="col-md-4">
            <h2>Your Reviewed Articles</h2>
            <p>See your reviewed articles.</p>
            <p><a class="btn btn-default" href="selected" role="button">View details &raquo;</a></p>
         </div>
         #end
+        #if($session.userRole == "AuthorReviewer")
          <div class="col-md-4">
            <h2>Instructions for Article Review</h2>
            <p>Learn how to peer review pending articles and describing the qualities of the articles and how to complete the review form.</p>
            <p><a class="btn btn-default" href="upload" role="button">View details &raquo;</a></p>
          </div>
+         #end
+         #if($session.userRole == "Editor")
+         <div class="col-md-4">
+           <h2>Manage Instruction files and templates</h2>
+           <p>Upload and download the templates and view the instructions.</p>
+           <p><a class="btn btn-default" href="upload" role="button">View details &raquo;</a></p>
+         </div>
+         #end
+         <br>
+         <br>
      </div>
 	#else
      <div class="container">
