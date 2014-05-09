@@ -70,12 +70,6 @@
 								<td>
 								<form action="message" method="post" class="form-horizontal">
 				         		    <input id="messageID" name="messageID" type="hidden" value = "$message.messageID">
-				         		    <input id="action" name="action" type="hidden" value = "accept">
-									<button type="submit" class="btn btn-primary">Accept</button></td>
-								</form>
-								<td>
-								<form action="message" method="post" class="form-horizontal">
-				         		    <input id="messageID" name="messageID" type="hidden" value = "$message.messageID">
 				         		    <input id="action" name="action" type="hidden" value = "remove">
 									<button type="submit" class="btn btn-primary">Remove</button>
 								</form>

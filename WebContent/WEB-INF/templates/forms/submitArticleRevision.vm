@@ -22,7 +22,7 @@
 			<form action="submitArticleRevision" method="post" class="form-horizontal" enctype="multipart/form-data">
 			<fieldset>
 				<input id="flag" name="flag" type="hidden" value = "1">
-				<input id="articleID" name="articleID" type="hidden" value = $articleID/>
+				<input id="id" name="id" type="hidden" value = $articleID/>
 				<!-- Form Name -->
 				<legend>Submit a revision of the article</legend>
 				<legend>Criticism:</legend>

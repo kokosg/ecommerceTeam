@@ -27,9 +27,9 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 		Template template=null;
 		context.put("apptitle", "Ecom Journal - Articles' Reviews");
 		HttpSession session = request.getSession();
-
-		if ((session.getAttribute("userID"))!=null){
-			int articleID = Integer.parseInt(request.getParameter("id"));
+		System.out.println("inside submit article revision");
+		if ((session.getAttribute("userID"))!=null) {
+			int articleID = 0;
 		
 		ReviewForm model=new ReviewForm();
 		SubmitArticleModel submitModel = new SubmitArticleModel();
@@ -53,7 +53,7 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 					if(item.isFormField()) {
 						name = item.getFieldName();
 						//retrieve the values of each field in the form from the request
-						if (name.equals("articleID")) {
+						if (name.equals("id")) {
 							articleID = Integer.parseInt(item.getString().replaceAll("\\D", "")); 
 							System.out.println("artID:" + articleID);
 							article.setArticleID(articleID);
@@ -117,6 +117,7 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 			try {
 				reviewsArray = model.haveReviews(articleID);
 				System.out.println("submitting article servlet: id " + articleID);
+				context.put("articleID", articleID);
 			    context.put("myReviews", reviewsArray);
 			    //context.put("articleRevisions", revisions);
 				template = getTemplate("/forms/submitArticleRevision.vm");

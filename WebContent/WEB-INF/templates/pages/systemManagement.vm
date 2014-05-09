@@ -41,8 +41,7 @@
 										<td>
 										#foreach($articleRevision in $ArticleRevisions) 
 											#if ($article.articleID == $articleRevision.articleID)
-												<div><small>RevisionNo: $articleRevision.articleRevisionID | date: $articleRevision.dateSubmitted | FilePath: 
-											
+												Revision Date: $articleRevision.dateSubmitted | 											
 												<form action="systemManagement" method="post" class="form-horizontal">
 													<input id="articleRevisionID" name="articleRevisionID" type="hidden" value="$articleRevision.articleRevisionID">
 													<input id="articleID" name="articleID" type="hidden" value = "$article.articleID">
