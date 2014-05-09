@@ -41,7 +41,11 @@
 									<thead>
 								      <tr>
 								        <th>Article</th>
-								        <th>Review</th>
+								        <th>judgement</th>
+								        <th>expertise</th>
+								        <th>smallErrors</th>
+								        <th>summary</th>
+								        <th>User</th>
 								        <th></th>
 								      </tr>
 								    </thead>
@@ -51,13 +55,16 @@
 											#if ($review.articleID == $article.articleID)
 											<tr>
 												<td><a href='abstractPage?id=$article.articleID'>$article.title</a></td>
-												<td>
-														$review.summary
+														<td>$review.judgement</td>
+														<td>$review.expertise</td>
+														<td>$review.smallErrors</td>
+														<td>$review.summary</td>
 														
 														#foreach ($authorReviewer in $AuthorReviewers)
 															#if ($authorReviewer.authorReviewerID == $review.authorReviewerID)
-																| $authorReviewer.name
-																
+															<td> $authorReviewer.name $authorReviewer.surname <td>
+															
+															<td>	
 															<form action="recentReviews" method="post" class="form-horizontal">
 																<input id="name" name="name" type="hidden" value="$authorReviewer.name">
 																<input id="title" name="title" type="hidden" value="$article.title">
@@ -69,10 +76,10 @@
 																	<button type="submit" class="btn btn-primary">Reject Review</button>
 																</div>
 															</form>
+															</td>
+															
 															#end
 														#end
-												</td>
-												<td></td>
 											</tr>
 											#end
 										#end

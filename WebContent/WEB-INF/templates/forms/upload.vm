@@ -20,7 +20,7 @@
                     <div class="panel-heading">
                       <h4 class="panel-title">
                       <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                       How to Review Pending Articles
+                       How to Review Pending Articles (click)
                        </a>
                      </h4>
                    </div> 
@@ -40,7 +40,7 @@
                     <div class="panel-heading">
                       <h4 class="panel-title">
                       <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                       Qualities to be sought
+                       Qualities to be sought (click)
                        </a>
                      </h4>
                    </div> 
@@ -60,7 +60,7 @@
                     <div class="panel-heading">
                       <h4 class="panel-title">
                       <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                       How to Complete Review form
+                       How to Complete Review form (click)
                        </a>
                      </h4>
                    </div> 

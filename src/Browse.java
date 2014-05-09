@@ -1,8 +1,12 @@
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.BrowseModel;
+import objects.BrowseObject;
+import objects.EditionObject;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
@@ -33,10 +37,19 @@ public Template handleRequest( HttpServletRequest request, HttpServletResponse r
 		context.put("Editions", browseModel.getEdition());
 		context.put("Volumes", browseModel.getVolume());
 		
+		ArrayList<BrowseObject> arrayResults = new ArrayList<BrowseObject>(); 
+		
          //if edition is not null call the method which is in the model browseModel by passing a value
          if (editionID != null) {
-     		context.put("editionResults", browseModel.getEdition(editionID));
-    		context.put("Letters", browseModel.getMessages(editionID));
+        
+        	 arrayResults = browseModel.getEdition(editionID);
+        	 
+        	 if (arrayResults.isEmpty()) {
+				context.put("empty", "empty");
+			} else {
+		    	context.put("editionResults", arrayResults);
+		    	context.put("Letters", browseModel.getMessages(editionID));
+		    }
          }
 
          template = getTemplate("/pages/browse.vm"); 
