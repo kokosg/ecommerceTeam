@@ -267,28 +267,30 @@ public class AbstractModel {
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String selectQuery ="Select Article.articleID,Article.title,Article.summary from Article,Choice where Choice.authorReviewerID = '"+ authorID +"' and Article.articleID =Choice.articleID";
 			ResultSet rs = st.executeQuery(selectQuery);
-//			ResultSet rs1=null;
 			while (rs.next()) {
+				Statement st1 = conn.getInstance().getConnection().createStatement();
+				ResultSet rs1=null;
 				aTitle= (String) rs.getObject("Article.title");
 				System.out.println("aTitle "+aTitle);
 				aSummary= (String) rs.getObject("Article.summary");
 				System.out.println("aSummary "+aSummary);
 				aID = (int) rs.getInt("Article.articleID");
 				System.out.println("aID "+aID);
-//				String selectQuery2 = "Select responseText from Response where criticismID=(select criticismID from Review where articleID= "+aID+" and authorReviewerId=(select authorReviewerID from AuthorReviewer where authorId="+authorID+"))";
-//				rs1= st.executeQuery(selectQuery2);
-//				if(rs1.next()){
-//					String rt = (String) rs1.getObject("responseText");
-//					System.out.println("RESPONSE"+rt);
-//					if(rt != null){
-//						responseAvailable = true;
-//					}
-//				}
+				String selectQuery2 = "Select responseText from Response where criticismID=(select criticismID from Review where articleID= "+aID+" and authorReviewerId=(select authorReviewerID from AuthorReviewer where authorId="+authorID+"))";
+				rs1= st1.executeQuery(selectQuery2);
+				if(rs1.next()){
+					String rt = (String) rs1.getObject("responseText");
+					System.out.println("RESPONSE"+rt);
+					if(rt != null){
+						responseAvailable = true;
+					}
+				}
 				
 				Article title = new Article(aID,aTitle,aSummary,true,responseAvailable);
 				resultID.add(title);
+				rs1.close();
 			}
-//			rs1.close();
+			
 			st.close();
 			rs.close();
 			conn.close();

@@ -13,6 +13,8 @@
 	    <div class="page-header">
 	      <br/>
 	      <h2>Status of Articles you Reviewed</h2>
+        <h4><a href="selected">Goto All Your Choices </a></h4>
+        <h4><a href="articles">Goto All Unpublished Articles </a></h4>
 	    </div> 
 	           <table class="table table-hover">
 	    		<tr>

@@ -37,7 +37,7 @@ public class EmailSubscriberModel {
 
 			while (rs.next()) {
 				int subscriberID = rs.getInt("subscriberID");
-				boolean editionSubscriber = (boolean) rs.getObject("editionSubscriber");
+				boolean editionSubscriber = (Boolean) rs.getObject("editionSubscriber");
 				int keywordSubscriber = rs.getInt("keywordSubscriber");
 				String email = (String) rs.getObject("email");
 
