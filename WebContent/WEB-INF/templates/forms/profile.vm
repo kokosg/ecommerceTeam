@@ -33,6 +33,7 @@
            <h3>Welcome to eCom-Journal</h3>
            <h3 >$session.user.name  $session.user.surname</h3>
           </div>
+</div>
 		<div class="container">
        <!-- Example row of columns -->
        <div class="row">

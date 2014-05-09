@@ -32,7 +32,7 @@ public class ReviewForm {
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			int reviewCount=getReviewCount(authorID, articleID);
-			String insertQuery = "UPDATE Review SET judgement = '" + judge + "',expertise = '" + expertise + "',summary ='" + reviewSummary + "',editorComments = '" + comments + "',smallErrors = '" + errors + "',dateSubmitted = '" + dateFormat.format(date) + "',reviewCount ='"+ (reviewCount+1)+ "' where authorReviewerID = '" + authorID + "' and articleID='" +articleID+"'";
+			String insertQuery = "UPDATE Review SET judgement='" + judge + "', expertise='" + expertise + "', summary=\"" + reviewSummary + "\", editorComments=\"" + comments + "\", smallErrors=\" " + errors + " \", dateSubmitted='" + dateFormat.format(date) + "', reviewCount='"+ (reviewCount+1)+ "' where authorReviewerID='" + authorID + "' and articleID='" +articleID+"'";
 			st.executeUpdate(insertQuery);
 			Date reviewDate =getReviewRevisionDate(authorID,articleID);
 			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");

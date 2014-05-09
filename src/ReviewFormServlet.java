@@ -115,7 +115,7 @@ public class ReviewFormServlet extends VelocityViewServlet {
 				}
 			}
 		}else {
-			template = getTemplate("/forms/reviewForm.vm");
+			template = getTemplate("/forms/home.vm");
 		}
 		return template;
 

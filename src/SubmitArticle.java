@@ -25,7 +25,7 @@ import org.apache.velocity.tools.view.VelocityViewServlet;
  */
 public class SubmitArticle extends VelocityViewServlet {
 	private static final long serialVersionUID = 1L;
-	private final String UPLOAD_DIRECTORY = "/Users/shreebha/Downloads/apache-tomcat-6.0.39/webapps/data"; //change that to /tmp???
+	private final String UPLOAD_DIRECTORY = "/Users/renuka/Downloads/apache-tomcat-6.0.39/webapps/data/"; //change that to /tmp???
 	
 	public Template handleRequest( HttpServletRequest request, HttpServletResponse response, Context context ) { 
 		Boolean registered = false;

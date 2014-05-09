@@ -38,7 +38,7 @@ public class BrowseModel {
 					int journalID = rs.getInt("journalID");
 			        int volumeNo = rs.getInt("volumeNo");
 			        Date date = (Date)rs.getObject("date");
-			        Boolean datePublished = (boolean)rs.getObject("current");
+			        Boolean datePublished = (Boolean)rs.getObject("current");
 
 			        VolumeObject volumeObject = new VolumeObject(volumeID, journalID, volumeNo, date, datePublished);
 			        arrayResults.add(volumeObject);
@@ -65,9 +65,9 @@ public class BrowseModel {
 					int volumeID = rs.getInt("volumeID");
 					int editionNo = rs.getInt("editionNo");
 			        String title = (String)rs.getObject("title");
-			        Boolean current = (boolean)rs.getObject("current");
+			        Boolean current = (Boolean)rs.getObject("current");
 					Date dateAdded = (Date)rs.getObject("dateAdded");
-					Boolean published = (boolean)rs.getObject("published");
+					Boolean published = (Boolean)rs.getObject("published");
 
 			        EditionObject editionObject = new EditionObject(editionID, volumeID, editionNo, title, current, dateAdded, published);
 			        arrayResults.add(editionObject);

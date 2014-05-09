@@ -100,7 +100,7 @@ public class SystemManagementmModel {
 				int criticismID = rs.getInt("Review.criticismID");
 				String smallErrors = (String) rs.getObject("Review.smallErrors");
 				String editorComments = (String) rs.getObject("Review.editorComments");
-				boolean isAccepted =(boolean) rs.getObject("Review.isAccepted");
+				boolean isAccepted =(Boolean) rs.getObject("Review.isAccepted");
 				Date dateSubmitted = (Date) rs.getObject("Review.dateSubmitted");
 				
 				Review review = new Review(reviewID, authorReviewerID, articleID, judgement, expertise, summary, criticismID, smallErrors, editorComments, isAccepted, dateSubmitted);
@@ -133,7 +133,7 @@ public class SystemManagementmModel {
 				int criticismID = rs.getInt("Review.criticismID");
 				String smallErrors = (String) rs.getObject("Review.smallErrors");
 				String editorComments = (String) rs.getObject("Review.editorComments");
-				boolean isAccepted =(boolean) rs.getObject("Review.isAccepted");
+				boolean isAccepted =(Boolean) rs.getObject("Review.isAccepted");
 				Date dateSubmitted = (Date) rs.getObject("Review.dateSubmitted");
 				
 				Review review = new Review(reviewID, authorReviewerID, articleID, judgement, expertise, summary, criticismID, smallErrors, editorComments, isAccepted, dateSubmitted);
@@ -185,8 +185,8 @@ public class SystemManagementmModel {
 				int criticismID = rs.getInt("Criticism.criticismID");
 				String criticism = (String) rs.getObject("Criticism.criticism");
 				int reviewID = rs.getInt("Criticism.reviewID");
-				boolean isCorrected = (boolean) rs.getObject("Criticism.isCorrected");
-				boolean isAccepted = (boolean) rs.getObject("Criticism.isAccepted");
+				boolean isCorrected = (Boolean) rs.getObject("Criticism.isCorrected");
+				boolean isAccepted = (Boolean) rs.getObject("Criticism.isAccepted");
 				
 				Criticism criticismObject = new Criticism(criticismID, criticism, reviewID, isCorrected, isAccepted);
 				arrayResults.add(criticismObject);
@@ -264,7 +264,7 @@ public class SystemManagementmModel {
 				int criticismID = rs.getInt("Criticism.criticismID");
 				String smallErrors = (String) rs.getObject("Review.smallErrors");
 				String editorComments = (String) rs.getObject("Review.editorComments");
-				boolean isAccepted =(boolean) rs.getObject("Review.isAccepted");
+				boolean isAccepted =(Boolean) rs.getObject("Review.isAccepted");
 				Date dateSubmitted = (Date) rs.getObject("Review.dateSubmitted");
 				
 				Review review = new Review(reviewID, authorReviewerID, articleID, judgement, expertise, summary, criticismID, smallErrors, editorComments, isAccepted, dateSubmitted);
@@ -302,7 +302,7 @@ public class SystemManagementmModel {
 					int criticismID = rev.getInt("Criticism.criticismID");
 					String smallErrors = (String) rev.getObject("Review.smallErrors");
 					String editorComments = (String) rev.getObject("Review.editorComments");
-					boolean isAccepted =(boolean) rev.getObject("Review.isAccepted");
+					boolean isAccepted =(Boolean) rev.getObject("Review.isAccepted");
 					Date dateSubmitted = (Date) rev.getObject("Review.dateSubmitted");
 					
 					Review review = new Review(reviewID, authorReviewerID, articleID, judgement, expertise, summary, criticismID, smallErrors, editorComments, isAccepted, dateSubmitted);
