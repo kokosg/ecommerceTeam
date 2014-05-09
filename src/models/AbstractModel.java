@@ -110,7 +110,7 @@ public class AbstractModel {
 	public ArrayList<Article> getUnpublishedArticle(int authorID) throws SQLException {
 
 		ArrayList<Integer> intArtID = new ArrayList<Integer>();
-		ArrayList<Integer> intselectedAuthorID = new  ArrayList<Integer>();
+		ArrayList<Integer> finalselectedArticleID = new  ArrayList<Integer>();
 		ArrayList<Article> unpubArticle = new ArrayList<Article>();
 		String queryArticle = "select ArticleAuthor.articleID from ArticleAuthor where ArticleAuthor.authorID =" + authorID;
 		try {
@@ -125,50 +125,36 @@ public class AbstractModel {
 			System.out.println(intArtID);
 			rs.close();
 			for(int a: intArtID){
-				String queryAuthorsArticle = "select ArticleAuthor.authorID from ArticleAuthor where ArticleAuthor.articleID =" + a;
-				ResultSet rs1 = st.executeQuery(queryAuthorsArticle);
+				Statement st1 = conn.getInstance().getConnection().createStatement();
+				String selectQuery2 = "Select articleID from Article where articleID!="+a;
+				ResultSet rs1 = st1.executeQuery(selectQuery2);
 				while(rs1.next()){
-					System.out.println("authorIDs aayi:"+rs1.getInt("ArticleAuthor.authorID"));
-					intselectedAuthorID.add(rs1.getInt("ArticleAuthor.authorID"));
-				}
-				rs1.close();
-			}
-
-			for(int autID : intselectedAuthorID  ){
-				for(int arID :intArtID){
-					String q = "select Article.articleID, Article.title, Article.summary from Article,ArticleAuthor where Article.published= 0 and Article.articleID=ArticleAuthor.articleID and Article.articleID!="+arID+" and ArticleAuthor.authorID !="+autID+" GROUP BY ArticleAuthor.articleID";
-					ResultSet rs2 = st.executeQuery(q);
-					while (rs2.next()) {
-						int counter = 0;
-						String unpublishedTitle = (String) rs2.getObject("Article.title");
-						String unpublishedSummary = (String) rs2.getObject("Article.summary");
-						int  articeIde=rs2.getInt("Article.articleID");
-						//article = new Article( articeId,unpublishedTitle, unpublishedSummary);
-						System.out.println("unpub article select huye articleIDs:"+articeIde);
-						if (unpubArticle != null) {
-							for (Article articl : unpubArticle) {
-								if (articl.getArticleID() == (articeIde)) {
-									System.out.println("already in list");
-									counter ++;
-								} else {
-									System.out.println("new article");
-								}
-							}
+					int  articleId=rs1.getInt("articleID");
+					if(!intArtID.contains(articleId)){
+						if(!finalselectedArticleID.contains(articleId)){
+							finalselectedArticleID.add(articleId);
 						}
-						if (counter == 0) {
-							Article article2 = new Article(articeIde, unpublishedTitle, unpublishedSummary);
-							unpubArticle.add(article2);
-						}
-
 					}
-					rs2.close();
-					System.out.println(unpubArticle);
 				}
+			}
+			System.out.println("Final ids:"+finalselectedArticleID);
+			for(int autID : finalselectedArticleID  ){
+				Statement st2 = conn.getInstance().getConnection().createStatement();
+				String q = "select articleID, title, summary from Article where articleID="+autID;
+				ResultSet rs2 = st2.executeQuery(q);
+				while (rs2.next()) {
+					String unpublishedTitle = (String) rs2.getObject("title");
+					String unpublishedSummary = (String) rs2.getObject("summary");
+					int  articeIde=rs2.getInt("articleID");
+					Article article2 = new Article(articeIde, unpublishedTitle, unpublishedSummary);
+					unpubArticle.add(article2);
+				}
+				System.out.println(unpubArticle);
+				rs2.close();
+				st2.close();
 			}
 			st.close();
 			conn.close();
-
-
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -285,12 +271,12 @@ public class AbstractModel {
 						responseAvailable = true;
 					}
 				}
-				
+
 				Article title = new Article(aID,aTitle,aSummary,true,responseAvailable);
 				resultID.add(title);
 				rs1.close();
 			}
-			
+
 			st.close();
 			rs.close();
 			conn.close();
@@ -433,7 +419,7 @@ public class AbstractModel {
 		}
 		return accpeted;
 	}
-	
+
 	public int getResponseRejectCount(String articleID, int authorID){
 		ConnectionManager conn=null;
 		int count=0;
@@ -455,6 +441,6 @@ public class AbstractModel {
 		}
 		return count;
 	}
-	
-	
+
+
 }
