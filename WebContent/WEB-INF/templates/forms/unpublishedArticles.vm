@@ -17,6 +17,14 @@
 <div class="container">
 
     <div class="page-header">
+    
+  #if($message)
+     		<div class="alert alert-warning alert-dismissable">
+  		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  		  <strong>$message
+  		  </div>
+    #end
+    
       <br/>
       <h1>List of the Unpublished Articles</h1>
     </div> 
