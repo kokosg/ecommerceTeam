@@ -60,7 +60,7 @@
             </div>
           <br>
               
-              <div class="col-md-4">
+              <div class="col-md-2">
                 <h5>To unselect the chosen article click "Unselect"</h5>
                 #if($article.isDownloaded())
                    <input type="submit" id = "unselect" class="btn btn-primary" value="Unselect" disabled/>
@@ -72,7 +72,7 @@
           
           </form>
 
-          <div class="col-md-4">
+          <div class="col-md-2">
             <form enctype="multipart/form-data" action="downloadArticle"  method="post">
             <h5>To download full version of article " $article.title "</h5>
               <input type="hidden" id="$article.getArticleID()" name="$article.getArticleID()" value="$article.getArticleID()">
@@ -80,7 +80,7 @@
 	          </form>
           </div>
           
-          <div class="col-md-4">
+          <div class="col-md-2">
           	<form action="reviewForm" method="post" class="form-horizontal">
                 <h5>Review this Article </h5>
               	<input type="hidden" id="reviewArt" name="reviewArt" value="$article.getArticleID()"/>
@@ -91,17 +91,17 @@
                 #end  
                </form>
             </div>
-            
+            #if($article.isResponsAvailable()==1)
             <div>
-              <div class="col-md-4">
+              <div class="col-md-2">
                 <form action="responseFromAuthor" method="post" class="form-horizontal">
-                  <h5>Response from Author</h5>
+                  <h5>Response from Author is Available</h5>
                   <input type="hidden" id="artID" name="artID" value="$article.getArticleID()"/>
-                  <input type="submit" class="btn btn-default" value="View Response"/>
+                  <input type="submit" class="btn btn-success" value="View Response"/>
                 </form>
               </div>
             </div>
-        
+            #end
            <br><br>
           </div> 
           </div> 
