@@ -346,22 +346,6 @@ public class AbstractModel {
 		return responseText;
 	}
 
-	public void setCriticismIsAcceptedbyReviwer(String articleID,int authorID){
-
-		ConnectionManager conn=null;
-		try {
-
-			conn = new ConnectionManager();
-			Statement st = conn.getInstance().getConnection().createStatement();
-			String updateQuery ="Update Criticism SET  isAccepted=1 where reviewID=(select reviewID from Review where authorReviewerID="+authorID+" and articleID="+articleID+")";
-			st.executeUpdate(updateQuery);
-			conn.close();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-
-
-	}
 
 	public void updateReviewCount(String articleID, int authorID) {
 		ConnectionManager conn=null;
@@ -403,6 +387,23 @@ public class AbstractModel {
 		}
 	}
 
+	public void setCriticismIsAcceptedbyReviwer(String articleID,int authorID){
+
+		ConnectionManager conn=null;
+		try {
+
+			conn = new ConnectionManager();
+			Statement st = conn.getInstance().getConnection().createStatement();
+			String updateQuery ="Update Criticism SET  isAccepted=1 where reviewID=(select reviewID from Review where authorReviewerID="+authorID+" and articleID="+articleID+")";
+			st.executeUpdate(updateQuery);
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+
+	}
+	
 	public boolean isResponseAccepted(String articleID, int authorID){
 		boolean accpeted = false;
 		try{

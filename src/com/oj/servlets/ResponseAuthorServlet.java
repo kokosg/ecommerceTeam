@@ -1,20 +1,19 @@
 package com.oj.servlets;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.view.VelocityViewServlet;
-
 import com.oj.models.AbstractModel;
+
 
 public class ResponseAuthorServlet extends VelocityViewServlet {
 	private static final long serialVersionUID = 1L;
 	private boolean LOOP = true;
 	String articleID="";
 	AbstractModel am = new AbstractModel();
+
 	public Template handleRequest( HttpServletRequest request, HttpServletResponse response, Context context ) {
 		Template template=null;
 		HttpSession session = request.getSession();
@@ -25,6 +24,7 @@ public class ResponseAuthorServlet extends VelocityViewServlet {
 				System.out.println("RESPONSE SERVLET "+articleID);
 				LOOP=false;
 			}
+
 			AbstractModel ab = new AbstractModel();
 			boolean isResponseAccepted =ab.isResponseAccepted(articleID, authorID);
 			int i =0 ;
@@ -42,7 +42,6 @@ public class ResponseAuthorServlet extends VelocityViewServlet {
 			String rejectedResponse = request.getParameter("rejectedResponse");
 			System.out.println("Responsetext in servlet"+responseText);
 			String value = request.getParameter("submit");
-
 			if(value!=null){
 				if(value.equals("Accept")){
 					ab.setCriticismIsAcceptedbyReviwer(articleID, authorID);
@@ -53,9 +52,6 @@ public class ResponseAuthorServlet extends VelocityViewServlet {
 					System.out.println("rejected");
 				}
 			}
-
-
-
 			context.put("articleID",articleID);
 			System.out.println("RESPONSE TEXT ========> "+responseText);
 			context.put("responseText",responseText);
@@ -64,4 +60,3 @@ public class ResponseAuthorServlet extends VelocityViewServlet {
 		return template;
 	}
 }
-//responseFromAuthor
