@@ -21,7 +21,7 @@
 		   <div>
 			 <h1>List of Reviews</h1>
 				<div class="row">
-					<div class="col-md-10">
+					<div class="col-md-12">
 						<table class="table table-hover">
 							<thead>
 						      <tr>
@@ -29,6 +29,9 @@
 						        <th>Expertise</th>
 						        <th>Summary</th>
 								<th>Small Errors</th>
+								#if ($session.userRole == "Editor")
+									<th>editorComments</th>
+								#end
 								<th>Criticism and Response</th>
 						      </tr>
 						    </thead>
@@ -39,6 +42,9 @@
 								<td>$review.expertise</td>
 								<td>$review.summary</td>
 								<td>$review.smallErrors</td>
+								#if ($session.userRole == "Editor")
+									<td>$review.editorsComments</td>
+								#end
 								<td>
 								#foreach($criticism in $Criticisms)
 									<div>criticism: $criticism.criticism</div>
