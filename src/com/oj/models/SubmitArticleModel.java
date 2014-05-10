@@ -451,7 +451,7 @@ public class SubmitArticleModel {
 				String selectQuery ="SELECT * FROM Response WHERE criticismID = '" + criticismID + "'";
 				ResultSet responses = st.executeQuery(selectQuery);
 				if (responses.next()) {
-					int responseID = (int)responses.getObject("responseID");
+					int responseID = (Integer)responses.getObject("responseID");
 					System.out.println("updating criticism " + criticismID + " " +responseText);
 					String updateQuery ="UPDATE Response SET responseText = '" + responseText + "'  WHERE responseID = '" + responseID + "'";
 					st2.executeUpdate(updateQuery);

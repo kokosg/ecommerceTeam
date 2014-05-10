@@ -291,7 +291,7 @@ public class SystemManagementmModel {
 
 			while (rs.next()) {
 				int authorReviewerID = rs.getInt("ArticleAuthor.authorID");
-				//System.out.println("authorREviewerid: " + authorReviewerID);
+				System.out.println("authorREviewerid: " + authorReviewerID);
 				String queryReviews = "SELECT * FROM Review INNER JOIN Criticism ON Review.reviewID = Criticism.reviewID WHERE authorReviewerID = " + authorReviewerID;
 				ResultSet rev = st2.executeQuery(queryReviews);				
 				while (rev.next()) {
@@ -304,7 +304,7 @@ public class SystemManagementmModel {
 					String editorComments = (String) rev.getObject("Review.editorComments");
 					boolean isAccepted =(Boolean) rev.getObject("Review.isAccepted");
 					Date dateSubmitted = (Date) rev.getObject("Review.dateSubmitted");
-					
+					System.out.println("authorREviewerid: " + authorReviewerID + " revID: " +reviewID);
 					Review review = new Review(reviewID, authorReviewerID, articleID, judgement, expertise, summary, criticismID, smallErrors, editorComments, isAccepted, dateSubmitted);
 					review.setCriticism((String)rev.getObject("Criticism.criticism"));
 					arrayResults.add(review);

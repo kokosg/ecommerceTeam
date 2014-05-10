@@ -96,7 +96,10 @@ public class AdvanceSearch extends VelocityViewServlet {
 		String month = dateSplitter[1];
 		String year = dateSplitter[2];
 		
-		String dateUSA = year + "/" + month + "/" + day;
+		String dateUSA = year + "/" + day + "/" + month;
+		
+		System.out.println("dateUSA " + dateUSA);
+		
 		return dateUSA;
 	}
 }

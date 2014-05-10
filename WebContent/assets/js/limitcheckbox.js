@@ -1,4 +1,4 @@
-function limitCheckbox(el) {
+$(document).ready(function limitCheckbox(el) {
     var count = 0,
         i;
     var checkboxes = document.getElementsByName(el.name);
@@ -6,9 +6,9 @@ function limitCheckbox(el) {
         if (checkboxes[i].checked) {
             count = count + 1;
 		}	 
-    if (count > 3) {
+    if (count > 2) {
 	    alert('You can only select only maximum 3 checkboxes.\nTo select this option you must unselect one of the others.');
 	    el.checked = false;
     }
   }
-}
+});

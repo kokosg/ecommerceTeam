@@ -34,10 +34,10 @@ public class ReviewForm {
 			int reviewCount=getReviewCount(authorID, articleID);
 			String insertQuery = "UPDATE Review SET judgement='" + judge + "', expertise='" + expertise + "', summary=\"" + reviewSummary + "\", editorComments=\"" + comments + "\", smallErrors=\" " + errors + " \", dateSubmitted='" + dateFormat.format(date) + "', reviewCount='"+ (reviewCount+1)+ "' where authorReviewerID='" + authorID + "' and articleID='" +articleID+"'";
 			st.executeUpdate(insertQuery);
-			Date reviewDate =getReviewRevisionDate(authorID,articleID);
-			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-			String dateForMySQL=format.format(reviewDate);
-			String selectQuery = "Select Review.reviewID from Review where authorReviewerID = '"+authorID+"' AND dateSubmitted = '"+dateForMySQL+"'";
+//			Date reviewDate =getReviewRevisionDate(authorID,articleID);
+//			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+//			String dateForMySQL=format.format(reviewDate);
+			String selectQuery = "Select Review.reviewID from Review where authorReviewerID = '"+authorID+"' AND articleID = '"+articleID+"'";
 			ResultSet rs=st.executeQuery(selectQuery);
 			if (rs.next()){
 				reviewID=(Long) rs.getObject("reviewID");

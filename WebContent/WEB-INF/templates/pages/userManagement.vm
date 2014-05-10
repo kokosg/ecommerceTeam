@@ -54,7 +54,7 @@
 								
 								<td>
 								#if ($reultsUser.isEditor == true)
-									Admin
+									Editor
 								#else
 									Author
 								#end

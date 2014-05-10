@@ -46,10 +46,12 @@ public class ResponseAuthorServlet extends VelocityViewServlet {
 				if(value.equals("Accept")){
 					ab.setCriticismIsAcceptedbyReviwer(articleID, authorID);
 					ab.updateReviewCount(articleID, authorID);
+					context.put("acceptMesage","You have accepted the response recieved from Author");
 				}
 				else{
 					ab.rejectedRevision(articleID, authorID, rejectedResponse);
 					System.out.println("rejected");
+					context.put("rejectMesage","You have rejected the response recieved from Author");
 				}
 			}
 			context.put("articleID",articleID);

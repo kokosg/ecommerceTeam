@@ -9,6 +9,9 @@
 <body>
 #if (($session.userRole == "AuthorReviewer") || ($session.userRole == "Editor"))
 
+		<a href="javascript: history.go(-1)"><button type="button" class="btn btn-primary">Back</button></a>
+
+
 <div class="container">
     <div class="page-header">
       <br/>

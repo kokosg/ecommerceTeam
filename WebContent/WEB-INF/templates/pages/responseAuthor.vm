@@ -26,6 +26,13 @@ label.error {
 <div class="container">
     <div class="page-header">
     <br>
+      #if (($acceptMesage)||($rejectMesage))
+      <div class="alert alert-success alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong>$acceptMesage
+      </div>
+      #end
+      
       <h1>Response from Author</h1>
      </div> 
 </div>
@@ -45,7 +52,7 @@ label.error {
                         #else
                          <input type="submit" id="Accept" name="submit"  value="Accept" class="btn btn-success " disabled/>
                         #end
-                        <p>If accepting you may revise your judgement.
+                        <p>If accepting you may revise your judgement.(Please refresh the page)</p>
             <br>
               </form>
                     </div>
@@ -62,6 +69,7 @@ label.error {
                       #else
                       <input type="submit"  id="Reject" name="submit"  value="Reject" class="btn btn-danger" />
                       #end
+                      <p>(Please refresh the page)</p>
                 </form>  
          	   </div>
 				<br>

@@ -331,7 +331,7 @@ public class AbstractModel {
 		try {
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
-			String selectQuery2 = "Select * from Response where criticismID=(select criticismID from Review where articleID="+aID+" and authorReviewerId=(select authorReviewerID from AuthorReviewer where authorId="+authorID+" and articleID="+aID+"))";
+			String selectQuery2 = "Select * from Response where criticismID=(select criticismID from Review where articleID="+aID+" and authorReviewerId=(select authorReviewerID from AuthorReviewer where authorID="+authorID+" and articleID="+aID+"))";
 			ResultSet rs1 = st.executeQuery(selectQuery2);
 			if(rs1.next()){
 				responseText = (String) rs1.getObject("responseText");

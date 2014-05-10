@@ -104,7 +104,7 @@ public class AdvanceSearchModel {
 		
     	ArrayList<Article> arrayResults = new ArrayList<Article>(); 
 		
-		String query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article INNER JOIN ArticleRevision ON Article.articleID = ArticleRevision.articleID WHERE ArticleRevision.dateSubmitted BETWEEN '" + datepickerFrom + "' AND '" + datepickerTo + "' AND published = 1";
+		String query = "select DISTINCT Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article INNER JOIN ArticleRevision ON Article.articleID = ArticleRevision.articleID WHERE ArticleRevision.dateSubmitted BETWEEN '" + datepickerFrom + "' AND '" + datepickerTo + "' AND published = 1";
 
 		try {
 			

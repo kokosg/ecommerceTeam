@@ -171,9 +171,11 @@ if( searchType == "interval" ) {
 								<table class="table table-hover table-responsive table-bordered table-condensed">
 									<tbody class="table-hover">
 									#foreach($article in $searchResults) 
+                  #if ($article.articleID != 0)
 									<tr>
 										<td>Title: <a href='abstractPage?id=$article.articleID'><strong>$article.title</strong></a> <div><small>Pages: <strong>$article.pageNo</strong></div></td> 
 									</tr>
+                  #end
 									#end
 									</tbody>
 								</table>
