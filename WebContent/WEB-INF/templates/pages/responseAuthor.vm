@@ -19,60 +19,55 @@ label.error {
 #if(!$session.user.name)
 <div class="jumbotron"> 
 <div class="container">
-             
 <h2 >Sorry you are not authenticated to access this part of website</h2>
 </div>
 </div>
 #else
 <div class="container">
-    
     <div class="page-header">
     <br>
       <h1>Response from Author</h1>
      </div> 
 </div>
-              
             <div class="row">
               <div class="col-md-9">
-					        <label><h4>Response from Author</h4></label>
+        <label><h4>Response from Author</h4></label>
                     <textarea name="responseText" rows="10" cols="100" readonly>$responseText</textarea>
                   <br>
-     			     </div>
-     		     </div>
-             
+     	     </div>
+     	     </div>
                   <div class="row">
                     <div class="col-md-9">
                       <form id="Response-form" action="responseFromAuthor" method="post" class="form-horizontal">
-							          <input type="hidden" id="reviewArt" name="reviewArt" value="$articleID"/>
+          <input type="hidden" id="reviewArt" name="reviewArt" value="$articleID"/>
                         #if($rejectCount<2)
                         <input type="submit" id="Accept" name="submit"  value="Accept" class="btn btn-success "/>
                         #else
                          <input type="submit" id="Accept" name="submit"  value="Accept" class="btn btn-success " disabled/>
                         #end
                         <p>If accepting you may revise your judgement.
-						            <br>
-				              </form>
+            <br>
+              </form>
                     </div>
                   </div>
-                  
                 <div class="row">
                  <div class="col-md-9">
                   <form id="Response-form" action="responseFromAuthor" method="post" class="form-horizontal">
                       <label> Explain inadequacy for the revision</label>
                       <textarea name="rejectedResponse" rows="10" cols="100" ></textarea>
-							        <input type="hidden" id="reviewArt" name="reviewArt" value="$articleID"/>
-                      $isResponseAccepted ISSSSS
+        <input type="hidden" id="reviewArt" name="reviewArt" value="$articleID"/>
                       <br>
-                      #if(($rejectCount>=2)&&($isResponseAccepted==1))
+                      #if(($rejectCount>=2)||($isResponseAccepted>0))
                       <input type="submit"  id="Reject" name="submit"  value="Reject" class="btn btn-danger" disabled />
                       #else
                       <input type="submit"  id="Reject" name="submit"  value="Reject" class="btn btn-danger" />
                       #end
-	                </form>  
-         			   </div>
-         		   </div>   
+                </form>  
+         	   </div>
+				<br>
+				<br>
+         	   </div>   
 #end
-
 #parse("/commonElements/footer.vm")
 </body>
 </html>
