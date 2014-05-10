@@ -3,54 +3,56 @@
   <meta charset="ISO-8859-1">
   #include( "/commonElements/head.html" )
   <TITLE>$apptitle</TITLE>
-</head>
-
-<script>
- function onLoad()
-  {
-	$('#generalForm').show();
-	$('#intervalForm').hide();
-	document.getElementById('item').value = "article" ; 
-  }
-  window.onload=onLoad;
- </script>
- 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
   <script>
-  $(function() {
-    $( "#datepickerFrom" ).datepicker();
-  });
+   function onLoad()
+    {
+  	$('#generalForm').show();
+  	$('#intervalForm').hide();
+  	document.getElementById('item').value = "article" ; 
+    }
+    window.onload=onLoad;
+   </script>
+
+
+ 
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script>
+    $(function() {
+      $( "#datepickerFrom" ).datepicker();
+    });
+    </script>
+  
+    <script>
+    $(function() {
+      $( "#datepickerTo" ).datepicker();
+    });
+    </script
+    >
+  <script>
+  function myFunction()
+  {
+
+  var e = document.getElementById("mydropdown");
+  var searchType = e.options[e.selectedIndex].value;
+
+  document.getElementById('item').value = searchType ; 
+
+
+  if( searchType == "interval" ) {
+      $('#generalForm').hide();
+  	$('#intervalForm').show();
+  	} else {
+  	$('#generalForm').show();
+  	$('#intervalForm').hide();
+  	}
+  }
   </script>
   
-  <script>
-  $(function() {
-    $( "#datepickerTo" ).datepicker();
-  });
-  </script
-  >
-<script>
-function myFunction()
-{
+</head>
 
-var e = document.getElementById("mydropdown");
-var searchType = e.options[e.selectedIndex].value;
-
-document.getElementById('item').value = searchType ; 
-
-
-if( searchType == "interval" ) {
-    $('#generalForm').hide();
-	$('#intervalForm').show();
-	} else {
-	$('#generalForm').show();
-	$('#intervalForm').hide();
-	}
-}
-</script
->
 <body>
 #parse( "/commonElements/navbar.vm" )
 <!-- <script src="assets/js/advanceSearch.js" type="text/javascript"></script>

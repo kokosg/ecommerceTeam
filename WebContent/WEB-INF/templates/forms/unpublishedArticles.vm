@@ -3,26 +3,24 @@
  <meta charset="ISO-8859-1">
  #include( "/commonElements/head.html" )
  <TITLE>$apptitle</TITLE>
-
-<script src="assets/js/refresh.js" type="text/javascript"></script>
-<script src="assets/js/checkbox.js" type="text/javascript"></script>
-
-</head>
-
+<script type="text/javascript">
 function limitCheckbox(el) {
     var count = 0,
         i;
-    var checkboxes = document.getElementsByName(el.id);
+    var checkboxes = document.getElementsByName(el.name);
     for (i = 0; i < checkboxes.length; i += 1) {
         if (checkboxes[i].checked) {
             count = count + 1;
 		}	 
-    if (count > 2) {
+    if (count > 3) {
 	    alert('You can only select only maximum 3 checkboxes.\nTo select this option you must unselect one of the others.');
 	    el.checked = false;
     }
   }
 }
+</script>
+
+</head>
 
 #parse( "/commonElements/navbar.vm" )
 <body>
@@ -59,7 +57,7 @@ function limitCheckbox(el) {
                         #if($article.isSelected() == true)
                           <input type="checkbox" name="article" id="$article.getArticleID()" value="$article.getArticleID()" checked disabled>
                         #else
-                          <input type="checkbox" name="article" id="$article.getArticleID()" value="$article.getArticleID()" onclick="limitCheckbox($article.getArticleID())">
+                          <input type="checkbox" name="article" id="$article.getArticleID()" value="$article.getArticleID()" onclick="limitCheckbox(this)">
                       	#end
                          $article.getTitle()
 			</div>
