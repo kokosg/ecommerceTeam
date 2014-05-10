@@ -9,11 +9,13 @@
 #parse( "/commonElements/navbar.vm" )
 <!-- Main jumbotron for a primary marketing message or call to action -->
 
-<div class="jumbotron">
-</div>
-
 <div class="col-md-12">
 #if($userRole == "Editor")
+
+
+<div class="jumbotron">
+<p>You can reject Reviewers' reviews and sends automatic email to the reviewers</p>
+</div>
 
     #if ($successfully) 
 	<div class="alert alert-success alert-dismissable">
@@ -98,9 +100,11 @@
 			<h1>$status</h1>
 		#end
 	#else
-		<h2 >Sorry you are not authenticated to access this part of website</h2>
-	#end
+	
+<div class="jumbotron">
+	<h2 >Sorry you are not authenticated to access this part of website</h2>
 </div>
+#end
 
 #parse( "/commonElements/footer.vm" )
 </body>

@@ -9,11 +9,15 @@
 #parse( "/commonElements/navbar.vm" )
 <!-- Main jumbotron for a primary marketing message or call to action -->
 
-<div class="jumbotron">
-</div>
-	
 <div class="col-md-12">
+
 #if($userRole == "Editor")
+
+   <div class="jumbotron">
+	<p>NOTES: <div><small>(i)</small>Editors can see all the articles, all the versions of the revisions and download each one</div>
+	<div> <small>(ii)</small> System provides links on each article with all the details of the article and all the reviews of the articles</div></p>
+   </div>
+
    #if ($Articles)
 	<div class="row">
 		<div id="results_table">
@@ -69,9 +73,10 @@
        #end
 		
 	#else
-		<h2 >Sorry you are not authenticated to access this part of website</h2>
-	#end
-</div>
+	<div class="jumbotron">
+			<h2 >Sorry you are not authenticated to access this part of website</h2>
+	</div>
+#end
 
 #parse( "/commonElements/footer.vm" )
 </body>
