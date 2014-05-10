@@ -9,11 +9,13 @@
 #parse( "/commonElements/navbar.vm" )
 <!-- Main jumbotron for a primary marketing message or call to action -->
 
-<div class="jumbotron">
-	
 <div class="col-md-12">
 #if($userRole == "Editor")
-		
+	
+	<div class="jumbotron">
+		<p><div>NOTE: <small>(i)</small> By creating a new Edition the currently active edition will be automatically published and the new edition will become active.</div> 
+	   <div><small>(ii)</small> Upon publishing the system will send automatically emails to the subscribers</div></p>	
+	</div>
    #if ($Edition)
    
    		#if ($successfully) 
@@ -70,9 +72,10 @@
 	  #end
 
 	#else
-		<h2 >Sorry you are not authenticated to access this part of website</h2>
+		<div class="jumbotron">
+			<h2 >Sorry you are not authenticated to access this part of website</h2>
+		</div>
 	#end
-	</div>
 </div>
 
 #parse( "/commonElements/footer.vm" )

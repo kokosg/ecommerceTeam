@@ -24,7 +24,7 @@
         </a>
       </h4>
     </div>
-    <div id="$volume.volumeNo" class="panel-collapse collapse in">
+    <div id="$volume.volumeNo" class="panel-collapse collapse">
     #foreach ($edition in $Editions)
     	#if ($edition.volumeID == $volume.volumeID)
 	      <div class="panel-body">
@@ -53,7 +53,7 @@
 								<table class="table table-hover table-responsive table-bordered table-condensed">
 									<tbody class="table-hover">
 									<tr>
-										<td><font color="red">Not articles</font></td> 
+										<td><font color="red">No articles</font></td> 
 									</tr>
 									</tbody>
 								</table>

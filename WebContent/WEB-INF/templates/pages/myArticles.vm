@@ -34,7 +34,7 @@
 	      			#if ($haveReviews)
 	      				Needs Revision!
 	      			#else
-	      				status here
+	      				No Revision needed!
 	      			#end
 	      			</td>	
 	      			<td> 

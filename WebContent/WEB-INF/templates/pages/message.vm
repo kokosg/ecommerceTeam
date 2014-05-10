@@ -64,7 +64,7 @@
 									#end
 									<input id="messageID" name="messageID" type="hidden" value = "$message.messageID">
 				         		    <input id="action" name="action" type="hidden" value = "reply">
-									<button type="submit" class="btn btn-primary">Reply and Accept</button>
+									<button type="submit" class="btn btn-primary">Reply and Publish</button>
 								</form>
 								</td>
 								<td>

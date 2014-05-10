@@ -58,7 +58,6 @@ function removeAuthor(){
 						<input type="submit"  id ="download" value="Download File" />
 					</form>
             </form>
-            $fileUpload  FileUpload>>>>>>>>>
 			<form action="submit" id="submit" method="post" class="form-horizontal" enctype="multipart/form-data">
 			<fieldset>
 				<input id="flag" name="flag" type="hidden" value = "1">

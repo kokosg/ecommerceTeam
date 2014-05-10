@@ -50,6 +50,5 @@
 #end
 
 </div>
-#parse( "/commonElements/footer.vm" )
 </body>
 </html>

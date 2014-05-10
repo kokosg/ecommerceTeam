@@ -9,9 +9,6 @@
 #parse( "/commonElements/navbar.vm" )
 <!-- Main jumbotron for a primary marketing message or call to action -->
 
-<div class="jumbotron">
-</div>
-
 <div class="col-md-12">
 #if($userRole == "Editor")
 		
@@ -29,9 +26,13 @@
 			  <strong>$error
 			</div>
    		#end
+   		
+   <div class="jumbotron">
+	   <p>You can create one Volume each year, the system will provide you with a form when a new volume could be created.</p>
+   </div>
    
 	  #if ($Volume.volumeNo == $currentYear)
-		<h2>The currently Volume of the year is currently active</h1>
+		<h2><strong>The current Volume is active<strong></h1>
 		<h3>
 		Current Volume: $Volume.volumeNo
 		Created: $Volume.date
@@ -72,10 +73,11 @@
 	  #end
    #end
 
-	#else
+#else
+	<div class="jumbotron">
 		<h2 >Sorry you are not authenticated to access this part of website</h2>
-	#end
-</div>
+	</div>
+#end
 
 #parse( "/commonElements/footer.vm" )
 </body>
