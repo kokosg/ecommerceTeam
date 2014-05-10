@@ -103,7 +103,10 @@ public class SubmitArticleRevision extends VelocityViewServlet {
 				//add responses to db 
 				submitModel.insertIntoResponses(allResponses);
 				//add revision to db
-				submitModel.insertArticleRevisionAndUpdateArticle(article, filePath);
+				submitModel.insertUpdatedArticleRevision(article, filePath);
+				//update article
+				submitModel.updateArticleAfterRevision(article);
+				
 			} catch(Exception e ) {
 				System.out.println("Error " + e);
 			}

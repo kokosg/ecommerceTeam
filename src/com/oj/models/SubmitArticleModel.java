@@ -442,21 +442,36 @@ public class SubmitArticleModel {
 		try {
 			ConnectionManager conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
+			Statement st2 = conn.getInstance().getConnection().createStatement();
+			Statement st3 = conn.getInstance().getConnection().createStatement();
 			for (CriticismResponse res : myResponses) {
 				int criticismID = res.getCriticismID(); 
 				String responseText = res.getResponseText(); 
-				System.out.println("inserting criticism " + criticismID + " " +responseText);
-				String insertQuery ="INSERT INTO Response (criticismID, responseText) VALUES ('" + criticismID + "', '" + responseText + "')";
-				st.executeUpdate(insertQuery);
+				
+				String selectQuery ="SELECT * FROM Response WHERE criticismID = '" + criticismID + "'";
+				ResultSet responses = st.executeQuery(selectQuery);
+				if (responses.next()) {
+					int responseID = (int)responses.getObject("responseID");
+					System.out.println("updating criticism " + criticismID + " " +responseText);
+					String updateQuery ="UPDATE Response SET responseText = '" + responseText + "'  WHERE responseID = '" + responseID + "'";
+					st2.executeUpdate(updateQuery);
+				} else {
+					System.out.println("inserting criticism " + criticismID + " " +responseText);
+					String insertQuery ="INSERT INTO Response (criticismID, responseText) VALUES ('" + criticismID + "', '" + responseText + "')";
+					st3.executeUpdate(insertQuery);	
+				}
+				responses.close();
 			} 
 			st.close();
+			st2.close();
+			st3.close();
 			conn.close();
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
 		}
 	}
 	//ArticleRevision - insert new article revision in database (insert article's path)
-		public void insertArticleRevisionAndUpdateArticle(Article article, String path) {
+		public void insertUpdatedArticleRevision(Article article, String path) {
 			try {
 				ConnectionManager conn = new ConnectionManager();
 				Statement st = conn.getInstance().getConnection().createStatement();
@@ -468,8 +483,6 @@ public class SubmitArticleModel {
 					Date subDate = new java.sql.Date(now.getTime());
 					insertQuery = "INSERT INTO ArticleRevision (articleID, filePath, dateSubmitted) VALUES ('" + article.getArticleID() + "', '" + path + "', '" + subDate +"')";
 					st.executeUpdate(insertQuery);
-					String updateQuery = "UPDATE Article SET needsRevision = 0 WHERE articleID = '" + article.getArticleID() + "'";
-					st.executeUpdate(updateQuery);
 				} else {
 					System.out.println("no file found");
 					//	insertQuery = "UPDATE Template SET filePath ='"+path+"' WHERE title='"+title+"'";
@@ -486,5 +499,19 @@ public class SubmitArticleModel {
 			}
 		}
 	
+		public void updateArticleAfterRevision(Article article) {
+			try {
+				ConnectionManager conn = new ConnectionManager();
+				Statement st = conn.getInstance().getConnection().createStatement();
+				String updateQuery = "UPDATE Article SET needsRevision = 0 WHERE articleID = '" + article.getArticleID() + "'";
+				st.executeUpdate(updateQuery);
+				st.close();
+				conn.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 }
 
