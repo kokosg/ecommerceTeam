@@ -14,7 +14,7 @@
 
 
 <div class="jumbotron">
-<p>You can reject Reviewers' reviews and sends automatic email to the reviewers</p>
+<p>You can reject Reviewers' reviews below. The reviewers will be automatically notify by the system through emails.</p>
 </div>
 
     #if ($successfully) 

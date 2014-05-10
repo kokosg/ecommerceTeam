@@ -17,10 +17,10 @@
 		
    #if ($Reviews)
       <div class="row">
-		<div class="row">
+		<div>
 		   <div>
 			 <h1>List of Reviews</h1>
-				<div class="row">
+				<div>
 					<div class="col-md-12">
 						<table class="table table-hover">
 							<thead>
@@ -47,13 +47,15 @@
 								#end
 								<td>
 								#foreach($criticism in $Criticisms)
-									<div>criticism: $criticism.criticism</div>
-									
-									#foreach ($response in $Responses)
-										#if ($response.criticismID == $criticism.criticismID)
-										<div>response: $response.responseText </div>
-										#end
-									#end 
+									#if ($criticism.reviewID == $review.reviewID)
+										<div>criticism: $criticism.criticism</div>
+										#set($criticismID = $criticism.criticismID)
+										#foreach ($response in $Responses)
+											#if ($response.criticismID == $criticismID)
+											<div>response: $response.responseText </div>
+											#end
+										#end 
+									#end
 								#end
 								</td>
 							</tr>
@@ -70,11 +72,9 @@
 	#end
 
 		
-		
 	#else
 		<h2 >Sorry you are not authenticated to access this part of website</h2>
 	#end
-</div>
 
 #parse( "/commonElements/footer.vm" )
 </body>

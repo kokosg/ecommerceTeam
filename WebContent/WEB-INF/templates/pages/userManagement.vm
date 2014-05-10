@@ -13,7 +13,7 @@
 #if($userRole == "Editor")
 		
 	<div class="jumbotron">
-		<p>Editor can demote or promote users via the system BUT editor cannot demote its self (security purposes)<p>
+		<p>You can demote or promote users via the system BUT editor cannot demote itself (for security purposes)<p>
 	</div>	
 		
    #if ($searchResults)

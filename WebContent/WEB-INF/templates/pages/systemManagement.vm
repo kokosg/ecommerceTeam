@@ -14,8 +14,8 @@
 #if($userRole == "Editor")
 
    <div class="jumbotron">
-	<p>NOTES: <div><small>(i)</small>Editors can see all the articles, all the versions of the revisions and download each one</div>
-	<div> <small>(ii)</small> System provides links on each article with all the details of the article and all the reviews of the articles</div></p>
+	<p>NOTES: <div><small>(i)</small> You can see all the articles, along with their revision history and download each one</div>
+	<div> <small>(ii)</small> You can also see the abstract page of an article and all of its reviews</div></p>
    </div>
 
    #if ($Articles)
