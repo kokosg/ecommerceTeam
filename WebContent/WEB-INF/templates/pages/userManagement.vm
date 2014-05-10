@@ -9,11 +9,12 @@
 #parse( "/commonElements/navbar.vm" )
 <!-- Main jumbotron for a primary marketing message or call to action -->
 
-<div class="jumbotron">
-</div>	
-
 <div class="col-md-12">
 #if($userRole == "Editor")
+		
+	<div class="jumbotron">
+		<p>Editor can demote or promote users via the system BUT editor cannot demote its self (security purposes)<p>
+	</div>	
 		
    #if ($searchResults)
    
@@ -89,9 +90,10 @@
 	   #end
 		
 	#else
+	<div class="jumbotron">
 		<h2 >Sorry you are not authenticated to access this part of website</h2>
+	</div>	
 	#end
-</div>
 
 #parse( "/commonElements/footer.vm" )
 </body>
