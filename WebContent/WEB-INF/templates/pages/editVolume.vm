@@ -44,7 +44,7 @@
 					<div>
 						<form action="editVolume" method="post" class="form-horizontal">
 							<fieldset>
-								<legend>Edit Journal</legend>
+								<legend>Edit Volume</legend>
 								<div class="form-group">
 									<label for="volumeNo" class="col-lg-2 control-label">volumeNo:</label>
 									<div class="col-lg-10">
