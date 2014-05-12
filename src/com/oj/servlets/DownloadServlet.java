@@ -36,12 +36,12 @@ public class DownloadServlet extends VelocityViewServlet {
 			File file = new File(filePath);
 			outStream = response.getOutputStream();
 
-			response.setContentType("text/html");
+			//response.setContentType("text/html");
 			response.setContentLength((int) file.length());
 			String[] filePathSplit=filePath.split("/");
-			response.setHeader("Content-Disposition", "attachment; filename=\""
-					+ filePathSplit[filePathSplit.length-1] + "\"");
-
+			response.setContentType("application/octet-stream");
+			response.setHeader("Content-Disposition", "attachment; filename=\""+ filePathSplit[(filePathSplit.length)-1] + "\"");
+//			response.setHeader("Content-Disposition", "attachment; filename=\""+ TemplateTitle + "\"");
 			byte[] byteBuffer = new byte[BUFSIZE];
 			DataInputStream in = new DataInputStream(new FileInputStream(file));
 

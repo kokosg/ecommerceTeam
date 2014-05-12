@@ -3,6 +3,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,14 +28,17 @@ import com.oj.objects.Utility;
  */
 public class SubmitArticle extends VelocityViewServlet {
 	private static final long serialVersionUID = 1L;
-	private final String UPLOAD_DIRECTORY = "/Users/renuka/Downloads/apache-tomcat-6.0.39/webapps/data/"; //change that to /tmp???
-	
+	private String UPLOAD_DIRECTORY = "";
+	 public void init(ServletConfig config)throws ServletException{
+		 super.init(config);
+				 UPLOAD_DIRECTORY = System.getProperty("catalina.base") + "/temp/";
+	 }
 	public Template handleRequest( HttpServletRequest request, HttpServletResponse response, Context context ) { 
 		Boolean registered = false;
 		context.put("apptitle", "E-com Journal - Submit an Article");
 		String flag = null, filePath = null;
 		Template template = null;
-		response.setContentType("text/html");
+		//response.setContentType("text/html");
 		ArrayList<String> authorEmails = new ArrayList<String>();
 		System.out.println("before if");
 		if(ServletFileUpload.isMultipartContent(request)){
@@ -108,7 +113,7 @@ public class SubmitArticle extends VelocityViewServlet {
 						try {
 							name = new File(item.getName()).getName();
 							System.out.println("file found");
-							item.write( new File(UPLOAD_DIRECTORY + File.separator + name));
+							item.write( new File(UPLOAD_DIRECTORY + name));
 							filePath = UPLOAD_DIRECTORY + name;
 							System.out.println("name of file:" + name);
 						} catch (Exception e) {
@@ -133,7 +138,7 @@ public class SubmitArticle extends VelocityViewServlet {
 					articleAuthors.add(author);
 				}
 				
-								
+				System.out.println("Testingggggg ---- " +article.getArticleID() + " "+ article.getTitle());				
 				model.insertArticle(article);	
 				model.insertKeyword(articleKeywords);
 				model.updateArticleKeyword(article, articleKeywords);

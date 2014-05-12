@@ -2,6 +2,8 @@ package com.oj.servlets;
 import java.io.File;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +23,13 @@ public class UploadServlet extends VelocityViewServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String UPLOAD_DIRECTORY = "/share/student/stucat004/fileupload/";//getServletContext().getRealPath("/fileupload");
+	private String UPLOAD_DIRECTORY = "";
+	 public void init(ServletConfig config)throws ServletException{
+		 super.init(config);
+//		 UPLOAD_DIRECTORY = getServletContext().getRealPath("/") + File.separator +"fileupload"+File.separator;
+		 UPLOAD_DIRECTORY = System.getProperty("catalina.base") + "/temp/" ;
+	 }
+	//"/share/student/stucat004/fileupload/";
 
 	@Override
 	public Template handleRequest( HttpServletRequest request, 
@@ -50,7 +58,7 @@ public class UploadServlet extends VelocityViewServlet {
 						for(FileItem item : multiparts){
 							if(!item.isFormField()){
 								name = new File(item.getName()).getName();
-								item.write( new File(UPLOAD_DIRECTORY + File.separator + name));
+								item.write( new File(UPLOAD_DIRECTORY+ name));
 								System.out.println("name: of file:" + name);
 							}
 							else{

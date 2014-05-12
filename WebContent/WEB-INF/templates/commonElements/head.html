@@ -20,5 +20,37 @@
 	<meta name="description" content="Ecom Journal - Team: Master10">
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="ico/favicon.ico">
+	<style type="text/css">
+label.error {
+       float: none;
+       color: red;
+       padding-left: .3em;
+       vertical-align: top;
+       font-size:12px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#Login-form").validate({
+		rules : {
+			email : {
+				required : true
+			},
+			password : {
+				required : true
+			}
+		},
+		messages : {
+			email : {
+				required : "Email cannot be empty"
+			},
+			password : {
+				required : "Password cannot be empty"
+			}
+		}
+
+	});
+});
+</script>
 	
 </head>

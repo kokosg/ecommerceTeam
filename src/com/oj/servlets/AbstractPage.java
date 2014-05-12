@@ -56,11 +56,11 @@ public class AbstractPage extends VelocityViewServlet {
 				File file = new File(filePath);
 				outStream = response.getOutputStream();
 
-				response.setContentType("text/html");
+				response.setContentType("application/octet-stream");
 				response.setContentLength((int) file.length());
 				String[] filePathSplit=filePath.split("/");
 				response.setHeader("Content-Disposition", "attachment; filename=\""
-						+ filePathSplit[filePathSplit.length-1] + "\"");
+						+ filePathSplit[(filePathSplit.length)-1] + "\"");
 
 				byte[] byteBuffer = new byte[BUFSIZE];
 				DataInputStream in = new DataInputStream(new FileInputStream(file));
