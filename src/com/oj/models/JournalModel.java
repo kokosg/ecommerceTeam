@@ -25,8 +25,9 @@ public class JournalModel {
 	public JournalObject getJournal() throws SQLException {
 		String queryAuthor = "SELECT journalID, title, aimsGoals FROM Journal";
 		JournalObject journal = new JournalObject();
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
@@ -41,6 +42,10 @@ public class JournalModel {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return journal;
 	}
@@ -48,9 +53,10 @@ public class JournalModel {
 	public boolean setJournal(int journalID, String title, String aimsGoals) throws SQLException {
 		
 		boolean status = false;
+		ConnectionManager conn=null;
 		
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String updateQuery = "UPDATE Journal SET title = '" + title + "' ,  aimsGoals = '" + aimsGoals + "' WHERE  journalID= '" + journalID + "'";
 			st.executeUpdate(updateQuery);
@@ -61,6 +67,10 @@ public class JournalModel {
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		
 		return status;

@@ -27,8 +27,9 @@ public class VolumeModel {
 	public VolumeObject getVolume() throws SQLException {
 		String queryAuthor = "SELECT volumeID, journalID, volumeNo, date, current FROM Volume ORDER BY volumeID DESC LIMIT 1";
 		VolumeObject volume = new VolumeObject();
+		ConnectionManager conn =null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
@@ -42,9 +43,12 @@ public class VolumeModel {
 			}
 			rs.close();
 			st.close();
-			conn.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return volume;
 	}
@@ -53,9 +57,10 @@ public class VolumeModel {
 			int volumeNo, String date) throws SQLException {
 
 		boolean status = false;
+		ConnectionManager conn =null;
 
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String insertQuery = "INSERT INTO Volume (journalID, volumeNo, date) VALUES ('"	+ journalID + "','" + volumeNo + "','" + date + "')";
 			st.executeUpdate(insertQuery);
@@ -83,12 +88,14 @@ public class VolumeModel {
 			editionModel.createEdition(editionID, volume_ID, editionNo, title, String.valueOf(subDate));
 
 			st.close();
-			conn.close();
-
 			status = true;
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 
 		return status;

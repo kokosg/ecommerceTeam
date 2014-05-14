@@ -26,9 +26,10 @@ public class ReviewerManagementModel {
 
 	public ArrayList<Choices> getChoices() throws SQLException {
 		ArrayList<Choices> arrayResults = new ArrayList<Choices>();
+		ConnectionManager conn=null;
 		String queryAuthor = "SELECT Article.articleID, Article.title, Choice.dateChosen, Choice.choiceID, Author.authorID, Author.name, Author.surname, Author.email FROM Article INNER JOIN Choice ON Article.articleID = Choice.articleID INNER JOIN Author ON Choice.authorReviewerID = Author.authorID";
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
@@ -49,16 +50,20 @@ public class ReviewerManagementModel {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}
 	
 	public boolean deleteChoice(String choiceID) throws SQLException {
-		
+		ConnectionManager conn=null;
 		boolean status = false;
 		
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String updateQuery = "DELETE FROM Choice WHERE choiceID = '" + choiceID + "'";
 			st.executeUpdate(updateQuery);
@@ -69,6 +74,10 @@ public class ReviewerManagementModel {
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		
 		return status;

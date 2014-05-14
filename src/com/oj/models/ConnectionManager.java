@@ -29,7 +29,7 @@ public class ConnectionManager {
 	private boolean openConnection() throws ClassNotFoundException{
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(CONN_STRING+dbName,USERNAME,PASSWORD);
+			conn = DriverManager.getConnection(CONN_STRING+dbName+"?ssl=true",USERNAME,PASSWORD);
 		} catch(SQLException e){
 			e.printStackTrace();
 		}

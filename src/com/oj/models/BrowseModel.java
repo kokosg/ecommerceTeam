@@ -28,10 +28,11 @@ public class BrowseModel {
 	}
 
 	public ArrayList<VolumeObject> getVolume() throws SQLException{
+		ConnectionManager conn=null;
 		ArrayList<VolumeObject> arrayResults = new ArrayList<VolumeObject>(); 
 		  String query = "SELECT volumeID, journalID, volumeNo, date, current from Volume";
 		try {
-		      ConnectionManager conn = new ConnectionManager();
+		       conn= new ConnectionManager();
 	    	  Statement st = conn.getInstance().getConnection().createStatement();
 	    	  ResultSet rs = st.executeQuery(query);
 				while (rs.next()) {
@@ -50,15 +51,20 @@ public class BrowseModel {
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally{
+				if (conn!=null){
+					conn.close();
+				}
 			}
 		return arrayResults;
 	}
 	
 	public ArrayList<EditionObject> getEdition() throws SQLException{
+		 ConnectionManager conn=null;
 		ArrayList<EditionObject> arrayResults = new ArrayList<EditionObject>(); 
 		  String query = "SELECT editionID, volumeID, editionNo, title, current, dateAdded, published from Edition WHERE published = 1";
 		try {
-		      ConnectionManager conn = new ConnectionManager();
+		     conn = new ConnectionManager();
 	    	  Statement st = conn.getInstance().getConnection().createStatement();
 	    	  ResultSet rs = st.executeQuery(query);
 				while (rs.next()) {
@@ -79,15 +85,20 @@ public class BrowseModel {
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally{
+				if (conn!=null){
+					conn.close();
+				}
 			}
 		return arrayResults;
 	}
 	
 	public ArrayList<BrowseObject> getEdition(String editionID) throws SQLException {
+		ConnectionManager conn=null;
 		ArrayList<BrowseObject> arrayResults = new ArrayList<BrowseObject>(); 
 		  String query = "SELECT Edition.editionNo, Published.startPageNo, Published.datePublished, Article.articleID, Article.title, Article.published, Article.reviewed, Article.needsRevision, Article.summary, Article.pageNo FROM Edition INNER JOIN Published ON Edition.editionID = Published.editionID INNER JOIN Article ON Published.articleID = Article.articleID WHERE Edition.editionID ='" + editionID + "' AND Edition.published = 1 AND Article.published = 1";
 		try {
-		      ConnectionManager conn = new ConnectionManager();
+		      conn = new ConnectionManager();
 	    	  Statement st = conn.getInstance().getConnection().createStatement();
 	    	  ResultSet rs = st.executeQuery(query);
 				while (rs.next()) {
@@ -110,15 +121,20 @@ public class BrowseModel {
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally{
+				if (conn!=null){
+					conn.close();
+				}
 			}
 		return arrayResults;
 	}
 
 	public ArrayList<MessageObject> getMessages(String editionID) throws SQLException {
+		ConnectionManager conn=null;
 		ArrayList<MessageObject> arrayResults = new ArrayList<MessageObject>(); 
 		  String query = "SELECT DISTINCT Message.title, Message.message, Message.answer FROM Edition INNER JOIN Published ON Edition.editionID = Published.editionID INNER JOIN Message ON Message.editionID = Edition.editionID  WHERE Edition.editionID = '" + editionID + "' AND Edition.published = 1 AND Message.published = 1";
 		try {
-		      ConnectionManager conn = new ConnectionManager();
+		       conn= new ConnectionManager();
 	    	  Statement st = conn.getInstance().getConnection().createStatement();
 	    	  ResultSet rs = st.executeQuery(query);
 				while (rs.next()) {
@@ -134,6 +150,10 @@ public class BrowseModel {
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally{
+				if (conn!=null){
+					conn.close();
+				}
 			}
 		return arrayResults;
 	}

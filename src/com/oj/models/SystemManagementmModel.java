@@ -31,9 +31,10 @@ public class SystemManagementmModel {
 	
 	public ArrayList<Article> getArticle() throws SQLException {
 		ArrayList<Article> arrayResults = new ArrayList<Article>();
+		ConnectionManager conn=null;
 		String queryAuthor = "select * from Article";
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
@@ -52,6 +53,10 @@ public class SystemManagementmModel {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}
@@ -59,9 +64,10 @@ public class SystemManagementmModel {
 	
 	public ArrayList<ArticleRevision> getArticleRevision() throws SQLException {
 		ArrayList<ArticleRevision> arrayResults = new ArrayList<ArticleRevision>();
+		ConnectionManager conn=null;
 		String queryAuthor = "select ArticleRevision.articleRevisionID, ArticleRevision.articleID, ArticleRevision.filePath, ArticleRevision.dateSubmitted from ArticleRevision where dateSubmitted BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW()";
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
@@ -78,6 +84,10 @@ public class SystemManagementmModel {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}
@@ -85,9 +95,10 @@ public class SystemManagementmModel {
 	
 	public ArrayList<Review> getReviews(String articleI_D) throws SQLException {
 		ArrayList<Review> arrayResults = new ArrayList<Review>();
+		ConnectionManager conn=null;
 		String queryAuthor = "select * from Review WHERE Review.articleID = '" + articleI_D + "'";
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
@@ -111,6 +122,10 @@ public class SystemManagementmModel {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}
@@ -118,9 +133,10 @@ public class SystemManagementmModel {
 	
 	public ArrayList<Review> getAllReviews() throws SQLException {
 		ArrayList<Review> arrayResults = new ArrayList<Review>();
+		ConnectionManager conn=null;
 		String queryAuthor = "select Review.reviewID, Review.authorReviewerID, Review.articleID, Review.judgement, Review.expertise, Review.summary, Review.criticismID, Review.smallErrors, Review.editorComments, Review.isAccepted, Review.dateSubmitted from Review where dateSubmitted BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW()";
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
@@ -144,15 +160,20 @@ public class SystemManagementmModel {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}
 	
 	public ArrayList<Choices> getAuthorReviewer() throws SQLException {
 		ArrayList<Choices> arrayResults = new ArrayList<Choices>();
+		ConnectionManager conn=null;
 		String queryAuthor = "SELECT AuthorReviewer.authorReviewerID, Author.authorID, Author.name, Author.surname, Author.email FROM AuthorReviewer INNER JOIN Author ON AuthorReviewer.authorID = Author.authorID";
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
@@ -170,15 +191,20 @@ public class SystemManagementmModel {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}
 	
 	public ArrayList<Criticism> getCriticisms() throws SQLException {
+		ConnectionManager conn=null;
 		ArrayList<Criticism> arrayResults = new ArrayList<Criticism>();
 		String queryAuthor = "SELECT Criticism.criticismID, Criticism.criticism, Criticism.reviewID, Criticism.isCorrected, Criticism.isAccepted FROM Criticism";
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
@@ -196,15 +222,20 @@ public class SystemManagementmModel {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}
 	
 	public ArrayList<Response> getResponses() throws SQLException {
 		ArrayList<Response> arrayResults = new ArrayList<Response>();
+		ConnectionManager conn=null;
 		String queryAuthor = "SELECT Response.responseID, Response.criticismID, Response.responseText FROM Response";
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
@@ -220,6 +251,10 @@ public class SystemManagementmModel {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}
@@ -227,9 +262,9 @@ public class SystemManagementmModel {
 	public boolean deleteReview(String reviewID, String authorReviewerID) throws SQLException {
 		
 		boolean deleteStatus = false;
-		
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String updateQuery = "DELETE Review, Criticism FROM Review INNER JOIN Criticism ON Review.reviewID = Criticism.reviewID WHERE Review.reviewID = '" + reviewID + "' and Review.authorReviewerID = '" + authorReviewerID + "'";
 			st.executeUpdate(updateQuery);
@@ -241,6 +276,10 @@ public class SystemManagementmModel {
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		
 		return deleteStatus;
@@ -250,9 +289,10 @@ public class SystemManagementmModel {
 	
 	public ArrayList<Review> retrieveArticlesReviewsAndCriticism(int articleID) {
 		ArrayList<Review> arrayResults = new ArrayList<Review>();
+		ConnectionManager conn=null;
 		String queryReviews = "SELECT * FROM Review INNER JOIN Criticism ON Review.reviewID = Criticism.reviewID WHERE articleID = '" + articleID + "'";
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryReviews);
 			while (rs.next()) {
@@ -276,15 +316,20 @@ public class SystemManagementmModel {
 			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}
 	
 	public ArrayList<Review> getAuthorReviews(int articleID) {
 		ArrayList<Review> arrayResults = new ArrayList<Review>();
+		ConnectionManager conn=null;
 		String queryArticleAuthor = "SELECT * FROM ArticleAuthor INNER JOIN Author ON ArticleAuthor.authorID = Author.authorID INNER JOIN AuthorReviewer ON AuthorReviewer.authorID = Author.authorID WHERE articleID = '"+ articleID + "' AND isMainContact = 1";
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			Statement st2 = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryArticleAuthor);
@@ -317,6 +362,10 @@ public class SystemManagementmModel {
 			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}
@@ -325,8 +374,9 @@ public class SystemManagementmModel {
 	
 	//ArticleRevision - insert new article revision in database (insert article's path)
 	public void publishArticle(int articleID, int editionID, java.util.Date date) {
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String insertQuery;
 			System.out.println("publishing article");
@@ -345,6 +395,10 @@ public class SystemManagementmModel {
 		}catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 	}
 }

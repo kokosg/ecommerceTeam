@@ -12,7 +12,7 @@ public class UploadModel {
 	}
 
 	public String getFileName(String title){
-		ConnectionManager conn;
+		ConnectionManager conn=null;
 		String filePath= null;
 		try {
 			conn = new ConnectionManager();
@@ -33,6 +33,10 @@ public class UploadModel {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 
 		
@@ -41,7 +45,7 @@ public class UploadModel {
 	}
 
 	public void setFilePath(String filePath,String title){
-		ConnectionManager conn;
+		ConnectionManager conn=null;
 		try {
 			conn = new ConnectionManager();
 			String insertQuery;
@@ -65,6 +69,10 @@ public class UploadModel {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 
 	}

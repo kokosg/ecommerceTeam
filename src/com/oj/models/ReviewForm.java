@@ -18,7 +18,7 @@ public class ReviewForm {
 	}
 
 	public void insertReviewForm(int authorID,int articleID,String judge,String expertise,String reviewSummary,String comments,String criticism,String errors){
-		ConnectionManager conn;
+		ConnectionManager conn=null;
 		long reviewID = 0;
 		long criticismID=0;
 		//get current date time with Date()
@@ -78,6 +78,10 @@ public class ReviewForm {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 
 
@@ -86,8 +90,9 @@ public class ReviewForm {
 	//REVIEWREVISION - get the REVIEW revision from database (get review's recent revision date)
 	public Date getReviewRevisionDate(int authorID,int articleID) {
 		Date recentDate= new Date();
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String selectQuery;
 			System.out.println("Select Review revision date ");
@@ -123,13 +128,17 @@ public class ReviewForm {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return recentDate;
 	}
 
 
 	public Review selectReviewForm(int authorID,int articleID){
-		ConnectionManager conn;
+		ConnectionManager conn=null;
 		Review reviewart=new Review();
 		//get current date time with Date()
 		try {
@@ -170,13 +179,17 @@ public class ReviewForm {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return reviewart;
 
 	}
 
 	public int getReviewCount(int authorID,int articleID){
-		ConnectionManager conn;
+		ConnectionManager conn=null;
 		int reviewCount = 0;
 		try {
 			conn = new ConnectionManager();
@@ -193,6 +206,10 @@ public class ReviewForm {
 		}
 		catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return reviewCount;	
 	}
@@ -200,9 +217,10 @@ public class ReviewForm {
 	//check if it has reviews and needs to upload article revision
 	public ArrayList<Review> haveReviews(int articleID) {
 		Boolean haveReviews = false;
+		ConnectionManager conn=null;
 		ArrayList<Review> allReviews= new ArrayList<Review>();
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			//get any reviews for my articles
 			String queryReviews = "SELECT * FROM Review INNER JOIN Criticism ON Review.reviewID = Criticism.reviewID WHERE articleID = '" + articleID + "'";
@@ -219,6 +237,10 @@ public class ReviewForm {
 			conn.close();
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return allReviews;
 	}

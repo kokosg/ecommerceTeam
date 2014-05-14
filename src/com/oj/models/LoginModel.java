@@ -21,8 +21,9 @@ public class LoginModel {
 	//check if it has reviews and needs to upload article revision
 	public Boolean haveReviews(int authorID) {
 		Boolean haveReviews = false;
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			Statement st2 = conn.getInstance().getConnection().createStatement();
 	        //retrieve all articles 
@@ -53,14 +54,19 @@ public class LoginModel {
 			conn.close();
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return haveReviews;
 	}
 	
 	public Boolean retrieveArticlesReviews(int articleID) {
 		Boolean haveReviews = false;
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			Statement st2 = conn.getInstance().getConnection().createStatement();
 	        //retrieve all articles 
@@ -90,6 +96,10 @@ public class LoginModel {
 			conn.close();
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return haveReviews;
 	}

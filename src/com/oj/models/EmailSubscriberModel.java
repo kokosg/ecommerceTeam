@@ -66,6 +66,10 @@ public class EmailSubscriberModel {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}
@@ -73,10 +77,10 @@ public class EmailSubscriberModel {
 
 	public ArrayList<EmailSubscriber> sendEmailSubscriber() throws SQLException {
 		ArrayList<EmailSubscriber> arrayResults = new ArrayList<EmailSubscriber>();
-
+		ConnectionManager conn=null;
 		String querySubscriber = "select * from Subscriber";
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn= new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			Statement st2 = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(querySubscriber);
@@ -146,6 +150,10 @@ public class EmailSubscriberModel {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}

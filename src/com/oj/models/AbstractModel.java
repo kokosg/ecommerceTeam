@@ -25,8 +25,9 @@ public class AbstractModel {
 	public Article getArticle(String article_ID) throws SQLException {
 		String queryArticle = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article where articleID LIKE '%" + article_ID + "%'";
 		Article article = null ;
+		ConnectionManager conn = null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryArticle);
 			while (rs.next()) {
@@ -40,10 +41,14 @@ public class AbstractModel {
 			}
 			rs.close();
 			st.close();
-			conn.close();
+			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return article;
 	}
@@ -51,12 +56,12 @@ public class AbstractModel {
 
 	//return an ArrayList of keywords objects based on the article_ID
 	public ArrayList<Keyword> getKeywords(String article_ID) throws SQLException {
-
+		ConnectionManager conn=null;
 		ArrayList<Keyword> arrayResults = new ArrayList<Keyword>(); 
 		String queryKeywords = "select Keyword.keywordID, Keyword.text from Keyword INNER JOIN ArticleKeyword ON Keyword.keywordID = ArticleKeyword.keywordID INNER JOIN Article ON ArticleKeyword.articleID = Article.articleID where Article.articleID ='" + article_ID + "'";
 		Keyword keyword = new Keyword();
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryKeywords);
 			while (rs.next()) {
@@ -69,10 +74,13 @@ public class AbstractModel {
 			}
 			rs.close();
 			st.close();
-			conn.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		System.out.print(keyword.getKeywordID());
 		return arrayResults;
@@ -81,11 +89,11 @@ public class AbstractModel {
 
 	//return an ArrayList of Author objects based on the article_ID
 	public ArrayList<User> getAuthor(String article_ID) throws SQLException {
-
+		ConnectionManager conn=null;
 		ArrayList<User> arrayResults = new ArrayList<User>(); 
 		String queryAuthor = "select Author.name, Author.surname, Author.email from Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID where Article.articleID = '" + article_ID + "'"; 
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
@@ -98,23 +106,26 @@ public class AbstractModel {
 			}
 			rs.close();
 			st.close();
-			conn.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}
 
 	//return an ArrayList of Article objects where articles are not published yet
 	public ArrayList<Article> getUnpublishedArticle(int authorID) throws SQLException {
-
+		ConnectionManager conn=null;
 		ArrayList<Integer> intArtID = new ArrayList<Integer>();
 		ArrayList<Integer> finalselectedArticleID = new  ArrayList<Integer>();
 		ArrayList<Article> unpubArticle = new ArrayList<Article>();
 		String queryArticle = "select ArticleAuthor.articleID from ArticleAuthor where ArticleAuthor.authorID =" + authorID;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryArticle);
 			while (rs.next()) {
@@ -154,10 +165,13 @@ public class AbstractModel {
 				st2.close();
 			}
 			st.close();
-			conn.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return unpubArticle;
 	}
@@ -167,7 +181,7 @@ public class AbstractModel {
 		//get current date time with Date()
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
-		ConnectionManager conn;
+		ConnectionManager conn=null;
 		try {
 			int aID; 
 			conn = new ConnectionManager();
@@ -205,7 +219,6 @@ public class AbstractModel {
 			}
 
 			st.close();
-			conn.close();
 
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -213,11 +226,15 @@ public class AbstractModel {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-
+		finally{
+			if (conn!=null){
+				conn.close();
+			}
+		}
 	}
 
 	public boolean checkData(int articleId,int authorID){
-		ConnectionManager conn;
+		ConnectionManager conn=null;
 		try {
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
@@ -229,12 +246,15 @@ public class AbstractModel {
 				}
 			}
 			st.close();
-			conn.close();
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}catch (Exception e){
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return false;
 	}
@@ -242,7 +262,7 @@ public class AbstractModel {
 
 		//ArrayList<String> selectedArcticleID = new ArrayList<String>();
 		ArrayList<Article> resultID=new ArrayList<Article>();
-		ConnectionManager conn;
+		ConnectionManager conn=null;
 		try {
 			String aTitle; 
 			String aSummary;
@@ -281,31 +301,36 @@ public class AbstractModel {
 
 			st.close();
 			rs.close();
-			conn.close();
-
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return resultID;
 
 	}
 	public void deleteChoice(int authorID, int articleID){
 
-		ConnectionManager conn;
+		ConnectionManager conn=null;
 		try {
 
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String selectQuery ="DELETE FROM Choice WHERE Choice.articleID = "+articleID+" and "+"Choice.authorReviewerID="+authorID;
 			st.executeUpdate(selectQuery);
-			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 	}
 
 	public ArrayList<Integer> getDownloaded(int authorID){
-		ConnectionManager conn;
+		ConnectionManager conn=null;
 		ArrayList<Integer> downloadedReview = new ArrayList<Integer>();
 		try {
 
@@ -317,16 +342,19 @@ public class AbstractModel {
 				int r = (Integer) rs.getObject("articleID");
 				downloadedReview.add(r);
 			}
-			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return downloadedReview;
 
 	}
 
 	public String getResponse(String aID,int authorID){
-		ConnectionManager conn;
+		ConnectionManager conn=null;
 		String responseText="";
 		try {
 			conn = new ConnectionManager();
@@ -339,9 +367,12 @@ public class AbstractModel {
 
 			}
 			rs1.close();
-			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return responseText;
 	}
@@ -355,9 +386,12 @@ public class AbstractModel {
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String updateQuery ="Update Review SET  reviewCount=0 where authorReviewerID="+authorID+" and articleID="+articleID;
 			st.executeUpdate(updateQuery);
-			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 
 	}
@@ -381,9 +415,12 @@ public class AbstractModel {
 				st.executeUpdate(updateQuery);
 			}
 			st.close();
-			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 	}
 
@@ -396,18 +433,20 @@ public class AbstractModel {
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String updateQuery ="Update Criticism SET  isAccepted=1 where reviewID=(select reviewID from Review where authorReviewerID="+authorID+" and articleID="+articleID+")";
 			st.executeUpdate(updateQuery);
-			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
-
-
 	}
 	
 	public boolean isResponseAccepted(String articleID, int authorID){
 		boolean accpeted = false;
+		ConnectionManager conn=null;
 		try{
-			ConnectionManager conn = new ConnectionManager();
+			 conn= new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String selectQuery="Select isAccepted from Criticism where criticismID=(select criticismID from Review where reviewID=(select reviewID from Review where authorReviewerID="+authorID+" and articleID= "+articleID+" ))";
 			ResultSet rs = st.executeQuery(selectQuery);
@@ -416,9 +455,12 @@ public class AbstractModel {
 				System.out.println("ACCCCCCCCCCCC"+accpeted);
 			}
 			st.close();
-			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return accpeted;
 	}
@@ -438,9 +480,12 @@ public class AbstractModel {
 			}
 			rs.close();
 			st.close();
-			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return count;
 	}

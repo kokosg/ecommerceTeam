@@ -24,12 +24,12 @@ public class AdvanceSearchModel {
 	}
 	
 	public Article getArticleObject(String queryName) throws SQLException{
-
+		ConnectionManager conn = null;
 		Article article = new Article();
 		String query = "select Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID where Author.name ='" + queryName + "' AND published = 1"; 
 		System.out.print(query);
 		try {
-		      ConnectionManager conn = new ConnectionManager();
+		       conn= new ConnectionManager();
 	    	  Statement st = conn.getInstance().getConnection().createStatement();
 	    	  ResultSet rs = st.executeQuery(query);
 				while (rs.next()) {
@@ -48,6 +48,10 @@ public class AdvanceSearchModel {
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally{
+				if (conn!=null){
+					conn.close();
+				}
 			}
 		return article;
 	}
@@ -55,7 +59,7 @@ public class AdvanceSearchModel {
 	public ArrayList<Article> getArticle(String queryName, String categoryType) throws SQLException{
 		
     	ArrayList<Article> arrayResults = new ArrayList<Article>(); 
-		
+    	ConnectionManager conn=null;
 		String query = null;
 		
 		if (categoryType.equals("article")) {
@@ -71,7 +75,7 @@ public class AdvanceSearchModel {
 		
 		try {
 			
-		      ConnectionManager conn = new ConnectionManager();
+		      conn = new ConnectionManager();
 	    	  Statement st = conn.getInstance().getConnection().createStatement();
 	    	  ResultSet rs = st.executeQuery(query);
 				
@@ -94,6 +98,10 @@ public class AdvanceSearchModel {
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally{
+				if (conn!=null){
+					conn.close();
+				}
 			}
 
 		return arrayResults;
@@ -101,14 +109,14 @@ public class AdvanceSearchModel {
 	}
 
 	public ArrayList<Article> getAuthorsArticle(String datepickerFrom, String datepickerTo, String categoryType) throws SQLException{
-		
+		ConnectionManager conn=null;
     	ArrayList<Article> arrayResults = new ArrayList<Article>(); 
 		
 		String query = "select DISTINCT Article.articleID, Article.title, Article.summary, Article.published, Article.reviewed, Article.pageNo from Article INNER JOIN ArticleRevision ON Article.articleID = ArticleRevision.articleID WHERE ArticleRevision.dateSubmitted BETWEEN '" + datepickerFrom + "' AND '" + datepickerTo + "' AND published = 1";
 
 		try {
 			
-		      ConnectionManager conn = new ConnectionManager();
+		       conn= new ConnectionManager();
 	    	  Statement st = conn.getInstance().getConnection().createStatement();
 	    	  ResultSet rs = st.executeQuery(query);
 				
@@ -132,7 +140,12 @@ public class AdvanceSearchModel {
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally{
+				if (conn!=null){
+					conn.close();
+				}
 			}
+
 
 		return arrayResults;
 		

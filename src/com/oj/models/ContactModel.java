@@ -35,10 +35,11 @@ public class ContactModel {
 	
 	
 	public ArrayList<MessageObject> getUnpublishMessages() throws SQLException {
+		ConnectionManager conn=null;
 		ArrayList<MessageObject> arrayResults = new ArrayList<MessageObject>();
 		String queryAuthor = "select messageID, name, title, email, message, answer, published from Message where published = 0";
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
@@ -59,14 +60,19 @@ public class ContactModel {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}
 	
 	public void insertEmail(String name, String title, String email, String message) throws SQLException {
 		String insertQuery = "INSERT INTO Message (name, editionID, title, email, message) VALUE ('" + name + "', 0,'" + title + "', '" + email + "', '" + message + "')";
+		ConnectionManager conn=null;
 		try {
-	      ConnectionManager conn = new ConnectionManager();
+	       conn = new ConnectionManager();
     	  Statement st = conn.getInstance().getConnection().createStatement();
 		  st.executeUpdate(insertQuery);
 	      st.close();
@@ -74,14 +80,19 @@ public class ContactModel {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 	}
 	
 	
 	public boolean setAnswer(String messageID, String answer) throws SQLException {
 		boolean status = false;
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			
 			//////////////
@@ -105,17 +116,21 @@ public class ContactModel {
 			status = true;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return status;
 	}
 	
 	
 	public boolean updateMessage(String messageID) throws SQLException {
-		
+		ConnectionManager conn=null;
 		boolean status = false;
 		
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String updateQuery = "UPDATE Message SET published = 1 WHERE messageID = '" + messageID + "'";
 			st.executeUpdate(updateQuery);
@@ -126,6 +141,10 @@ public class ContactModel {
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		
 		return status;
@@ -134,8 +153,9 @@ public class ContactModel {
 	
 	public boolean deleteMessage(String messageID) throws SQLException {
 		boolean status = false;
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String deleteQuery = "DELETE FROM Message WHERE messageID = '" + messageID + "'";
 			st.executeUpdate(deleteQuery);
@@ -144,6 +164,10 @@ public class ContactModel {
 			status = true;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return status;
 	}
@@ -152,6 +176,7 @@ public class ContactModel {
 	public boolean sendContactEmail(String name, String title, String email, String messageText) throws ClassNotFoundException, SQLException {
 		
 		boolean emailStatus = false;
+		ConnectionManager conn=null;
 		
 		final String websiteEmail = "javaecom@gmail.com";
 		final String password = "teammaster10";
@@ -175,7 +200,7 @@ public class ContactModel {
 			
 			 String selectQuery = "SELECT Author.email from AuthorReviewer INNER JOIN Author ON AuthorReviewer.authorID = Author.authorID where isEditor = 1";
 			
-			 ConnectionManager conn = new ConnectionManager();
+			  conn = new ConnectionManager();
 	    	 Statement st = conn.getInstance().getConnection().createStatement();
 		     ResultSet rs = st.executeQuery(selectQuery);
 
@@ -206,6 +231,10 @@ public class ContactModel {
 			
 			emailStatus = false;
 			throw new RuntimeException(e);
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		
 		return emailStatus;

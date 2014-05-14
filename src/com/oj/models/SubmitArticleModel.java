@@ -28,12 +28,13 @@ public class SubmitArticleModel {
 	}
 	
 	public ArrayList<Object> getAuthorArticles(int authorID) throws SQLException {
+		ConnectionManager conn=null;
 		ArrayList<Object> arrayResults = new ArrayList<Object>();
 		ArrayList<Article> articleResults = new ArrayList<Article>();
 		ArrayList<ArticleRevision> filepathResults = new ArrayList<ArticleRevision>();
 		String findArticles = "SELECT * FROM Author INNER JOIN ArticleAuthor ON Author.authorID = ArticleAuthor.authorID INNER JOIN Article ON ArticleAuthor.articleID = Article.articleID INNER JOIN ArticleRevision ON ArticleRevision.articleID = Article.articleID WHERE Author.authorID = '" + authorID + "'";
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(findArticles);
 			while (rs.next()) {
@@ -75,6 +76,10 @@ public class SubmitArticleModel {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}
@@ -82,8 +87,9 @@ public class SubmitArticleModel {
 	
 	//Keyword - insert a new keyword in the database
 	public void insertKeyword(ArrayList<Keyword> keywords) {
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 
 			for (Keyword keyword : keywords) {
@@ -104,13 +110,18 @@ public class SubmitArticleModel {
 			conn.close();
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 	}
 
 	//Article - insert a new article in the database
 	public void insertArticle(Article article) {
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 
 			String articleTitle = article.getTitle();
@@ -123,13 +134,18 @@ public class SubmitArticleModel {
 			conn.close();
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 	}
 
 	//ArticleKeyword - insert article's keywords in the database
 	public void updateArticleKeyword(Article article, ArrayList<Keyword> keywords) {
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			article = getArticleWithID(article);
 			//find the ID for each keyword
@@ -149,13 +165,18 @@ public class SubmitArticleModel {
 			conn.close();
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 	}
 
 	//ArticleRevision - insert new article revision in database (insert article's path)
 	public void insertArticleRevision(Article article, String path) {
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String insertQuery;
 			//String titleExists= getFileName(title);
@@ -178,14 +199,19 @@ public class SubmitArticleModel {
 		}catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 	}
 
 	//return article object with its ID
 	public Article getArticleWithID(Article article) {
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager connection = new ConnectionManager();
-			Statement statement = connection.getInstance().getConnection().createStatement();
+			 conn = new ConnectionManager();
+			Statement statement = conn.getInstance().getConnection().createStatement();
 			//get the articles' ID
 			String getArticleID = "SELECT articleID FROM Article WHERE title ='" + article.getTitle() + "' AND summary ='" + article.getSummary() + "' "; 
 			ResultSet articleResult=statement.executeQuery(getArticleID);
@@ -194,13 +220,17 @@ public class SubmitArticleModel {
 				article.setArticleID(articleID);
 			}
 			statement.close();
-			connection.close();
+			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return article;
 	}
@@ -208,8 +238,9 @@ public class SubmitArticleModel {
 	//insert article's authors in the database
 	public Boolean insertAuthors(Article article, ArrayList<User> authors) {
 		boolean registered = false;
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			article.getArticleID();
 			for(User author : authors) {
@@ -256,12 +287,17 @@ public class SubmitArticleModel {
 			conn.close();
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return registered;
 	}
 	
 	public Boolean registerUser(User author) {
 		boolean registered = false;
+		ConnectionManager conn=null;
 		//generate a 10-size random string containing alphanumeric characters
 		String characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@";
 	    char[] text = new char[10];
@@ -285,7 +321,7 @@ public class SubmitArticleModel {
 	        System.out.println("MD5: " + sb.toString());
 	        String pass = sb.toString();
 			//insert author into authorReviewer table
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 	        String insertAuthorReviewer = "INSERT INTO AuthorReviewer (authorID, password) VALUES ('" + author.getAuthorID() + "', '" + pass + "')";
 			st.executeUpdate(insertAuthorReviewer);
@@ -310,6 +346,10 @@ public class SubmitArticleModel {
 	    } catch (Exception e) {
 			// TODO Auto-generated catch block
 	    	System.out.println("Error " + e);
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return registered;
 	}
@@ -317,8 +357,9 @@ public class SubmitArticleModel {
 	//ArticleRevision - get the article revision from database (get article's path)
 	public String getArticleRevision(String articleID) {
 		String filepath = null;
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String selectQuery;
 
@@ -343,6 +384,10 @@ public class SubmitArticleModel {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return filepath;
 	}
@@ -350,8 +395,9 @@ public class SubmitArticleModel {
 	//ArticleRevision - get the article revision from database (get article's path)
 	public String getDownloadPath(String articleID, String articleRevisionID) {
 		String filepath = null;
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String selectQuery;
 
@@ -370,6 +416,10 @@ public class SubmitArticleModel {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return filepath;
 	}
@@ -377,8 +427,9 @@ public class SubmitArticleModel {
 	//ArticleRevision - get the article revision from database (get article's recent revision date)
 	public Date getArticleRevisionDate(String articleID) {
 		Date recentDate= new Date();
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String selectQuery;
 			System.out.println("Select article revision date ");
@@ -414,13 +465,17 @@ public class SubmitArticleModel {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return recentDate;
 	}
 	
 	//Review - set isDownloaded
 	public void setArticleDownloaded(String articleID, int authorID){
-		ConnectionManager conn;
+		ConnectionManager conn=null;
 		try {
 			conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
@@ -434,13 +489,18 @@ public class SubmitArticleModel {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 	}
 
 	//Response - insert into response table
 	public void insertIntoResponses(ArrayList<CriticismResponse> myResponses){
+		ConnectionManager conn=null;
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			Statement st2 = conn.getInstance().getConnection().createStatement();
 			Statement st3 = conn.getInstance().getConnection().createStatement();
@@ -468,12 +528,17 @@ public class SubmitArticleModel {
 			conn.close();
 		} catch(Exception e ) {
 			System.out.println("Error " + e);
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 	}
 	//ArticleRevision - insert new article revision in database (insert article's path)
 		public void insertUpdatedArticleRevision(Article article, String path) {
+			ConnectionManager conn=null;
 			try {
-				ConnectionManager conn = new ConnectionManager();
+				 conn = new ConnectionManager();
 				Statement st = conn.getInstance().getConnection().createStatement();
 				String insertQuery;
 				//String titleExists= getFileName(title);
@@ -496,12 +561,17 @@ public class SubmitArticleModel {
 			}catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally{
+				if (conn!=null){
+					conn.close();
+				}
 			}
 		}
 	
 		public void updateArticleAfterRevision(Article article) {
+			ConnectionManager conn=null;
 			try {
-				ConnectionManager conn = new ConnectionManager();
+				 conn = new ConnectionManager();
 				Statement st = conn.getInstance().getConnection().createStatement();
 				String updateQuery = "UPDATE Article SET needsRevision = 0 WHERE articleID = '" + article.getArticleID() + "'";
 				st.executeUpdate(updateQuery);
@@ -510,6 +580,10 @@ public class SubmitArticleModel {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally{
+				if (conn!=null){
+					conn.close();
+				}
 			}
 
 		}

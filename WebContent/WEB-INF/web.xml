@@ -135,9 +135,6 @@
     <servlet-name>SubmitArticle</servlet-name>
     <url-pattern>/submit</url-pattern>
   </servlet-mapping>
-  <session-config>
-    <session-timeout>30</session-timeout>
-  </session-config>
   <servlet>
     <description></description>
     <display-name>UserManagement</display-name>

@@ -22,9 +22,10 @@ public class UserManagementModel {
 
 	public ArrayList<User> getUsers() throws SQLException {
 		ArrayList<User> arrayResults = new ArrayList<User>();
+		ConnectionManager conn =null;
 		String queryAuthor = "select Author.authorID, Author.name, Author.surname, Author.email, AuthorReviewer.isEditor, AuthorReviewer.authorReviewerID from Author INNER JOIN AuthorReviewer ON Author.authorID = AuthorReviewer.authorID where Author.hasAccount = 1";
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
@@ -43,6 +44,10 @@ public class UserManagementModel {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		return arrayResults;
 	}
@@ -50,9 +55,10 @@ public class UserManagementModel {
 	public boolean setUserRole(int isEditor, String userID) throws SQLException {
 		
 		boolean status = false;
+		ConnectionManager conn =null;
 		
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			conn= new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String updateQuery = "UPDATE AuthorReviewer SET isEditor ='" + isEditor + "' WHERE authorReviewerID = '" + userID + "'";
 			st.executeUpdate(updateQuery);
@@ -63,6 +69,10 @@ public class UserManagementModel {
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		
 		return status;

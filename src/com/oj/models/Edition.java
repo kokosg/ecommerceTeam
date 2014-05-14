@@ -30,10 +30,11 @@ public class Edition {
 	}
 	
 	public EditionObject getEdition() throws SQLException {
+		ConnectionManager conn=null;
 		String queryAuthor = "SELECT editionID, volumeID, editionNo, title, current, dateAdded, published FROM Edition ORDER BY EditionID DESC LIMIT 1";
 		EditionObject edition = new EditionObject();
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			ResultSet rs = st.executeQuery(queryAuthor);
 			while (rs.next()) {
@@ -52,15 +53,21 @@ public class Edition {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		finally{
+			if (conn!=null){
+				conn.close();
+			}
+		}
+		
 		return edition;
 	}
 	
 	public boolean createEdition(String editionID, int volumeID, int editionNo, String title, String dateAdded) throws SQLException {
-		
+		ConnectionManager conn=null;
 		boolean status = false;
 		
 		try {
-			ConnectionManager conn = new ConnectionManager();
+			 conn = new ConnectionManager();
 			Statement st = conn.getInstance().getConnection().createStatement();
 			String insertQuery = "INSERT INTO Edition (volumeID, editionNo, title, dateAdded) VALUES ('" + volumeID + "','" + editionNo + "','" + title + "', '" + dateAdded + "')";
 			st.executeUpdate(insertQuery);
@@ -148,6 +155,11 @@ public class Edition {
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}
+		finally{
+			if (conn!=null){
+				conn.close();
+			}
 		}
 		
 		return status;
